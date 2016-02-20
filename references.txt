@@ -1,0 +1,5 @@
+http://www.tutorialspoint.com/computer_graphics/viewing_and_clipping.htm
+
+https://www.cs.uic.edu/~jbell/CourseNotes/ComputerGraphics/Clipping.html
+
+https://en.wikipedia.org/wiki/Clipping_%28computer_graphics%29
