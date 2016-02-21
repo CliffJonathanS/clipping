@@ -101,6 +101,46 @@ int main(void) {
 				fb.drawPolygon(jawa, Color(60,200,80));
 				fb.fillPolygon(jawa, Color(60,200,80));
 				break;
+			case '\033':
+				getch();
+				switch(getch()) {
+					case 'A':
+						fb.drawPolygon(jawa, Color(0,0,0));
+						fb.fillPolygon(jawa, Color(0,0,0));
+						for (i=0;i<jawa.getPoints().size();i++) {
+							jawa.setPoint(i,Point(jawa.getPoints().at(i).getX(), jawa.getPoints().at(i).getY()+10));
+						}
+						fb.drawPolygon(jawa, Color(60,200,80));
+						fb.fillPolygon(jawa, Color(60,200,80));
+						break;
+					case 'B':
+						fb.drawPolygon(jawa, Color(0,0,0));
+						fb.fillPolygon(jawa, Color(0,0,0));
+						for (i=0;i<jawa.getPoints().size();i++) {
+							jawa.setPoint(i,Point(jawa.getPoints().at(i).getX(), jawa.getPoints().at(i).getY()-10));
+						}
+						fb.drawPolygon(jawa, Color(60,200,80));
+						fb.fillPolygon(jawa, Color(60,200,80));
+						break;
+					case 'C':
+						fb.drawPolygon(jawa, Color(0,0,0));
+						fb.fillPolygon(jawa, Color(0,0,0));
+						for (i=0;i<jawa.getPoints().size();i++) {
+							jawa.setPoint(i,Point(jawa.getPoints().at(i).getX()-10, jawa.getPoints().at(i).getY()));
+						}
+						fb.drawPolygon(jawa, Color(60,200,80));
+						fb.fillPolygon(jawa, Color(60,200,80));
+						break;
+					case 'D':
+						fb.drawPolygon(jawa, Color(0,0,0));
+						fb.fillPolygon(jawa, Color(0,0,0));
+						for (i=0;i<jawa.getPoints().size();i++) {
+							jawa.setPoint(i,Point(jawa.getPoints().at(i).getX()+10, jawa.getPoints().at(i).getY()));
+						}
+						fb.drawPolygon(jawa, Color(60,200,80));
+						fb.fillPolygon(jawa, Color(60,200,80));
+						break;
+				}
 		}
 	}
 	return 0;
