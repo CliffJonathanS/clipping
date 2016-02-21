@@ -1,12 +1,15 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <fcntl.h>
 #include <vector>
 #include <linux/fb.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
+#include <termios.h>
+#include <pthread.h>
+#include <math.h>
 
 using namespace std;
 
