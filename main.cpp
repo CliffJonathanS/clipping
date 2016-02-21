@@ -2,6 +2,8 @@
 #include <iostream>
 #include <signal.h>
 
+#define NPULAU 2
+
 using namespace std;
 
 static volatile int run = 1;
@@ -52,29 +54,47 @@ void INThandler(int sig) {
 int main(void) {
 	FrameBuffer fb;
 	fb.clearScreen();
-	Polygon jawa;
+	Polygon pulau[NPULAU];
 	char c;
 	int i;
 
-	jawa.addPoint(Point(400,410));
-	jawa.addPoint(Point(440,415));
-	jawa.addPoint(Point(450,422));
-	jawa.addPoint(Point(480,422));
-	jawa.addPoint(Point(485,410));
-	jawa.addPoint(Point(525,415));
-	jawa.addPoint(Point(532,425));
-	jawa.addPoint(Point(565,425));
-	jawa.addPoint(Point(565,450));
-	jawa.addPoint(Point(532,445));
-	jawa.addPoint(Point(485,447));
-	jawa.addPoint(Point(470,440));
-	jawa.addPoint(Point(445,440));
-	jawa.addPoint(Point(443,445));
-	jawa.addPoint(Point(405,435));
-	jawa.addPoint(Point(408,427));
-	jawa.addPoint(Point(395,425));
-	fb.drawPolygon(jawa, Color(60,200,80));
-	fb.fillPolygon(jawa, Color(60,200,80));
+	pulau[0].addPoint(Point(257,258));
+	pulau[0].addPoint(Point(280,270));
+	pulau[0].addPoint(Point(287,277));
+	pulau[0].addPoint(Point(287,281));
+	pulau[0].addPoint(Point(315,307));
+	pulau[0].addPoint(Point(320,307));
+	pulau[0].addPoint(Point(355,337));
+	pulau[0].addPoint(Point(380,365));
+	pulau[0].addPoint(Point(388,397));
+	pulau[0].addPoint(Point(360,397));
+	pulau[0].addPoint(Point(310,360));
+	pulau[0].addPoint(Point(250,260));
+
+
+	pulau[1].addPoint(Point(400,410));
+	pulau[1].addPoint(Point(440,415));
+	pulau[1].addPoint(Point(450,420));
+	pulau[1].addPoint(Point(480,420));
+	pulau[1].addPoint(Point(485,413));
+	pulau[1].addPoint(Point(525,415));
+	pulau[1].addPoint(Point(532,425));
+	pulau[1].addPoint(Point(565,425));
+	pulau[1].addPoint(Point(565,450));
+	pulau[1].addPoint(Point(532,445));
+	pulau[1].addPoint(Point(485,447));
+	pulau[1].addPoint(Point(470,440));
+	pulau[1].addPoint(Point(445,440));
+	pulau[1].addPoint(Point(443,445));
+	pulau[1].addPoint(Point(405,435));
+	pulau[1].addPoint(Point(408,427));
+	pulau[1].addPoint(Point(395,425));
+
+	
+	for (int j=0;j<NPULAU;j++) {
+		fb.drawPolygon(pulau[j], Color(60,200,80));
+		fb.fillPolygon(pulau[j], Color(60,200,80));
+	}
 
 	signal(SIGINT, INThandler);
 
@@ -83,62 +103,87 @@ int main(void) {
 		switch (c) {
 			case 'Z' :
 			case 'z' :
-				fb.drawPolygon(jawa, Color(0,0,0));
-				fb.fillPolygon(jawa, Color(0,0,0));
-				for (i=0;i<jawa.getPoints().size();i++) {
-					jawa.setPoint(i,Point((fb.getScreenWidth()/2)+1.25*(jawa.getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+1.25*(jawa.getPoints().at(i).getY()-fb.getScreenHeight()/2)));
+				for (int j=0;j<NPULAU;j++) {
+					fb.drawPolygon(pulau[j], Color(0,0,0));
+					fb.fillPolygon(pulau[j], Color(0,0,0));
+					for (i=0;i<pulau[j].getPoints().size();i++) {
+						pulau[j].setPoint(i,Point((fb.getScreenWidth()/2)+1.25*(pulau[j].getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+1.25*(pulau[j].getPoints().at(i).getY()-fb.getScreenHeight()/2)));
+					}
+					
 				}
-				fb.drawPolygon(jawa, Color(60,200,80));
-				fb.fillPolygon(jawa, Color(60,200,80));
+				for (int j=0;j<NPULAU;j++) {
+					fb.drawPolygon(pulau[j], Color(60,200,80));
+					fb.fillPolygon(pulau[j], Color(60,200,80));
+				}
 				break;
 			case 'X' :
 			case 'x' :
-				fb.drawPolygon(jawa, Color(0,0,0));
-				fb.fillPolygon(jawa, Color(0,0,0));
-				for (i=0;i<jawa.getPoints().size();i++) {
-					jawa.setPoint(i,Point((fb.getScreenWidth()/2)+0.8*(jawa.getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+0.8*(jawa.getPoints().at(i).getY()-fb.getScreenHeight()/2)));
+				for (int j=0;j<NPULAU;j++) {
+					fb.drawPolygon(pulau[j], Color(0,0,0));
+					fb.fillPolygon(pulau[j], Color(0,0,0));
+					for (i=0;i<pulau[j].getPoints().size();i++) {
+						pulau[j].setPoint(i,Point((fb.getScreenWidth()/2)+0.8*(pulau[j].getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+0.8*(pulau[j].getPoints().at(i).getY()-fb.getScreenHeight()/2)));
+					}
 				}
-				fb.drawPolygon(jawa, Color(60,200,80));
-				fb.fillPolygon(jawa, Color(60,200,80));
+				for (int j=0;j<NPULAU;j++) {
+					fb.drawPolygon(pulau[j], Color(60,200,80));
+					fb.fillPolygon(pulau[j], Color(60,200,80));
+				}
 				break;
 			case '\033':
 				getch();
 				switch(getch()) {
 					case 'A':
-						fb.drawPolygon(jawa, Color(0,0,0));
-						fb.fillPolygon(jawa, Color(0,0,0));
-						for (i=0;i<jawa.getPoints().size();i++) {
-							jawa.setPoint(i,Point(jawa.getPoints().at(i).getX(), jawa.getPoints().at(i).getY()+10));
+						for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(pulau[j], Color(0,0,0));
+							fb.fillPolygon(pulau[j], Color(0,0,0));
+							for (i=0;i<pulau[j].getPoints().size();i++) {
+								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX(), pulau[j].getPoints().at(i).getY()+10));
+							}
 						}
-						fb.drawPolygon(jawa, Color(60,200,80));
-						fb.fillPolygon(jawa, Color(60,200,80));
+						for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(pulau[j], Color(60,200,80));
+							fb.fillPolygon(pulau[j], Color(60,200,80));
+						}
 						break;
 					case 'B':
-						fb.drawPolygon(jawa, Color(0,0,0));
-						fb.fillPolygon(jawa, Color(0,0,0));
-						for (i=0;i<jawa.getPoints().size();i++) {
-							jawa.setPoint(i,Point(jawa.getPoints().at(i).getX(), jawa.getPoints().at(i).getY()-10));
+						for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(pulau[j], Color(0,0,0));
+							fb.fillPolygon(pulau[j], Color(0,0,0));
+							for (i=0;i<pulau[j].getPoints().size();i++) {
+								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX(), pulau[j].getPoints().at(i).getY()-10));
+							}
 						}
-						fb.drawPolygon(jawa, Color(60,200,80));
-						fb.fillPolygon(jawa, Color(60,200,80));
+						for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(pulau[j], Color(60,200,80));
+							fb.fillPolygon(pulau[j], Color(60,200,80));
+						}
 						break;
 					case 'C':
-						fb.drawPolygon(jawa, Color(0,0,0));
-						fb.fillPolygon(jawa, Color(0,0,0));
-						for (i=0;i<jawa.getPoints().size();i++) {
-							jawa.setPoint(i,Point(jawa.getPoints().at(i).getX()-10, jawa.getPoints().at(i).getY()));
+						for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(pulau[j], Color(0,0,0));
+							fb.fillPolygon(pulau[j], Color(0,0,0));
+							for (i=0;i<pulau[j].getPoints().size();i++) {
+								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX()-10, pulau[j].getPoints().at(i).getY()));
+							}
 						}
-						fb.drawPolygon(jawa, Color(60,200,80));
-						fb.fillPolygon(jawa, Color(60,200,80));
+						for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(pulau[j], Color(60,200,80));
+							fb.fillPolygon(pulau[j], Color(60,200,80));
+						}
 						break;
 					case 'D':
-						fb.drawPolygon(jawa, Color(0,0,0));
-						fb.fillPolygon(jawa, Color(0,0,0));
-						for (i=0;i<jawa.getPoints().size();i++) {
-							jawa.setPoint(i,Point(jawa.getPoints().at(i).getX()+10, jawa.getPoints().at(i).getY()));
+						for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(pulau[j], Color(0,0,0));
+							fb.fillPolygon(pulau[j], Color(0,0,0));
+							for (i=0;i<pulau[j].getPoints().size();i++) {
+								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX()+10, pulau[j].getPoints().at(i).getY()));
+							}
 						}
-						fb.drawPolygon(jawa, Color(60,200,80));
-						fb.fillPolygon(jawa, Color(60,200,80));
+						for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(pulau[j], Color(60,200,80));
+							fb.fillPolygon(pulau[j], Color(60,200,80));
+						}
 						break;
 				}
 		}
