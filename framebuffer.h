@@ -3,10 +3,12 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <fcntl.h>
-#include <stack.h>
+#include <vector>
 #include <linux/fb.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
+
+using namespace std;
 
 class Color {
 	public:
@@ -57,8 +59,8 @@ class Polygon {
 	public:
 		// ctor, cctor, dtor
 		Polygon();
-		Polygon(const Point&);
-		~Point();
+		Polygon(const Polygon&);
+		~Polygon();
 
 		// getter
 		Point getPoint(int);
@@ -87,9 +89,10 @@ class FrameBuffer {
 		int getScreenHeight();
 		
 		// methods
+		void clearScreen();
 		void drawPoint(Point, Color);
 		void drawLine(Point, Point, Color);
-		void drawPolygon(Polygon, Color);
+		void drawPolygon(Polygon, Color); // draw wireframe
 		void fillPolygon(Polygon, Color);
 
 	private:
@@ -97,5 +100,5 @@ class FrameBuffer {
 		struct fb_var_screeninfo vinfo;
 		long int screensize;
 		char *display;
-
+		int fdScreen;
 };

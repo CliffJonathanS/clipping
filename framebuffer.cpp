@@ -1,6 +1,6 @@
 #include "framebuffer.h"
 
-using namespace std{
+using namespace std;
 
 Color::Color(int r, int g, int b) {
 	R = r;
@@ -39,7 +39,7 @@ void Color::setB(int b){
 }
 
 // operator=
-Color& Color::operator=(const Color&){
+Color& Color::operator=(const Color& color){
 	R = color.R;
 	G = color.G;
 	B = color.B;
@@ -89,7 +89,7 @@ Polygon::Polygon() {
 
 }
 Polygon::Polygon(const Polygon& polygon) {
-	for (int i=0;i<polygon.points.size) {
+	for (int i=0;i<polygon.points.size();i++) {
 		points.push_back(polygon.points[i]);
 	}
 }
@@ -120,7 +120,7 @@ void Polygon::addPoint(Point point) {
 // operator=
 Polygon& Polygon::operator=(const Polygon& polygon){
 	points.clear();
-	for (int i=0;i<polygon.points.size) {
+	for (int i=0;i<polygon.points.size();i++) {
 		points.push_back(polygon.points[i]);
 	}
 	return *this;
@@ -128,7 +128,7 @@ Polygon& Polygon::operator=(const Polygon& polygon){
 
 FrameBuffer::FrameBuffer() {
 	//open file descriptor and get info
-	inf fdScreen = open( "/dev/fb0", O_RDWR );
+	fdScreen = open( "/dev/fb0", O_RDWR );
 
 	ioctl( fdScreen, FBIOGET_VSCREENINFO, &vinfo);
 	ioctl( fdScreen, FBIOGET_FSCREENINFO, &finfo);
@@ -152,6 +152,14 @@ int FrameBuffer::getScreenHeight(){
 }
 
 // methods
+void FrameBuffer::clearScreen(){
+	int i, j;
+	for (i=0;i<getScreenHeight();i++) {
+		for (j=0;j<getScreenWidth();j++) {
+			drawPoint(Point(j, i), Color(0,0,0));
+		}
+	}
+}
 void FrameBuffer::drawPoint(Point point, Color color){
 	long location;
 	int drawx = point.getX();
@@ -173,17 +181,20 @@ void FrameBuffer::drawLine(Point p1, Point p2, Color color){
 	int err = (dx>dy ? dx : -dy)/2, e2;
 
 	while(1){
-		Point p(x1, y1);
-		drawPoint(p, color);
+		drawPoint(Point(x1,y1), color);
 		if (x1==x2 && y1==y2) break;
 		e2 = err;
 		if (e2 >-dx) { err -= dy; x1 += sx; }
 		if (e2 < dy) { err += dx; y1 += sy; }
 	}
 }
-void FrameBuffer::drawPolygon(Polygon, Color){
-
+void FrameBuffer::drawPolygon(Polygon polygon, Color color){
+	int i;
+	for (i=0;i<polygon.getPoints().size()-1;i++) {
+		drawLine(polygon.getPoints().at(i), polygon.getPoints().at(i+1), color);
+	}
+	drawLine(polygon.getPoints().at(polygon.getPoints().size()), polygon.getPoints().at(0), color);
 }
-void FrameBuffer::fillPolygon(Polygon, Color){
+void FrameBuffer::fillPolygon(Polygon polygon, Color color){
 
 }
