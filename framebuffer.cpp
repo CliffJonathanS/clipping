@@ -1,4 +1,5 @@
 #include "framebuffer.h"
+#include <iostream>
 
 using namespace std;
 
@@ -48,7 +49,7 @@ Color& Color::operator=(const Color& color){
 
 
 
-Point::Point(int x, int y) {
+Point::Point(float x, float y) {
 	X = x;
 	Y = y;
 }
@@ -61,18 +62,18 @@ Point::~Point() {
 }
 
 // getter
-int Point::getX(){
+float Point::getX(){
 	return X;
 }
-int Point::getY(){	
+float Point::getY(){	
 	return Y;
 }
 
 // setter
-void Point::setX(int x){
+void Point::setX(float x){
 	X = x;
 }
-void Point::setY(int y){
+void Point::setY(float y){
 	Y = y;
 }
 
@@ -104,6 +105,42 @@ Point Polygon::getPoint(int i){
 }
 vector<Point> Polygon::getPoints() {
 	return points;
+}
+float Polygon::getLeft() {
+	int i;
+	Point ret = points.front();
+	for (i=1;i<points.size();i++) {
+		if (points[i].getX() < ret.getX())
+			ret = points[i];
+	}
+	return ret.getX();
+}
+float Polygon::getRight() {
+	int i;
+	Point ret = points.front();
+	for (i=1;i<points.size();i++) {
+		if (points[i].getX() > ret.getX())
+			ret = points[i];
+	}
+	return ret.getX();
+}
+float Polygon::getTop() {
+	int i;
+	Point ret = points.front();
+	for (i=1;i<points.size();i++) {
+		if (points[i].getY() < ret.getY())
+			ret = points[i];
+	}
+	return ret.getY();
+}
+float Polygon::getBottom() {
+	int i;
+	Point ret = points.front();
+	for (i=1;i<points.size();i++) {
+		if (points[i].getY() > ret.getY())
+			ret = points[i];
+	}
+	return ret.getY();
 }
 
 // setter
@@ -193,8 +230,43 @@ void FrameBuffer::drawPolygon(Polygon polygon, Color color){
 	for (i=0;i<polygon.getPoints().size()-1;i++) {
 		drawLine(polygon.getPoints().at(i), polygon.getPoints().at(i+1), color);
 	}
-	drawLine(polygon.getPoints().at(polygon.getPoints().size()), polygon.getPoints().at(0), color);
+	drawLine(polygon.getPoints().at(polygon.getPoints().size()-1), polygon.getPoints().at(0), color);
 }
 void FrameBuffer::fillPolygon(Polygon polygon, Color color){
+	int  nodes, *nodeX, drawx, drawy, i, j, swap ;
+	nodeX = (int*) malloc (sizeof(int) * polygon.getPoints().size());
+	//  Loop through the rows of the image.
+	for (drawy=polygon.getTop(); drawy<polygon.getBottom(); drawy++) {
+		//  Build a list of nodes.
+		nodes=0; j=polygon.getPoints().size()-1;
+		for (i=0; i<polygon.getPoints().size(); i++) {
+			if (polygon.getPoints().at(i).getY()<(double) drawy && polygon.getPoints().at(j).getY()>=(double) drawy ||  polygon.getPoints().at(j).getY()<(double) drawy && polygon.getPoints().at(i).getY()>=(double) drawy) {
+				nodeX[nodes++]=(int) (polygon.getPoints().at(i).getX()+(drawy-polygon.getPoints().at(i).getY())/(polygon.getPoints().at(j).getY()-polygon.getPoints().at(i).getY())*(polygon.getPoints().at(j).getX()-polygon.getPoints().at(i).getX()));
+			}
+			j=i;
+		}
+		//  Sort the nodes, via a simple “Bubble” sort.
+		i=0;
+		while (i<nodes-1) {
+			if (nodeX[i]>nodeX[i+1]) {
+				swap=nodeX[i]; 
+				nodeX[i]=nodeX[i+1]; 
+				nodeX[i+1]=swap; 
+				if (i) i--;
+			}
+			else
+				i++; 
+		}
+		
+		//  Fill the pixels between node pairs.
+		for (i=0; i<nodes; i+=2) {
+			if   (nodeX[i  ]>=polygon.getRight()) break;
+			if   (nodeX[i+1]> polygon.getLeft() ) {
+				if (nodeX[i  ]< polygon.getLeft() ) nodeX[i  ]=polygon.getLeft() ;
+				if (nodeX[i+1]> polygon.getRight()) nodeX[i+1]=polygon.getRight();
+				for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++) drawPoint(Point(drawx,drawy), color);
+			}
+		}
+	}
 
 }

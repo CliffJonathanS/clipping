@@ -36,22 +36,22 @@ class Color {
 class Point {
 	public:
 		// ctor, cctor, dtor
-		Point(int, int);
+		Point(float, float);
 		Point(const Point&);
 		~Point();
 
 		// getter
-		int getX();
-		int getY();
+		float getX();
+		float getY();
 
 		// setter
-		void setX(int);
-		void setY(int);
+		void setX(float);
+		void setY(float);
 
 		// operator=
 		Point& operator=(const Point&);
 	private:
-		int X, Y;
+		float X, Y;
 
 };
 
@@ -65,6 +65,10 @@ class Polygon {
 		// getter
 		Point getPoint(int);
 		vector<Point> getPoints();
+		float getLeft();
+		float getRight();
+		float getTop();
+		float getBottom();
 
 		// setter
 		void setPoint(int, Point);
