@@ -85,7 +85,6 @@ Point& Point::operator=(const Point& point){
 }
 
 
-
 Polygon::Polygon() {
 
 }
@@ -191,8 +190,8 @@ int FrameBuffer::getScreenHeight(){
 // methods
 void FrameBuffer::clearScreen(){
 	int i, j;
-	for (i=0;i<getScreenHeight();i++) {
-		for (j=0;j<getScreenWidth();j++) {
+	for (i=0;i<getScreenHeight()-7;i++) {
+		for (j=0;j<getScreenWidth()-7;j++) {
 			drawPoint(Point(j, i), Color(0,0,0));
 		}
 	}
@@ -202,7 +201,7 @@ void FrameBuffer::drawPoint(Point point, Color color){
 	int drawx = point.getX();
 	int drawy = point.getY();
 
-	if ((drawx < getScreenWidth()) && (drawy < getScreenHeight()) && (drawx >= 0) && (drawy >= 0)) {
+	if ((drawx < getScreenWidth()-7) && (drawy < getScreenHeight()-7) && (drawx >= 0) && (drawy >= 0)) {
 		location = (drawx+vinfo.xoffset) * (vinfo.bits_per_pixel/8) + (drawy+vinfo.yoffset) * finfo.line_length;
 		*((uint32_t*)(display + location)) = (color.getR()<<vinfo.red.offset) | (color.getG()<<vinfo.green.offset) | (color.getB()<<vinfo.blue.offset);
 	}
