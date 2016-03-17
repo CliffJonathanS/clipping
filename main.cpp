@@ -3,10 +3,7 @@
 #include <signal.h>
 
 #define NPULAU 17
-<<<<<<< HEAD
 #define PI acos(-1)
-=======
->>>>>>> 7fbcdcfcba0aa5cad23badc3d27b798a1a5abfc5
 
 using namespace std;
 
