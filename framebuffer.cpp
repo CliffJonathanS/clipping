@@ -97,7 +97,6 @@ Point& Point::rotate(float angle, Point pusat){
 }
 
 
-
 Polygon::Polygon() {
 
 }
@@ -204,7 +203,11 @@ int FrameBuffer::getScreenHeight(){
 void FrameBuffer::clearScreen(){
 	int i, j;
 	for (i=0;i<getScreenHeight()-7;i++) {
+<<<<<<< HEAD
 		for (j=0;j<getScreenWidth();j++) {
+=======
+		for (j=0;j<getScreenWidth()-7;j++) {
+>>>>>>> 7fbcdcfcba0aa5cad23badc3d27b798a1a5abfc5
 			drawPoint(Point(j, i), Color(0,0,0));
 		}
 	}
@@ -214,7 +217,11 @@ void FrameBuffer::drawPoint(Point point, Color color){
 	int drawx = point.getX();
 	int drawy = point.getY();
 
+<<<<<<< HEAD
 	if ((drawx < getScreenWidth()) && (drawy < getScreenHeight()-7) && (drawx >= 0) && (drawy >= 0)) {
+=======
+	if ((drawx < getScreenWidth()-7) && (drawy < getScreenHeight()-7) && (drawx >= 0) && (drawy >= 0)) {
+>>>>>>> 7fbcdcfcba0aa5cad23badc3d27b798a1a5abfc5
 		location = (drawx+vinfo.xoffset) * (vinfo.bits_per_pixel/8) + (drawy+vinfo.yoffset) * finfo.line_length;
 		*((uint32_t*)(display + location)) = (color.getR()<<vinfo.red.offset) | (color.getG()<<vinfo.green.offset) | (color.getB()<<vinfo.blue.offset);
 	}
