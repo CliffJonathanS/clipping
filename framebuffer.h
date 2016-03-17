@@ -53,6 +53,7 @@ class Point {
 
 		// operator=
 		Point& operator=(const Point&);
+		Point& rotate(float angle, Point pusat);
 	private:
 		float X, Y;
 

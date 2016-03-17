@@ -1,5 +1,6 @@
 #include "framebuffer.h"
 #include <iostream>
+#include "math.h"
 
 using namespace std;
 
@@ -81,6 +82,17 @@ void Point::setY(float y){
 Point& Point::operator=(const Point& point){
 	X = point.X;
 	Y = point.Y;
+	return *this;
+}
+
+// Rotate
+Point& Point::rotate(float angle, Point pusat){
+	//printf("angle %f, pusat x %f, pusat y %f, cos %f, sin %f\n", angle, this->X, this->Y , cos(angle), sin(angle));
+	float tempX = this->X;
+	float tempY = this->Y;
+	this->X = (cos(angle) * (tempX - pusat.X)) - (sin(angle) * (tempY - pusat.Y)) + pusat.X;
+	
+	this->Y = (sin(angle) * (tempX - pusat.X)) + (cos(angle) * (tempY - pusat.Y)) + pusat.Y;
 	return *this;
 }
 
@@ -191,7 +203,7 @@ int FrameBuffer::getScreenHeight(){
 // methods
 void FrameBuffer::clearScreen(){
 	int i, j;
-	for (i=0;i<getScreenHeight();i++) {
+	for (i=0;i<getScreenHeight()-7;i++) {
 		for (j=0;j<getScreenWidth();j++) {
 			drawPoint(Point(j, i), Color(0,0,0));
 		}
@@ -202,7 +214,7 @@ void FrameBuffer::drawPoint(Point point, Color color){
 	int drawx = point.getX();
 	int drawy = point.getY();
 
-	if ((drawx < getScreenWidth()) && (drawy < getScreenHeight()) && (drawx >= 0) && (drawy >= 0)) {
+	if ((drawx < getScreenWidth()) && (drawy < getScreenHeight()-7) && (drawx >= 0) && (drawy >= 0)) {
 		location = (drawx+vinfo.xoffset) * (vinfo.bits_per_pixel/8) + (drawy+vinfo.yoffset) * finfo.line_length;
 		*((uint32_t*)(display + location)) = (color.getR()<<vinfo.red.offset) | (color.getG()<<vinfo.green.offset) | (color.getB()<<vinfo.blue.offset);
 	}
