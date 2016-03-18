@@ -111,7 +111,8 @@ int main(void) {
 	pulau[0].addPoint(Point(35,90));
 	pulau[0].addPoint(Point(20,74));
 	pulau[0].addPoint(Point(16,66));
-
+	pulau[0].setPriority(0);
+	pulau[0].setColor(Color(0,100,0));
 
 	pulau[1].addPoint(Point(194,251));
 	pulau[1].addPoint(Point(209,253));
@@ -152,6 +153,9 @@ int main(void) {
 	pulau[1].addPoint(Point(186,266));
 	pulau[1].addPoint(Point(193,258));
 	pulau[1].addPoint(Point(196,251));
+	pulau[1].setPriority(0);
+	pulau[1].setColor(Color(0,100,0));
+
 
 	pulau[2].addPoint(Point(251,120));
 	pulau[2].addPoint(Point(274,127));
@@ -198,6 +202,8 @@ int main(void) {
 	pulau[2].addPoint(Point(245,163));
 	pulau[2].addPoint(Point(241,146));
 	pulau[2].addPoint(Point(246,125));
+	pulau[2].setPriority(0);
+	pulau[2].setColor(Color(0,100,0));
 
 
 	pulau[3].addPoint(Point(431,136));
@@ -261,17 +267,23 @@ int main(void) {
 	pulau[3].addPoint(Point(405,196));
 	pulau[3].addPoint(Point(412,182));
 	pulau[3].addPoint(Point(416,165));
+	pulau[3].setPriority(0);
+	pulau[3].setColor(Color(0,100,0));
 
 	pulau[4].addPoint(Point(349,306));
 	pulau[4].addPoint(Point(341,300));
 	pulau[4].addPoint(Point(342,293));
 	pulau[4].addPoint(Point(351,292));
 	pulau[4].addPoint(Point(359,298));
+	pulau[4].setPriority(0);
+	pulau[4].setColor(Color(0,100,0));
 
 	pulau[5].addPoint(Point(368,298));
 	pulau[5].addPoint(Point(376,300));
 	pulau[5].addPoint(Point(373,306));
 	pulau[5].addPoint(Point(365,305));
+	pulau[5].setPriority(0);
+	pulau[5].setColor(Color(0,100,0));
 
 
 	pulau[6].addPoint(Point(382,300));
@@ -283,6 +295,8 @@ int main(void) {
 	pulau[6].addPoint(Point(381,309));
 	pulau[6].addPoint(Point(377,308));
 	pulau[6].addPoint(Point(379,302));
+	pulau[6].setPriority(0);
+	pulau[6].setColor(Color(0,100,0));
 
 	pulau[7].addPoint(Point(808,209));
 	pulau[7].addPoint(Point(792,201));
@@ -328,6 +342,8 @@ int main(void) {
 	pulau[7].addPoint(Point(771,295));
 	pulau[7].addPoint(Point(788,312));
 	pulau[7].addPoint(Point(809,312));
+	pulau[7].setPriority(0);
+	pulau[7].setColor(Color(0,100,0));
 
 	pulau[8].addPoint(Point(489,331));
 	pulau[8].addPoint(Point(495,322));
@@ -342,6 +358,8 @@ int main(void) {
 	pulau[8].addPoint(Point(531,313));
 	pulau[8].addPoint(Point(523,313));
 	pulau[8].addPoint(Point(514,325));
+	pulau[8].setPriority(0);
+	pulau[8].setColor(Color(0,100,0));
 
 	pulau[9].addPoint(Point(427,304));
 	pulau[9].addPoint(Point(442,295));
@@ -349,6 +367,8 @@ int main(void) {
 	pulau[9].addPoint(Point(467,303));
 	pulau[9].addPoint(Point(477,302));
 	pulau[9].addPoint(Point(463,308));
+	pulau[9].setPriority(0);
+	pulau[9].setColor(Color(0,100,0));
 
 	pulau[10].addPoint(Point(581,209));
 	pulau[10].addPoint(Point(575,214));
@@ -360,6 +380,8 @@ int main(void) {
 	pulau[10].addPoint(Point(612,221));
 	pulau[10].addPoint(Point(599,212));
 	pulau[10].addPoint(Point(589,214));
+	pulau[10].setPriority(0);
+	pulau[10].setColor(Color(0,100,0));
 
 	pulau[11].addPoint(Point(570,171));
 	pulau[11].addPoint(Point(562,159));
@@ -375,6 +397,8 @@ int main(void) {
 	pulau[11].addPoint(Point(582,152));
 	pulau[11].addPoint(Point(568,148));
 	pulau[11].addPoint(Point(567,161));
+	pulau[11].setPriority(0);
+	pulau[11].setColor(Color(0,100,0));
 
 	pulau[12].addPoint(Point(513,189));
 	pulau[12].addPoint(Point(510,192));
@@ -386,6 +410,8 @@ int main(void) {
 	pulau[12].addPoint(Point(538,187));
 	pulau[12].addPoint(Point(529,189));
 	pulau[12].addPoint(Point(516,189));
+	pulau[12].setPriority(0);
+	pulau[12].setColor(Color(0,100,0));
 
 	pulau[13].addPoint(Point(179,191));
 	pulau[13].addPoint(Point(190,193));
@@ -398,6 +424,8 @@ int main(void) {
 	pulau[13].addPoint(Point(191,186));
 	pulau[13].addPoint(Point(187,181));
 	pulau[13].addPoint(Point(183,182));
+	pulau[13].setPriority(0);
+	pulau[13].setColor(Color(0,100,0));
 
 	pulau[14].addPoint(Point(546,222));
 	pulau[14].addPoint(Point(535,214));
@@ -405,18 +433,26 @@ int main(void) {
 	pulau[14].addPoint(Point(544,208));
 	pulau[14].addPoint(Point(551,209));
 	pulau[14].addPoint(Point(555,216));
-	
+	pulau[14].setPriority(0);
+	pulau[14].setColor(Color(0,100,0));
+
 	pulau[15].addPoint(Point(48,140));
 	pulau[15].addPoint(Point(45,131));
 	pulau[15].addPoint(Point(50,132));
 	pulau[15].addPoint(Point(58,139));
 	pulau[15].addPoint(Point(55,147));
+	pulau[15].setPriority(0);
+	pulau[15].setColor(Color(0,100,0));
 
 	pulau[16].addPoint(Point(71,171));
 	pulau[16].addPoint(Point(69,175));
 	pulau[16].addPoint(Point(75,187));
 	pulau[16].addPoint(Point(81,184));
 	pulau[16].addPoint(Point(74,171));
+	pulau[16].setPriority(0);
+	pulau[16].setColor(Color(0,100,0));
+
+
 	for (int j=0;j<NPULAU;j++) {
 		fb.drawPolygon(pulau[j], Color(60,200,80));
 		fb.fillPolygon(pulau[j], Color(60,200,80));

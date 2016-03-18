@@ -1,8 +1,18 @@
 #include "framebuffer.h"
 #include <iostream>
 #include "math.h"
+#include <string.h>
 
 using namespace std;
+
+#define LEFTWINDOW 0
+#define RIGHTWINDOW 300
+#define UPWINDOW 0
+#define DOWNWINDOW 300
+
+Color::Color() {
+	
+}
 
 Color::Color(int r, int g, int b) {
 	R = r;
@@ -100,16 +110,22 @@ Point& Point::rotate(float angle, Point pusat){
 Polygon::Polygon() {
 
 }
-Polygon::Polygon(const Polygon& polygon) {
+Polygon::Polygon(const Polygon& polygon, int _priority) {
 	for (int i=0;i<polygon.points.size();i++) {
 		points.push_back(polygon.points[i]);
 	}
+	priority = _priority;
+	pcolor = Color(0,0,0);
+
 }
 Polygon::~Polygon() {
 	points.clear();
 }
 
 // getter
+int Polygon::getPriority(){
+	return priority;
+}
 Point Polygon::getPoint(int i){
 	// asumsi i < size
 	return points[i];
@@ -154,12 +170,22 @@ float Polygon::getBottom() {
 	return ret.getY();
 }
 
+Color Polygon::getColor(){
+	return pcolor;
+}
+
 // setter
+void Polygon::setPriority(int i){
+	priority = i;
+}
 void Polygon::setPoint(int i, Point point){
 	// asumsi 1 < size
 	points[i] = point;
 }
 
+void Polygon::setColor(Color c){
+	pcolor = c;
+}
 // method
 void Polygon::addPoint(Point point) {
 	points.push_back(point);
@@ -171,6 +197,7 @@ Polygon& Polygon::operator=(const Polygon& polygon){
 	for (int i=0;i<polygon.points.size();i++) {
 		points.push_back(polygon.points[i]);
 	}
+	priority = polygon.priority;
 	return *this;
 }
 
@@ -218,6 +245,18 @@ void FrameBuffer::drawPoint(Point point, Color color){
 		*((uint32_t*)(display + location)) = (color.getR()<<vinfo.red.offset) | (color.getG()<<vinfo.green.offset) | (color.getB()<<vinfo.blue.offset);
 	}
 }
+
+
+bool FrameBuffer::clipPoint(Point point, Color color){
+	long location;
+	int drawx = point.getX();
+	int drawy = point.getY();
+
+	if ((drawx < RIGHTWINDOW) && (drawy < DOWNWINDOW) && (drawx >= LEFTWINDOW) && (drawy >= UPWINDOW)) {
+		return true;
+	}
+	return false;
+}
 void FrameBuffer::drawLine(Point p1, Point p2, Color color){
 	int x1 = p1.getX();
 	int x2 = p2.getX();
@@ -229,7 +268,9 @@ void FrameBuffer::drawLine(Point p1, Point p2, Color color){
 	int err = (dx>dy ? dx : -dy)/2, e2;
 
 	while(1){
-		drawPoint(Point(x1,y1), color);
+		if (clipPoint(Point(x1,y1), color)){
+			drawPoint(Point(x1,y1), color);		
+		}
 		if (x1==x2 && y1==y2) break;
 		e2 = err;
 		if (e2 >-dx) { err -= dy; x1 += sx; }
@@ -275,7 +316,82 @@ void FrameBuffer::fillPolygon(Polygon polygon, Color color){
 			if   (nodeX[i+1]> polygon.getLeft() ) {
 				if (nodeX[i  ]< polygon.getLeft() ) nodeX[i  ]=polygon.getLeft() ;
 				if (nodeX[i+1]> polygon.getRight()) nodeX[i+1]=polygon.getRight();
-				for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++) drawPoint(Point(drawx,drawy), color);
+				for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++){
+					if (clipPoint(Point(drawx,drawy), color)){
+						drawPoint(Point(drawx,drawy), color);
+					}
+					//printf("%d,%d\n",drawx, drawy );	
+				} 
+			}
+		}
+	}
+
+}
+
+
+void FrameBuffer::anticlip(Polygon* polygon, int jumlah){
+	int NormalScanline[RIGHTWINDOW][DOWNWINDOW];
+	int  nodes, *nodeX, drawx, drawy, i, j, swap,l, temp ;
+	Polygon swapPoly;
+	memset(NormalScanline, 0, RIGHTWINDOW * DOWNWINDOW);
+	//  Sort based on priority. High integer priority will be drawn first
+	
+	for(i=0; i< (jumlah - 1); ++i)
+	{
+		for(j = i + 1; j > 0; --j)
+		{
+			if(polygon[j].getPriority() > polygon[j-1].getPriority())
+			{
+			//Swaps the values
+				swapPoly=polygon[j]; 
+				polygon[j]=polygon[j-1]; 
+				polygon[j-1]=swapPoly; 
+			}
+		}
+	}
+
+
+	
+	for (l = 0; l < jumlah; l++){
+
+		nodeX = (int*) malloc (sizeof(int) * polygon[l].getPoints().size());
+		for (drawy=polygon[l].getTop(); drawy<polygon[l].getBottom(); drawy++) {
+			//  Build a list of nodes.
+			nodes=0; j=polygon[l].getPoints().size()-1;
+			for (i=0; i<polygon[l].getPoints().size(); i++) {
+				if (polygon[l].getPoints().at(i).getY()<(double) drawy && polygon[l].getPoints().at(j).getY()>=(double) drawy ||  polygon[l].getPoints().at(j).getY()<(double) drawy && polygon[l].getPoints().at(i).getY()>=(double) drawy) {
+					nodeX[nodes++]=(int) (polygon[l].getPoints().at(i).getX()+(drawy-polygon[l].getPoints().at(i).getY())/(polygon[l].getPoints().at(j).getY()-polygon[l].getPoints().at(i).getY())*(polygon[l].getPoints().at(j).getX()-polygon[l].getPoints().at(i).getX()));
+				}
+				j=i;
+			}
+			//  Sort the nodes, via a simple “Bubble” sort.
+			i=0;
+			while (i<nodes-1) {
+				if (nodeX[i]>nodeX[i+1]) {
+					swap=nodeX[i]; 
+					nodeX[i]=nodeX[i+1]; 
+					nodeX[i+1]=swap; 
+					if (i) i--;
+				}
+				else
+					i++; 
+			}
+			
+			//  Fill the pixels between node pairs.
+			for (i=0; i<nodes; i+=2) {
+				if   (nodeX[i  ]>=polygon[l].getRight()) break;
+				if   (nodeX[i+1]> polygon[l].getLeft() ) {
+					if (nodeX[i  ]< polygon[l].getLeft() ) nodeX[i  ]=polygon[l].getLeft() ;
+					if (nodeX[i+1]> polygon[l].getRight()) nodeX[i+1]=polygon[l].getRight();
+					for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++){
+						if (NormalScanline[drawx][drawy] == 0 && clipPoint(Point(drawx,drawy), polygon[l].getColor())){
+							NormalScanline[drawx][drawy] = 1;
+							drawPoint(Point(drawx,drawy), polygon[l].getColor());			
+						}
+						
+						//printf("%d,%d\n",drawx, drawy );	
+					} 
+				}
 			}
 		}
 	}

@@ -16,6 +16,7 @@ using namespace std;
 class Color {
 	public:
 		// ctor, cctor, dtor
+		Color();
 		Color(int, int, int);
 		Color(const Color&);
 		~Color();
@@ -63,19 +64,23 @@ class Polygon {
 	public:
 		// ctor, cctor, dtor
 		Polygon();
-		Polygon(const Polygon&);
+		Polygon(const Polygon&,int);
 		~Polygon();
 
 		// getter
+		int getPriority();
 		Point getPoint(int);
 		vector<Point> getPoints();
 		float getLeft();
 		float getRight();
 		float getTop();
 		float getBottom();
+		Color getColor();
 
 		// setter
+		void setPriority(int);
 		void setPoint(int, Point);
+		void setColor(Color);
 
 		// method
 		void addPoint(Point);
@@ -84,6 +89,8 @@ class Polygon {
 		Polygon& operator=(const Polygon&);
 	private:
 		vector<Point> points;
+		int priority;
+		Color pcolor;
 };
 
 class FrameBuffer {
@@ -99,9 +106,12 @@ class FrameBuffer {
 		// methods
 		void clearScreen();
 		void drawPoint(Point, Color);
+		bool clipPoint(Point, Color);
 		void drawLine(Point, Point, Color);
 		void drawPolygon(Polygon, Color); // draw wireframe
 		void fillPolygon(Polygon, Color);
+		
+		void anticlip(Polygon* , int);
 
 	private:
 		struct fb_fix_screeninfo finfo;
