@@ -18,6 +18,7 @@ const int LEFT = 1;   // 0001
 const int RIGHT = 2;  // 0010
 const int BOTTOM = 4; // 0100
 const int TOP = 8;    // 1000
+static int NormalScanline[RIGHTWINDOW][DOWNWINDOW];
 
 Color::Color() {
 	
@@ -421,7 +422,6 @@ void FrameBuffer::fillPolygon(Polygon polygon, Color color){
 
 
 void FrameBuffer::anticlip(Polygon* polygon, int jumlah){
-	int NormalScanline[RIGHTWINDOW][DOWNWINDOW];
 	int  nodes, *nodeX, drawx, drawy, i, j, swap,l, temp ;
 	Polygon swapPoly;
 	memset(NormalScanline, 0, RIGHTWINDOW * DOWNWINDOW);
