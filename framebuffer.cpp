@@ -30,7 +30,7 @@ Color::Color() {
 Color::Color(int r, int g, int b) {
 	R = r;
 	G = g;
-	B = g;
+	B = b;
 }
 Color::Color(const Color& color) {
 	R = color.R;

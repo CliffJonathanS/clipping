@@ -2,8 +2,17 @@
 #include <iostream>
 #include <signal.h>
 #include <vector>
+
 #define NPULAU 17
 #define PI acos(-1)
+
+#define ZPULAU 0
+#define ZKETINGGIAN 1
+#define ZJALAN 2
+#define ZPROVINSI 3
+#define ZKOTA 4
+#define ZTEXT 5
+
 
 using namespace std;
 
@@ -57,6 +66,7 @@ int main(void) {
 	//fb.clearScreen();
 
 	Polygon pulau[NPULAU];
+	Polygon ketinggian[NPULAU];
 	vector<Polygon> polygonFinal;
 	char c;
 	int i;
@@ -471,6 +481,73 @@ int main(void) {
 	pulau[16].setColor(Color(0,100,0));
 	polygonFinal.push_back(pulau[16]);
 
+	//17,40,23,45,44,48,52,53,55,58,56,63,61,71,63,78,77,79,84,87,89,97,89,102,88,111,96,110,96,115,96,122,103,126,114,123,109,134,115,136,121,143,131,143,140,149,143,158,139,168,143,172,135,177,134,182,139,182,141,188,150,188,157,197,160,197,162,204,167,208,170,208,171,215,174,222,177,222,178,227,178,231,170,227,168,230,162,223,155,219,148,214,131,199,113,182,99,153,86,135,77,127,74,108,56,94,53,86,43,79,21,56,15,49,16,43
+	//40,45,48,53,58,63,71,78,79,87,97,102,111,110,115,122,126,123,134,136,143,143,149,158,168,172,177,182,182,188,188,197,197,204,208,208,215,222,222,227,231,227,230,223,219,214,199,182,153,135,127,108,94,
+	//86,79,56,49,43
+
+	ketinggian[0].addPoint(Point(17,60));
+	ketinggian[0].addPoint(Point(23,65));
+	ketinggian[0].addPoint(Point(44,68));
+	ketinggian[0].addPoint(Point(52,73));
+	ketinggian[0].addPoint(Point(55,78));
+	ketinggian[0].addPoint(Point(56,83));
+	ketinggian[0].addPoint(Point(61,91));
+	ketinggian[0].addPoint(Point(63,98));
+	ketinggian[0].addPoint(Point(77,99));
+	ketinggian[0].addPoint(Point(84,107));
+	ketinggian[0].addPoint(Point(89,117));
+	ketinggian[0].addPoint(Point(89,122));
+	ketinggian[0].addPoint(Point(88,131));
+	ketinggian[0].addPoint(Point(96,130));
+	ketinggian[0].addPoint(Point(96,135));
+	ketinggian[0].addPoint(Point(96,142));
+	ketinggian[0].addPoint(Point(103,146));
+	ketinggian[0].addPoint(Point(114,143));
+	ketinggian[0].addPoint(Point(109,154));
+	ketinggian[0].addPoint(Point(115,156));
+	ketinggian[0].addPoint(Point(121,163));
+	ketinggian[0].addPoint(Point(131,163));
+	ketinggian[0].addPoint(Point(140,169));
+	ketinggian[0].addPoint(Point(143,178));
+	ketinggian[0].addPoint(Point(139,188));
+	ketinggian[0].addPoint(Point(143,192));
+	ketinggian[0].addPoint(Point(135,197));
+	ketinggian[0].addPoint(Point(134,202));
+	ketinggian[0].addPoint(Point(139,202));
+	ketinggian[0].addPoint(Point(141,208));
+	ketinggian[0].addPoint(Point(150,208));
+	ketinggian[0].addPoint(Point(157,217));
+	ketinggian[0].addPoint(Point(160,217));
+	ketinggian[0].addPoint(Point(162,224));
+	ketinggian[0].addPoint(Point(167,228));
+	ketinggian[0].addPoint(Point(170,228));
+	ketinggian[0].addPoint(Point(171,235));
+	ketinggian[0].addPoint(Point(174,242));
+	ketinggian[0].addPoint(Point(177,242));
+	ketinggian[0].addPoint(Point(178,247));
+	ketinggian[0].addPoint(Point(178,251));
+	ketinggian[0].addPoint(Point(170,247));
+	ketinggian[0].addPoint(Point(168,250));
+	ketinggian[0].addPoint(Point(162,243));
+	ketinggian[0].addPoint(Point(155,239));
+	ketinggian[0].addPoint(Point(148,234));
+	ketinggian[0].addPoint(Point(131,219));
+	ketinggian[0].addPoint(Point(113,202));
+	ketinggian[0].addPoint(Point(99,173));
+	ketinggian[0].addPoint(Point(86,155));
+	ketinggian[0].addPoint(Point(77,147));
+	ketinggian[0].addPoint(Point(74,128));
+	ketinggian[0].addPoint(Point(56,114));
+	ketinggian[0].addPoint(Point(53,106));
+	ketinggian[0].addPoint(Point(43,99));
+	ketinggian[0].addPoint(Point(21,76));
+	ketinggian[0].addPoint(Point(15,69));
+	ketinggian[0].addPoint(Point(16,63));
+	ketinggian[0].setPriority(-1);
+	ketinggian[0].setColor(Color(200,200,50));
+	polygonFinal.push_back(ketinggian[0]);
+
+	
 
 	/*for (int j=0;j<NPULAU;j++) {
 		fb.drawPolygon(polygonFinal.at(j), Color(60,200,80));
