@@ -80,7 +80,7 @@ class Polygon {
 		// setter
 		void setPriority(int);
 		void setPoint(int, Point);
-		void setColor(Color);
+		void setColor(int, int, int);
 
 		// method
 		void addPoint(Point);

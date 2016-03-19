@@ -11,7 +11,7 @@ using namespace std;
 #define DOWNWINDOW 300
 
 Color::Color() {
-	
+	R=0; G=0; B=0;
 }
 
 Color::Color(int r, int g, int b) {
@@ -183,8 +183,8 @@ void Polygon::setPoint(int i, Point point){
 	points[i] = point;
 }
 
-void Polygon::setColor(Color c){
-	pcolor = c;
+void Polygon::setColor(int R, int G, int B){
+	pcolor = Color(R,G,B);
 }
 // method
 void Polygon::addPoint(Point point) {
@@ -198,6 +198,7 @@ Polygon& Polygon::operator=(const Polygon& polygon){
 		points.push_back(polygon.points[i]);
 	}
 	priority = polygon.priority;
+	pcolor = polygon.pcolor;
 	return *this;
 }
 
@@ -386,7 +387,8 @@ void FrameBuffer::anticlip(Polygon* polygon, int jumlah){
 					for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++){
 						if (NormalScanline[drawx][drawy] == 0 && clipPoint(Point(drawx,drawy), polygon[l].getColor())){
 							NormalScanline[drawx][drawy] = 1;
-							drawPoint(Point(drawx,drawy), polygon[l].getColor());			
+							drawPoint(Point(drawx,drawy), polygon[l].getColor());
+							//usleep(100000);			
 						}
 						
 						//printf("%d,%d\n",drawx, drawy );	
