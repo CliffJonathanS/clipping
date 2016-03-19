@@ -286,7 +286,7 @@ void FrameBuffer::drawLine(Point p1, Point p2, Color color){
 	}
 }
 
-
+// referensi : https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm
 OutCode ComputeOutCode(Point p)
 {
 	float x= p.getX();
@@ -306,7 +306,7 @@ OutCode ComputeOutCode(Point p)
 
 	return code;
 }
-
+// referensi : https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm
 void FrameBuffer::CohenSutherlandLineClipAndDraw(Point p1, Point p2, Color color){
 	// compute outcodes for P0, P1, and whatever point lies outside the clip rectangle
 	OutCode outcode0 = ComputeOutCode(p1);
