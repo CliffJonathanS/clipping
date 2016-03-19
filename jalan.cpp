@@ -452,8 +452,11 @@ int main(void) {
 	pulau[16].setPriority(0);
 	pulau[16].setColor(Color(0,100,0));
 
-	Point** jalan = (Point**) malloc (sizeof(Point*) * 20);
-	jalan[0] = (Point*) malloc (sizeof(Point) * 9);
+	Point** jalan = (Point**) malloc (sizeof(Point*) * 30);
+	for (i=0; i<30; i++)
+		jalan[i] = (Point*) malloc (sizeof(Point) * 9);
+
+/* ---- Sumatra ---- */
 	jalan[0][0] = Point(17,60);
 	jalan[0][1] = Point(24,60);
 	jalan[0][2] = Point(30,65);
@@ -462,26 +465,133 @@ int main(void) {
 	jalan[0][5] = Point(90,122);
 	jalan[0][6] = Point(115,177);
 	jalan[0][7] = Point(150,199);
-	jalan[0][8] = Point(159,238);
-	jalan[1] = (Point*) malloc (sizeof(Point) * 9);
+	jalan[0][8] = Point(81,148);
+
 	jalan[1][0] = Point(17,60);
 	jalan[1][1] = Point(20,74);
-	jalan[1][2] = Point(35,90);
-	jalan[1][3] = Point(41,92);
-	jalan[1][4] = Point(60,114);
-	jalan[1][5] = Point(62,115);
-	jalan[1][6] = Point(75,126);
-	jalan[1][7] = Point(77,131);
-	jalan[1][8] = Point(81,148);
+	jalan[1][2] = Point(48,92);
+	jalan[1][3] = Point(68,120);
+	jalan[1][4] = Point(72,125);
+	jalan[1][5] = Point(82,126);
+	jalan[1][6] = Point(77,131);
+	jalan[1][7] = Point(81,148);
+	jalan[1][8] = Point(158,230);
 
+	jalan[2][0] = Point(40,80);
+	jalan[2][1] = Point(50,132);
+	jalan[2][2] = Point(131,143);
+	jalan[2][3] = Point(149,158);
+	jalan[2][4] = Point(149,180);
+	jalan[2][5] = Point(160,180);
+	jalan[2][6] = Point(160,200);
+	jalan[2][7] = Point(170,225);
+	jalan[2][8] = Point(180,240);
+
+	jalan[3][0] = Point(122,156);
+	jalan[3][1] = Point(131,172);
+	jalan[3][2] = Point(131,183);
+	jalan[3][3] = Point(120,178);
+	jalan[3][4] = Point(130,190);
+	jalan[3][5] = Point(180,200);
+	jalan[3][6] = Point(140,230);
+	jalan[3][7] = Point(190,225);
+	jalan[3][8] = Point(170,230);
+
+	jalan[4][0] = Point(90,150);
+	jalan[4][1] = Point(92,150);
+	jalan[4][2] = Point(95,141);
+	jalan[4][3] = Point(100,120);
+	jalan[4][4] = Point(100,110);
+	jalan[4][5] = Point(110,120);
+	jalan[4][6] = Point(120,100);
+	jalan[4][7] = Point(140,170);
+	jalan[4][8] = Point(130,210);
+/* ---- Sumatra ---- */
+
+/* ---- Jawa ---- */
+	jalan[5][0] = Point(194,251);
+	jalan[5][1] = Point(200,270);
+	jalan[5][2] = Point(230,260);
+	jalan[5][3] = Point(240,280);
+	jalan[5][4] = Point(250,260);
+	jalan[5][5] = Point(270,280);
+	jalan[5][6] = Point(290,280);
+	jalan[5][7] = Point(324,287);
+	jalan[5][8] = Point(330,295);
+
+	jalan[6][0] = Point(194,251);
+	jalan[6][1] = Point(200,255);
+	jalan[6][2] = Point(230,260);
+	jalan[6][3] = Point(240,300);
+	jalan[6][4] = Point(250,280);
+	jalan[6][5] = Point(270,290);
+	jalan[6][6] = Point(290,280);
+	jalan[6][7] = Point(324,282);
+	jalan[6][8] = Point(330,285);
+	
+	jalan[7][0] = Point(194,251);
+	jalan[7][1] = Point(200,280);
+	jalan[7][2] = Point(230,280);
+	jalan[7][3] = Point(240,290);
+	jalan[7][4] = Point(250,270);
+	jalan[7][5] = Point(270,270);
+	jalan[7][6] = Point(290,275);
+	jalan[7][7] = Point(324,287);
+	jalan[7][8] = Point(330,290);
+/* ---- Jawa ---- */
+
+/* ---- Kalimantan ---- */
+	jalan[8][0] = Point(240,150);
+	jalan[8][1] = Point(260,170);
+	jalan[8][2] = Point(290,250);
+	jalan[8][3] = Point(320,130);
+	jalan[8][4] = Point(340,130);
+	jalan[8][5] = Point(330,200);
+	jalan[8][6] = Point(343,195);
+	jalan[8][7] = Point(360,203);
+	jalan[8][8] = Point(360,198);
+
+	jalan[9][0] = Point(320,150);
+	jalan[9][1] = Point(360,180);
+	jalan[9][2] = Point(400,120);
+	jalan[9][3] = Point(400,110);
+	jalan[9][4] = Point(340,90);
+	jalan[9][5] = Point(350,80);
+	jalan[9][6] = Point(385,65);
+	jalan[9][7] = Point(380,60);
+	jalan[9][8] = Point(390,60);
+/* ---- Kalimantan ---- */
+
+/* ---- Sulawesi ---- */
+	jalan[10][0] = Point(490,145);
+	jalan[10][1] = Point(380,105);
+	jalan[10][2] = Point(430,200);
+	jalan[10][3] = Point(425,200);
+	jalan[10][4] = Point(420,245);
+	jalan[10][5] = Point(425,250);
+	jalan[10][6] = Point(430,245);
+	jalan[10][7] = Point(430,220);
+	jalan[10][8] = Point(425,210);
+
+	jalan[11][0] = Point(435,195);
+	jalan[11][1] = Point(445,185);
+	jalan[11][2] = Point(450,210);
+	jalan[11][3] = Point(450,230);
+	jalan[11][4] = Point(455,235);
+	jalan[11][5] = Point(460,230);
+	jalan[11][6] = Point(455,225);
+	jalan[11][7] = Point(465,225);
+	jalan[11][8] = Point(470,220);
+/* ---- Sulawesi ---- */
 
 	for (int j=0;j<NPULAU;j++) {
 		fb.drawPolygon(pulau[j], Color(60,200,80));
 		fb.fillPolygon(pulau[j], Color(60,200,80));
 	}
-	fb.drawCurve(jalan[0], 9, Color(255,255,255));
-	fb.drawCurve(jalan[1], 9, Color(255,255,255));
-
+	
+	for (i=0; i<12;i++){
+		fb.drawCurve(jalan[i], 9, Color(85,107,47));
+	}
 
 	Point pusat = Point(500,500);
 	float degree = -20.0 * PI/180.0;
@@ -510,20 +620,21 @@ int main(void) {
 					fb.fillPolygon(pulau[j], Color(60,200,80));
 				}
 
-				for (i=0;i<2;i++){
+				for (i=0;i<12;i++){
 					for (int j=0;j<9;j++){
 						jalan[i][j].setX((fb.getScreenWidth()/2)+1.25*(jalan[i][j].getX()-fb.getScreenWidth()/2));
 						jalan[i][j].setY((fb.getScreenHeight()/2)+1.25*(jalan[i][j].getY()-fb.getScreenHeight()/2));
 					}
 				}
-				for (i=0;i<2;i++){
+				for (i=0;i<12;i++){
 					for (int j=0;j<9;j++){
 						jalan[i][j].setX((fb.getScreenWidth()/2)+1.25*(jalan[i][j].getX()-fb.getScreenWidth()/2));
 						jalan[i][j].setY((fb.getScreenHeight()/2)+1.25*(jalan[i][j].getY()-fb.getScreenHeight()/2));
 					}
 				}
-					fb.drawCurve(jalan[0], 9, Color(255,255,255));
-					fb.drawCurve(jalan[1], 9, Color(255,255,255));
+					for (i=0; i<12;i++){
+						fb.drawCurve(jalan[i], 9, Color(85,107,47));
+					}
 
 				break;
 			case 'X' :
@@ -539,6 +650,19 @@ int main(void) {
 					fb.drawPolygon(pulau[j], Color(60,200,80));
 					fb.fillPolygon(pulau[j], Color(60,200,80));
 				}
+				
+				for (i=0;i<12;i++){
+					for (int j=0;j<9;j++){
+						jalan[i][j].setX((fb.getScreenWidth()/2)+0.8*(jalan[i][j].getX()-fb.getScreenWidth()/2));
+						jalan[i][j].setY((fb.getScreenHeight()/2)+0.8*(jalan[i][j].getY()-fb.getScreenHeight()/2));
+					}
+				}
+					for (i=0; i<12;i++){
+						fb.drawCurve(jalan[i], 9, Color(85,107,47));
+					}
+
+
+
 				break;
 			case 'Q' :
 			case 'q' :
@@ -553,6 +677,15 @@ int main(void) {
 					fb.drawPolygon(pulau[j], Color(60,200,80));
 					fb.fillPolygon(pulau[j], Color(60,200,80));
 				}
+				for (i=0;i<12;i++){
+					for (int j=0;j<9;j++){
+						jalan[i][j].rotate(degree,pusat);
+					}
+				}
+					for (i=0; i<12;i++){
+						fb.drawCurve(jalan[i], 9, Color(85,107,47));
+					}
+
 				break;
 			case 'W' :
 			case 'w' :
@@ -567,6 +700,16 @@ int main(void) {
 					fb.drawPolygon(pulau[j], Color(60,200,80));
 					fb.fillPolygon(pulau[j], Color(60,200,80));
 				}
+				for (i=0;i<12;i++){
+					for (int j=0;j<9;j++){
+						jalan[i][j].rotate(anticlockwisedegree,pusat);
+					}
+				}
+					for (i=0; i<12;i++){
+						fb.drawCurve(jalan[i], 9, Color(85,107,47));
+					}
+
+
 				break;
 			case '\033':
 				getch();
@@ -585,6 +728,16 @@ int main(void) {
 							fb.drawPolygon(pulau[j], Color(60,200,80));
 							fb.fillPolygon(pulau[j], Color(60,200,80));
 						}
+
+						for (i=0;i<12;i++){
+							for (int j=0;j<9;j++){
+								jalan[i][j].setY((jalan[i][j].getY()-10));
+							}
+						}
+						for (i=0; i<12;i++){
+							fb.drawCurve(jalan[i], 9, Color(85,107,47));
+						}
+
 						break;
 					case 'B':
 						//fb.clearScreen();
@@ -600,6 +753,15 @@ int main(void) {
 							fb.drawPolygon(pulau[j], Color(60,200,80));
 							fb.fillPolygon(pulau[j], Color(60,200,80));
 						}
+						for (i=0;i<12;i++){
+							for (int j=0;j<9;j++){
+								jalan[i][j].setY((jalan[i][j].getY()+10));
+							}
+						}
+						for (i=0; i<12;i++){
+							fb.drawCurve(jalan[i], 9, Color(85,107,47));
+						}
+
 						break;
 					case 'C':
 						//fb.clearScreen();
@@ -615,6 +777,16 @@ int main(void) {
 							fb.drawPolygon(pulau[j], Color(60,200,80));
 							fb.fillPolygon(pulau[j], Color(60,200,80));
 						}
+
+						for (i=0;i<12;i++){
+							for (int j=0;j<9;j++){
+								jalan[i][j].setX((jalan[i][j].getX()+10));
+							}
+						}
+						for (i=0; i<12;i++){
+							fb.drawCurve(jalan[i], 9, Color(85,107,47));
+						}
+
 						break;
 					case 'D':
 						//fb.clearScreen();
@@ -629,6 +801,14 @@ int main(void) {
 						for (int j=0;j<NPULAU;j++) {
 							fb.drawPolygon(pulau[j], Color(60,200,80));
 							fb.fillPolygon(pulau[j], Color(60,200,80));
+						}
+						for (i=0;i<12;i++){
+							for (int j=0;j<9;j++){
+								jalan[i][j].setX((jalan[i][j].getX()-10));
+							}
+						}
+						for (i=0; i<12;i++){
+							fb.drawCurve(jalan[i], 9, Color(85,107,47));
 						}
 						break;
 				}
