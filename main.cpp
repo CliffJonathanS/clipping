@@ -1,7 +1,7 @@
 #include "framebuffer.h"
 #include <iostream>
 #include <signal.h>
-
+#include <vector>
 #define NPULAU 17
 #define PI acos(-1)
 
@@ -55,7 +55,9 @@ void INThandler(int sig) {
 int main(void) {
 	FrameBuffer fb;
 	//fb.clearScreen();
+
 	Polygon pulau[NPULAU];
+	vector<Polygon> polygonFinal;
 	char c;
 	int i;
 
@@ -113,6 +115,7 @@ int main(void) {
 	pulau[0].addPoint(Point(16,66));
 	pulau[0].setPriority(0);
 	pulau[0].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[0]);
 
 	pulau[1].addPoint(Point(194,251));
 	pulau[1].addPoint(Point(209,253));
@@ -155,6 +158,7 @@ int main(void) {
 	pulau[1].addPoint(Point(196,251));
 	pulau[1].setPriority(0);
 	pulau[1].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[1]);
 
 
 	pulau[2].addPoint(Point(251,120));
@@ -204,6 +208,7 @@ int main(void) {
 	pulau[2].addPoint(Point(246,125));
 	pulau[2].setPriority(0);
 	pulau[2].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[2]);
 
 
 	pulau[3].addPoint(Point(431,136));
@@ -269,6 +274,7 @@ int main(void) {
 	pulau[3].addPoint(Point(416,165));
 	pulau[3].setPriority(0);
 	pulau[3].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[3]);
 
 	pulau[4].addPoint(Point(349,306));
 	pulau[4].addPoint(Point(341,300));
@@ -277,6 +283,7 @@ int main(void) {
 	pulau[4].addPoint(Point(359,298));
 	pulau[4].setPriority(0);
 	pulau[4].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[4]);
 
 	pulau[5].addPoint(Point(368,298));
 	pulau[5].addPoint(Point(376,300));
@@ -284,6 +291,7 @@ int main(void) {
 	pulau[5].addPoint(Point(365,305));
 	pulau[5].setPriority(0);
 	pulau[5].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[5]);
 
 
 	pulau[6].addPoint(Point(382,300));
@@ -297,6 +305,7 @@ int main(void) {
 	pulau[6].addPoint(Point(379,302));
 	pulau[6].setPriority(0);
 	pulau[6].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[6]);
 
 	pulau[7].addPoint(Point(808,209));
 	pulau[7].addPoint(Point(792,201));
@@ -344,6 +353,7 @@ int main(void) {
 	pulau[7].addPoint(Point(809,312));
 	pulau[7].setPriority(0);
 	pulau[7].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[7]);
 
 	pulau[8].addPoint(Point(489,331));
 	pulau[8].addPoint(Point(495,322));
@@ -360,6 +370,7 @@ int main(void) {
 	pulau[8].addPoint(Point(514,325));
 	pulau[8].setPriority(0);
 	pulau[8].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[8]);
 
 	pulau[9].addPoint(Point(427,304));
 	pulau[9].addPoint(Point(442,295));
@@ -369,6 +380,7 @@ int main(void) {
 	pulau[9].addPoint(Point(463,308));
 	pulau[9].setPriority(0);
 	pulau[9].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[9]);
 
 	pulau[10].addPoint(Point(581,209));
 	pulau[10].addPoint(Point(575,214));
@@ -382,6 +394,7 @@ int main(void) {
 	pulau[10].addPoint(Point(589,214));
 	pulau[10].setPriority(0);
 	pulau[10].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[10]);
 
 	pulau[11].addPoint(Point(570,171));
 	pulau[11].addPoint(Point(562,159));
@@ -399,6 +412,7 @@ int main(void) {
 	pulau[11].addPoint(Point(567,161));
 	pulau[11].setPriority(0);
 	pulau[11].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[11]);
 
 	pulau[12].addPoint(Point(513,189));
 	pulau[12].addPoint(Point(510,192));
@@ -412,6 +426,7 @@ int main(void) {
 	pulau[12].addPoint(Point(516,189));
 	pulau[12].setPriority(0);
 	pulau[12].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[12]);
 
 	pulau[13].addPoint(Point(179,191));
 	pulau[13].addPoint(Point(190,193));
@@ -426,6 +441,7 @@ int main(void) {
 	pulau[13].addPoint(Point(183,182));
 	pulau[13].setPriority(0);
 	pulau[13].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[13]);
 
 	pulau[14].addPoint(Point(546,222));
 	pulau[14].addPoint(Point(535,214));
@@ -435,6 +451,7 @@ int main(void) {
 	pulau[14].addPoint(Point(555,216));
 	pulau[14].setPriority(0);
 	pulau[14].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[14]);
 
 	pulau[15].addPoint(Point(48,140));
 	pulau[15].addPoint(Point(45,131));
@@ -443,6 +460,7 @@ int main(void) {
 	pulau[15].addPoint(Point(55,147));
 	pulau[15].setPriority(0);
 	pulau[15].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[15]);
 
 	pulau[16].addPoint(Point(71,171));
 	pulau[16].addPoint(Point(69,175));
@@ -451,12 +469,14 @@ int main(void) {
 	pulau[16].addPoint(Point(74,171));
 	pulau[16].setPriority(0);
 	pulau[16].setColor(Color(0,100,0));
+	polygonFinal.push_back(pulau[16]);
 
 
-	for (int j=0;j<NPULAU;j++) {
-		fb.drawPolygon(pulau[j], Color(60,200,80));
+	/*for (int j=0;j<NPULAU;j++) {
+		fb.drawPolygon(polygonFinal.at(j), Color(60,200,80));
 		fb.fillPolygon(pulau[j], Color(60,200,80));
-	}
+	}*/
+
 
 	Point pusat = Point(500,500);
 	float degree = -20.0 * PI/180.0;
@@ -465,6 +485,7 @@ int main(void) {
 	signal(SIGINT, INThandler);
 
 	while (run) {
+		fb.anticlip(polygonFinal);
 		c = getch();
 		switch (c) {
 			case 'Z' :
@@ -528,64 +549,71 @@ int main(void) {
 				getch();
 				switch(getch()) {
 					case 'A':
-						//fb.clearScreen();
+						fb.clearScreen();
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+							//fb.drawPolygon(pulau[j], Color(0,0,0));
+							//fb.fillPolygon(pulau[j], Color(0,0,0));
 							
-							for (i=0;i<pulau[j].getPoints().size();i++) {
-								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX(), pulau[j].getPoints().at(i).getY()-10));
+							for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX(), polygonFinal.at(j).getPoints().at(i).getY()-10));
 							}
 						}
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(60,200,80));
-							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
+						//fb.clearScreen();
+						/*for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(polygonFinal.at(j), Color(60,200,80));
+							fb.fillPolygon(polygonFinal.at(j), Color(60,200,80));
+						}*/
+							fb.anticlip(polygonFinal);
 						break;
 					case 'B':
-						//fb.clearScreen();
+						fb.clearScreen();
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+							//fb.drawPolygon(polygonFinal.at(j), Color(0,0,0));
+							//fb.fillPolygon(polygonFinal.at(j), Color(0,0,0));
 							
-							for (i=0;i<pulau[j].getPoints().size();i++) {
-								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX(), pulau[j].getPoints().at(i).getY()+10));
+							for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX(), polygonFinal.at(j).getPoints().at(i).getY()+10));
 							}
 						}
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(60,200,80));
-							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
+						/*for (int j=0;j<NPULAU;j++) {
+							fb.drawPolygon(polygonFinal.at(j), Color(60,200,80));
+							fb.fillPolygon(polygonFinal.at(j), Color(60,200,80));
+						}*/
+							fb.anticlip(polygonFinal);
 						break;
 					case 'C':
-						//fb.clearScreen();
+						fb.clearScreen();
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+							//fb.drawPolygon(polygonFinal.at(j), Color(0,0,0));
+							//fb.fillPolygon(polygonFinal.at(j), Color(0,0,0));
 							
-							for (i=0;i<pulau[j].getPoints().size();i++) {
-								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX()+10, pulau[j].getPoints().at(i).getY()));
+							for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX()+10, polygonFinal.at(j).getPoints().at(i).getY()));
 							}
 						}
+						/*
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(60,200,80));
-							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
+							fb.drawPolygon(polygonFinal.at(j), Color(60,200,80));
+							fb.fillPolygon(polygonFinal.at(j), Color(60,200,80));
+						}*/
+							fb.anticlip(polygonFinal);
 						break;
 					case 'D':
-						//fb.clearScreen();
+						fb.clearScreen();
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+							//fb.drawPolygon(polygonFinal.at(j), Color(0,0,0));
+							//fb.fillPolygon(polygonFinal.at(j), Color(0,0,0));
 							
-							for (i=0;i<pulau[j].getPoints().size();i++) {
-								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX()-10, pulau[j].getPoints().at(i).getY()));
+							for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX()-10, polygonFinal.at(j).getPoints().at(i).getY()));
 							}
 						}
+						/*
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(60,200,80));
-							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
+							fb.drawPolygon(polygonFinal.at(j), Color(60,200,80));
+							fb.fillPolygon(polygonFinal.at(j), Color(60,200,80));
+						}*/
+						fb.anticlip(polygonFinal);
 						break;
 				}
 		}

@@ -107,12 +107,12 @@ class FrameBuffer {
 		// methods
 		void clearScreen();
 		void drawPoint(Point, Color);
-		bool clipPoint(Point, Color);
+		bool clipPoint(Point);
 		void drawLine(Point, Point, Color);
 		void drawPolygon(Polygon, Color); // draw wireframe
 		void fillPolygon(Polygon, Color);
 		void CohenSutherlandLineClipAndDraw(Point, Point, Color);
-		void anticlip(Polygon* , int);
+		void anticlip(vector<Polygon>);
 		vector<Polygon> polygonparser();
 		void addpolygonsfinal(string, Point, vector<Polygon>&);
 
