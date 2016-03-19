@@ -2,6 +2,9 @@
 #include <iostream>
 #include "math.h"
 #include <string.h>
+#include <fstream>
+#include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -18,10 +21,10 @@ const int LEFT = 1;   // 0001
 const int RIGHT = 2;  // 0010
 const int BOTTOM = 4; // 0100
 const int TOP = 8;    // 1000
-static int NormalScanline[RIGHTWINDOW][DOWNWINDOW];
+static char NormalScanline[RIGHTWINDOW][DOWNWINDOW];
 
 Color::Color() {
-	
+	R=0; G=0; B=0;
 }
 
 Color::Color(int r, int g, int b) {
@@ -193,8 +196,8 @@ void Polygon::setPoint(int i, Point point){
 	points[i] = point;
 }
 
-void Polygon::setColor(Color c){
-	pcolor = c;
+void Polygon::setColor(Color color){
+	pcolor = color;
 }
 // method
 void Polygon::addPoint(Point point) {
@@ -208,6 +211,7 @@ Polygon& Polygon::operator=(const Polygon& polygon){
 		points.push_back(polygon.points[i]);
 	}
 	priority = polygon.priority;
+	pcolor = polygon.pcolor;
 	return *this;
 }
 
@@ -378,7 +382,7 @@ void FrameBuffer::drawPolygon(Polygon polygon, Color color){
 }
 void FrameBuffer::fillPolygon(Polygon polygon, Color color){
 	int  nodes, *nodeX, drawx, drawy, i, j, swap ;
-	nodeX = (int*) malloc (sizeof(int) * polygon.getPoints().size());
+	nodeX = (int*) malloc (sizeof(int*) * polygon.getPoints().size());
 	//  Loop through the rows of the image.
 	for (drawy=polygon.getTop(); drawy<polygon.getBottom(); drawy++) {
 		//  Build a list of nodes.
@@ -420,10 +424,37 @@ void FrameBuffer::fillPolygon(Polygon polygon, Color color){
 
 }
 
+vector<Polygon> FrameBuffer::polygonparser(){
+	string line;
+	vector<Polygon> vpol;
+	ifstream myfile ("example.txt");
+		if (myfile.is_open())
+		{
+		    while ( getline (myfile,line) )
+		    {
+		    	Polygon polygon;
+			    replace( line.begin(), line.end(), ',', ' ');
+			    stringstream ss(line);
+			    while (ss.good()){
+			    	float tempx,tempy;
+				    ss >> tempx;
+				    ss >> tempy;
+				    polygon.addPoint(Point(tempx,tempy));
+				}
+				vpol.push_back(polygon);
+				cout<<vpol.size()<<"\n";
 
-void FrameBuffer::anticlip(Polygon* polygon, int jumlah){
+		    }
+		    myfile.close();
+	  	}
+	 return vpol;
+}
+
+
+void FrameBuffer::anticlip(vector<Polygon> polygon){
 	int  nodes, *nodeX, drawx, drawy, i, j, swap,l, temp ;
 	Polygon swapPoly;
+	int jumlah = polygon.size();
 	memset(NormalScanline, 0, RIGHTWINDOW * DOWNWINDOW);
 	//  Sort based on priority. High integer priority will be drawn first
 	
@@ -431,27 +462,27 @@ void FrameBuffer::anticlip(Polygon* polygon, int jumlah){
 	{
 		for(j = i + 1; j > 0; --j)
 		{
-			if(polygon[j].getPriority() > polygon[j-1].getPriority())
+			if(polygon.at(j).getPriority() > polygon.at(j-1).getPriority())
 			{
 			//Swaps the values
-				swapPoly=polygon[j]; 
-				polygon[j]=polygon[j-1]; 
-				polygon[j-1]=swapPoly; 
+				swapPoly=polygon.at(j); 
+				polygon.at(j)=polygon.at(j-1); 
+				polygon.at(j-1)=swapPoly; 
 			}
 		}
 	}
 
 
 	
-	for (l = 0; l < jumlah; l++){
+	for (l = 0; l < jumlah; l++) {
 
-		nodeX = (int*) malloc (sizeof(int) * polygon[l].getPoints().size());
-		for (drawy=polygon[l].getTop(); drawy<polygon[l].getBottom(); drawy++) {
+		nodeX = (int*) malloc (sizeof(int) * polygon.at(l).getPoints().size());
+		for (drawy=polygon.at(l).getTop(); drawy<polygon.at(l).getBottom(); drawy++) {
 			//  Build a list of nodes.
-			nodes=0; j=polygon[l].getPoints().size()-1;
-			for (i=0; i<polygon[l].getPoints().size(); i++) {
-				if (polygon[l].getPoints().at(i).getY()<(double) drawy && polygon[l].getPoints().at(j).getY()>=(double) drawy ||  polygon[l].getPoints().at(j).getY()<(double) drawy && polygon[l].getPoints().at(i).getY()>=(double) drawy) {
-					nodeX[nodes++]=(int) (polygon[l].getPoints().at(i).getX()+(drawy-polygon[l].getPoints().at(i).getY())/(polygon[l].getPoints().at(j).getY()-polygon[l].getPoints().at(i).getY())*(polygon[l].getPoints().at(j).getX()-polygon[l].getPoints().at(i).getX()));
+			nodes=0; j=polygon.at(l).getPoints().size()-1;
+			for (i=0; i<polygon.at(l).getPoints().size(); i++) {
+				if (polygon.at(l).getPoints().at(i).getY()<(double) drawy && polygon.at(l).getPoints().at(j).getY()>=(double) drawy ||  polygon.at(l).getPoints().at(j).getY()<(double) drawy && polygon.at(l).getPoints().at(i).getY()>=(double) drawy) {
+					nodeX[nodes++]=(int) (polygon.at(l).getPoints().at(i).getX()+(drawy-polygon.at(l).getPoints().at(i).getY())/(polygon.at(l).getPoints().at(j).getY()-polygon.at(l).getPoints().at(i).getY())*(polygon.at(l).getPoints().at(j).getX()-polygon.at(l).getPoints().at(i).getX()));
 				}
 				j=i;
 			}
@@ -470,18 +501,17 @@ void FrameBuffer::anticlip(Polygon* polygon, int jumlah){
 			
 			//  Fill the pixels between node pairs.
 			for (i=0; i<nodes; i+=2) {
-				if   (nodeX[i  ]>=polygon[l].getRight()) break;
-				if   (nodeX[i+1]> polygon[l].getLeft() ) {
-					if (nodeX[i  ]< polygon[l].getLeft() ) nodeX[i  ]=polygon[l].getLeft() ;
-					if (nodeX[i+1]> polygon[l].getRight()) nodeX[i+1]=polygon[l].getRight();
+				if   (nodeX[i  ]>=polygon.at(l).getRight()) break;
+				if   (nodeX[i+1]> polygon.at(l).getLeft() ) {
+					if (nodeX[i  ]< polygon.at(l).getLeft() ) nodeX[i  ]=polygon.at(l).getLeft() ;
+					if (nodeX[i+1]> polygon.at(l).getRight()) nodeX[i+1]=polygon.at(l).getRight();
 					for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++){
 						if (clipPoint(Point(drawx,drawy)) ){
 							if (NormalScanline[drawx][drawy] == 0 ){
 								NormalScanline[drawx][drawy] = 1;
-								drawPoint(Point(drawx,drawy), polygon[l].getColor());	
+								drawPoint(Point(drawx,drawy), polygon.at(l).getColor());	
 							}		
-						}
-						
+						}						
 						//printf("%d,%d\n",drawx, drawy );	
 					} 
 				}

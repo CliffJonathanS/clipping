@@ -1,6 +1,7 @@
 #include "framebuffer.h"
 #include <iostream>
 #include <string.h>
+void Draw (char* huruf, int x, int y);
 
 int main(void) {
 	int jumlah = 3;
@@ -8,6 +9,7 @@ int main(void) {
 	//fb.clearScreen();
 	Polygon swapPoly;
 	Polygon p[jumlah];
+	Polygon angka[1];
 	p[0].addPoint(Point(100,100));
 	p[0].addPoint(Point(100,200));
 	p[0].addPoint(Point(200,100));
@@ -27,9 +29,15 @@ int main(void) {
 	p[2].addPoint(Point(130,100));
 	p[2].addPoint(Point(130,130));
 	p[2].addPoint(Point(100,130));
-	p[2].setPriority(2);
+	p[2].setPriority(6);
 	p[2].setColor(Color(10,10,100));
 
+	angka[0].addPoint(Point(200,100));
+	angka[0].addPoint(Point(220,100));
+	angka[0].addPoint(Point(220,150));
+	angka[0].addPoint(Point(200,150));
+	angka[0].setPriority(2);
+	fb.anticlip(angka, 1);
 
 	
 /*

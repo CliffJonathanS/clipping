@@ -111,7 +111,8 @@ class FrameBuffer {
 		void drawPolygon(Polygon, Color); // draw wireframe
 		void fillPolygon(Polygon, Color);
 		void CohenSutherlandLineClipAndDraw(Point, Point, Color);
-		void anticlip(Polygon* , int);
+		void anticlip(vector<Polygon>);
+		vector<Polygon> polygonparser();
 
 	private:
 		struct fb_fix_screeninfo finfo;

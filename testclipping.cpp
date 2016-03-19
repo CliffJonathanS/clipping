@@ -13,7 +13,7 @@ int main(void) {
 
 	fb.CohenSutherlandLineClipAndDraw(Point(50,50),Point(500,200),Color(200,200,200)) ;
 
-	fb.CohenSutherlandLineClipAndDraw(Point(50,50),Point(500,100),Color(200,200,200)) ;
+	fb.CohenSutherlandLineClipAndDraw(Point(50,50),Point(500,100s),Color(200,200,200)) ;
 	
 
 }
