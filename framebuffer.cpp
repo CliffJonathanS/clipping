@@ -2,6 +2,9 @@
 #include <iostream>
 #include "math.h"
 #include <string.h>
+#include <fstream>
+#include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -418,6 +421,32 @@ void FrameBuffer::fillPolygon(Polygon polygon, Color color){
 		}
 	}
 
+}
+
+vector<Polygon> FrameBuffer::polygonparser(){
+	string line;
+	vector<Polygon> vpol;
+	ifstream myfile ("example.txt");
+		if (myfile.is_open())
+		{
+		    while ( getline (myfile,line) )
+		    {
+		    	Polygon polygon;
+			    replace( line.begin(), line.end(), ',', ' ');
+			    stringstream ss(line);
+			    while (ss.good()){
+			    	float tempx,tempy;
+				    ss >> tempx;
+				    ss >> tempy;
+				    polygon.addPoint(Point(tempx,tempy));
+				}
+				vpol.push_back(polygon);
+				cout<<vpol.size()<<"\n";
+
+		    }
+		    myfile.close();
+	  	}
+	 return vpol;
 }
 
 
