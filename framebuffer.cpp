@@ -256,8 +256,7 @@ void FrameBuffer::drawPoint(Point point, Color color){
 }
 
 
-bool FrameBuffer::clipPoint(Point point, Color color){
-	long location;
+bool FrameBuffer::clipPoint(Point point){
 	int drawx = point.getX();
 	int drawy = point.getY();
 
@@ -409,7 +408,7 @@ void FrameBuffer::fillPolygon(Polygon polygon, Color color){
 				if (nodeX[i  ]< polygon.getLeft() ) nodeX[i  ]=polygon.getLeft() ;
 				if (nodeX[i+1]> polygon.getRight()) nodeX[i+1]=polygon.getRight();
 				for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++){
-					if (clipPoint(Point(drawx,drawy), color)){
+					if (clipPoint(Point(drawx,drawy))){
 						drawPoint(Point(drawx,drawy), color);
 					}
 					//printf("%d,%d\n",drawx, drawy );	
@@ -476,16 +475,22 @@ void FrameBuffer::anticlip(Polygon* polygon, int jumlah){
 					if (nodeX[i  ]< polygon[l].getLeft() ) nodeX[i  ]=polygon[l].getLeft() ;
 					if (nodeX[i+1]> polygon[l].getRight()) nodeX[i+1]=polygon[l].getRight();
 					for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++){
-						if (NormalScanline[drawx][drawy] == 0 && clipPoint(Point(drawx,drawy), polygon[l].getColor())){
-							NormalScanline[drawx][drawy] = 1;
-							drawPoint(Point(drawx,drawy), polygon[l].getColor());			
+						if (clipPoint(Point(drawx,drawy)) ){
+							if (NormalScanline[drawx][drawy] == 0 ){
+								NormalScanline[drawx][drawy] = 1;
+								drawPoint(Point(drawx,drawy), polygon[l].getColor());	
+							}		
 						}
 						
 						//printf("%d,%d\n",drawx, drawy );	
 					} 
 				}
 			}
+
+
+			memset(NormalScanline, 0, RIGHTWINDOW * DOWNWINDOW);
 		}
 	}
+
 
 }

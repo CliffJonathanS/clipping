@@ -19,7 +19,7 @@ int main(void) {
 	p[1].addPoint(Point(150,100));
 	p[1].addPoint(Point(150,150));
 	p[1].addPoint(Point(100,150));
-	p[1].setPriority(1);
+	p[1].setPriority(7);
 
 	p[1].setColor(Color(10,100,0));
 

@@ -453,10 +453,11 @@ int main(void) {
 	pulau[16].setColor(Color(0,100,0));
 
 
-	for (int j=0;j<NPULAU;j++) {
+	/*for (int j=0;j<NPULAU;j++) {
 		fb.drawPolygon(pulau[j], Color(60,200,80));
 		fb.fillPolygon(pulau[j], Color(60,200,80));
-	}
+	}*/
+
 
 	Point pusat = Point(500,500);
 	float degree = -20.0 * PI/180.0;
@@ -465,6 +466,7 @@ int main(void) {
 	signal(SIGINT, INThandler);
 
 	while (run) {
+		fb.anticlip(pulau, NPULAU);
 		c = getch();
 		switch (c) {
 			case 'Z' :
@@ -528,64 +530,71 @@ int main(void) {
 				getch();
 				switch(getch()) {
 					case 'A':
-						//fb.clearScreen();
+						fb.clearScreen();
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+							//fb.drawPolygon(pulau[j], Color(0,0,0));
+							//fb.fillPolygon(pulau[j], Color(0,0,0));
 							
 							for (i=0;i<pulau[j].getPoints().size();i++) {
 								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX(), pulau[j].getPoints().at(i).getY()-10));
 							}
 						}
-						for (int j=0;j<NPULAU;j++) {
+						//fb.clearScreen();
+						/*for (int j=0;j<NPULAU;j++) {
 							fb.drawPolygon(pulau[j], Color(60,200,80));
 							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
+						}*/
+							fb.anticlip(pulau, NPULAU);
 						break;
 					case 'B':
-						//fb.clearScreen();
+						fb.clearScreen();
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+							//fb.drawPolygon(pulau[j], Color(0,0,0));
+							//fb.fillPolygon(pulau[j], Color(0,0,0));
 							
 							for (i=0;i<pulau[j].getPoints().size();i++) {
 								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX(), pulau[j].getPoints().at(i).getY()+10));
 							}
 						}
-						for (int j=0;j<NPULAU;j++) {
+						/*for (int j=0;j<NPULAU;j++) {
 							fb.drawPolygon(pulau[j], Color(60,200,80));
 							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
+						}*/
+							fb.anticlip(pulau, NPULAU);
 						break;
 					case 'C':
-						//fb.clearScreen();
+						fb.clearScreen();
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+							//fb.drawPolygon(pulau[j], Color(0,0,0));
+							//fb.fillPolygon(pulau[j], Color(0,0,0));
 							
 							for (i=0;i<pulau[j].getPoints().size();i++) {
 								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX()+10, pulau[j].getPoints().at(i).getY()));
 							}
 						}
+						/*
 						for (int j=0;j<NPULAU;j++) {
 							fb.drawPolygon(pulau[j], Color(60,200,80));
 							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
+						}*/
+							fb.anticlip(pulau, NPULAU);
 						break;
 					case 'D':
-						//fb.clearScreen();
+						fb.clearScreen();
 						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+							//fb.drawPolygon(pulau[j], Color(0,0,0));
+							//fb.fillPolygon(pulau[j], Color(0,0,0));
 							
 							for (i=0;i<pulau[j].getPoints().size();i++) {
 								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX()-10, pulau[j].getPoints().at(i).getY()));
 							}
 						}
+						/*
 						for (int j=0;j<NPULAU;j++) {
 							fb.drawPolygon(pulau[j], Color(60,200,80));
 							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
+						}*/
+						fb.anticlip(pulau, NPULAU);
 						break;
 				}
 		}

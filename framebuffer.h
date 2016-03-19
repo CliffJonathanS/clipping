@@ -106,7 +106,7 @@ class FrameBuffer {
 		// methods
 		void clearScreen();
 		void drawPoint(Point, Color);
-		bool clipPoint(Point, Color);
+		bool clipPoint(Point);
 		void drawLine(Point, Point, Color);
 		void drawPolygon(Polygon, Color); // draw wireframe
 		void fillPolygon(Polygon, Color);
