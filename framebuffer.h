@@ -110,7 +110,7 @@ class FrameBuffer {
 		void drawLine(Point, Point, Color);
 		void drawPolygon(Polygon, Color); // draw wireframe
 		void fillPolygon(Polygon, Color);
-		
+		void CohenSutherlandLineClipAndDraw(Point, Point, Color);
 		void anticlip(Polygon* , int);
 
 	private:

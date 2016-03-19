@@ -10,6 +10,15 @@ using namespace std;
 #define UPWINDOW 0
 #define DOWNWINDOW 300
 
+//untuk clipping
+typedef int OutCode;
+
+const int INSIDE = 0; // 0000
+const int LEFT = 1;   // 0001
+const int RIGHT = 2;  // 0010
+const int BOTTOM = 4; // 0100
+const int TOP = 8;    // 1000
+
 Color::Color() {
 	
 }
@@ -229,8 +238,8 @@ int FrameBuffer::getScreenHeight(){
 // methods
 void FrameBuffer::clearScreen(){
 	int i, j;
-	for (i=0;i<getScreenHeight()-7;i++) {
-		for (j=0;j<getScreenWidth()-7;j++) {
+	for (i=0;i<getScreenHeight()-10;i++) {
+		for (j=0;j<getScreenWidth()-10;j++) {
 			drawPoint(Point(j, i), Color(0,0,0));
 		}
 	}
@@ -268,15 +277,98 @@ void FrameBuffer::drawLine(Point p1, Point p2, Color color){
 	int err = (dx>dy ? dx : -dy)/2, e2;
 
 	while(1){
-		if (clipPoint(Point(x1,y1), color)){
 			drawPoint(Point(x1,y1), color);		
-		}
+		
 		if (x1==x2 && y1==y2) break;
 		e2 = err;
 		if (e2 >-dx) { err -= dy; x1 += sx; }
 		if (e2 < dy) { err += dx; y1 += sy; }
 	}
 }
+
+
+OutCode ComputeOutCode(Point p)
+{
+	float x= p.getX();
+	float y= p.getY();
+	OutCode code;
+
+	code = INSIDE;          // initialised as being inside of clip window
+
+	if (x < LEFTWINDOW)           // to the left of clip window
+		code |= LEFT;
+	else if (x > RIGHTWINDOW)      // to the right of clip window
+		code |= RIGHT;
+	if (y > DOWNWINDOW)           // below the clip window
+		code |= BOTTOM;
+	else if (y < UPWINDOW)      // above the clip window
+		code |= TOP;
+
+	return code;
+}
+
+void FrameBuffer::CohenSutherlandLineClipAndDraw(Point p1, Point p2, Color color){
+	// compute outcodes for P0, P1, and whatever point lies outside the clip rectangle
+	OutCode outcode0 = ComputeOutCode(p1);
+	OutCode outcode1 = ComputeOutCode(p2);
+	bool accept = false;
+
+	while (true) {
+		if (!(outcode0 | outcode1)) { // Bitwise OR is 0. Trivially accept and get out of loop
+			accept = true;
+			break;
+		} else if (outcode0 & outcode1) { // Bitwise AND is not 0. Trivially reject and get out of loop
+			break;
+		} else {
+			// failed both tests, so calculate the line segment to clip
+			// from an outside point to an intersection with clip edge
+			float x, y;
+			float x0=p1.getX();
+
+			float x1=p2.getX();
+
+			float y0=p1.getY();
+
+			float y1=p2.getY();
+			// At least one endpoint is outside the clip rectangle; pick it.
+			OutCode outcodeOut = outcode0 ? outcode0 : outcode1;
+
+			// Now find the intersection point;
+			// use formulas y = y0 + slope * (x - x0), x = x0 + (1 / slope) * (y - y0)
+			if (outcodeOut & TOP) {           // point is above the clip rectangle
+				x = x0 + (x1 - x0) * (UPWINDOW - y0) / (y1 - y0);
+				y = UPWINDOW;
+			} else if (outcodeOut & BOTTOM) { // point is below the clip rectangle
+				x = x0 + (x1 - x0) * (DOWNWINDOW - y0) / (y1 - y0);
+				y = DOWNWINDOW;
+			} else if (outcodeOut & RIGHT) {  // point is to the right of clip rectangle
+				y = y0 + (y1 - y0) * (RIGHTWINDOW - x0) / (x1 - x0);
+				x = RIGHTWINDOW;
+			} else if (outcodeOut & LEFT) {   // point is to the left of clip rectangle
+				y = y0 + (y1 - y0) * (LEFTWINDOW - x0) / (x1 - x0);
+				x = LEFTWINDOW;
+			}
+
+			// Now we move outside point to intersection point to clip
+			// and get ready for next pass.
+			if (outcodeOut == outcode0) {
+				p1.setX(x);
+				p1.setY(y);
+				outcode0 = ComputeOutCode(p1);
+			} else {
+				p2.setX(x);
+				p2.setY(y);
+				outcode1 = ComputeOutCode(p2);
+			}
+		}
+	}
+	if (accept) {
+               // Following functions are left for implementation by user based on
+               // their platform (OpenGL/graphics.h etc.)
+               drawLine(p1,p2,color);
+	}
+}
+
 void FrameBuffer::drawPolygon(Polygon polygon, Color color){
 	int i;
 	for (i=0;i<polygon.getPoints().size()-1;i++) {
