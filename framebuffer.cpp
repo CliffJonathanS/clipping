@@ -434,6 +434,13 @@ vector<Polygon> FrameBuffer::polygonparser(){
 		    	Polygon polygon;
 			    replace( line.begin(), line.end(), ',', ' ');
 			    stringstream ss(line);
+			    	int priority, r,g,b; 
+			    	ss >> priority;
+			    	ss >> r;
+			    	ss >> g;
+			    	ss >> b;
+			    	polygon.setPriority(priority);
+			    	polygon.setColor(Color(r,g,b));
 			    while (ss.good()){
 			    	float tempx,tempy;
 				    ss >> tempx;
@@ -441,12 +448,51 @@ vector<Polygon> FrameBuffer::polygonparser(){
 				    polygon.addPoint(Point(tempx,tempy));
 				}
 				vpol.push_back(polygon);
-				cout<<vpol.size()<<"\n";
 
 		    }
 		    myfile.close();
 	  	}
 	 return vpol;
+}
+
+void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
+	for(int i=0;i<s.length();i++){
+		string line;
+		ifstream myfile ("definisi.txt");
+		if (myfile.is_open())
+		{
+		    while ( getline (myfile,line) )
+		    {
+		    	if (s.at(i)==line.at(0)){
+		    		do{
+		    			getline(myfile,line);
+		    			if(line.find(',')>=0){
+		    				Polygon polygon;
+						    replace( line.begin(), line.end(), ',', ' ');
+						    stringstream ss(line);
+						    	int priority, r,g,b; 
+						    	ss >> priority;
+						    	ss >> r;
+						    	ss >> g;
+						    	ss >> b;
+						    	polygon.setPriority(priority);
+						    	polygon.setColor(Color(r,g,b));
+						    while (ss.good()){
+						    	float tempx,tempy;
+							    ss >> tempx;
+							    ss >> tempy;
+							    polygon.addPoint(Point(tempx+p.getX(),tempy+p.getY()));
+							}
+							vec.push_back(polygon);
+		    			}
+		    		} while (line.find(',')>=0);
+		    		break;
+		    	}
+		    }
+		    myfile.close();
+	  	}
+		
+	}
 }
 
 

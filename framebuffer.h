@@ -10,6 +10,7 @@
 #include <termios.h>
 #include <pthread.h>
 #include <math.h>
+#include <string>
 
 using namespace std;
 
@@ -113,6 +114,7 @@ class FrameBuffer {
 		void CohenSutherlandLineClipAndDraw(Point, Point, Color);
 		void anticlip(Polygon* , int);
 		vector<Polygon> polygonparser();
+		void addpolygonsfinal(string, Point, vector<Polygon>&);
 
 	private:
 		struct fb_fix_screeninfo finfo;
