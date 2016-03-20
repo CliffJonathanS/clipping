@@ -83,7 +83,8 @@ int main(void) {
 	vector<Polygon> bat;
 	vector<Polygon> polygonFinal=fb.polygonparser();
 
-	fb.addpolygonsfinal("BANDA ACEH",Point(7,48), polygonFinal,0.7);
+	//Nama kota
+	fb.addpolygonsfinal("BANDA ACEH",Point(7,33), polygonFinal,0.7);
 	fb.addpolygonsfinal("MEDAN",Point(65,80), polygonFinal,0.7);
 	fb.addpolygonsfinal("PADANG",Point(34,164), polygonFinal,0.7);
 	fb.addpolygonsfinal("PEKAN BARU",Point(45,132), polygonFinal,0.7);
@@ -116,38 +117,39 @@ int main(void) {
 	fb.addpolygonsfinal("MANOKWARI",Point(628,156), polygonFinal,0.7);
 	fb.addpolygonsfinal("JAYAPURA",Point(706,220), polygonFinal,0.7);	
 
-	/*fb.addpolygonsfinal("5,201,002 JIWA",Point(7,28), polygonFinal);
-	fb.addpolygonsfinal("12,450,911 JIWA",Point(65,60), polygonFinal);
-	fb.addpolygonsfinal("4,566,126 JIWA",Point(57,146), polygonFinal);
-	fb.addpolygonsfinal("4,579,219 JIWA",Point(105,112), polygonFinal);
-	fb.addpolygonsfinal("1,274,848 JIWA",Point(134,134), polygonFinal);
-	fb.addpolygonsfinal("2,635,968 JIWA",Point(147,147), polygonFinal);
-	fb.addpolygonsfinal("1,549,273 JIWA",Point(74,195), polygonFinal);
-	fb.addpolygonsfinal("1,043,456 JIWA",Point(185,160), polygonFinal);
-	fb.addpolygonsfinal("7,116,177 JIWA",Point(121,225), polygonFinal);
-	fb.addpolygonsfinal("6,782,339 JIWA",Point(176,191), polygonFinal);
-	fb.addpolygonsfinal("8,860,381 JIWA",Point(198,228), polygonFinal);
-	fb.addpolygonsfinal("38,965,440 JIWA",Point(210,262), polygonFinal);
-	fb.addpolygonsfinal("31,977,968 JIWA",Point(248,237), polygonFinal);
-	fb.addpolygonsfinal("36,294,280 JIWA",Point(298,245), polygonFinal);
-	fb.addpolygonsfinal("9,028,816 JIWA",Point(150,244), polygonFinal);
-	fb.addpolygonsfinal("3,383,572 JIWA",Point(334,264), polygonFinal);
-	fb.addpolygonsfinal("4,184,411 JIWA",Point(335,293), polygonFinal);
-	fb.addpolygonsfinal("4,260,294 JIWA",Point(472,290), polygonFinal);
-	fb.addpolygonsfinal("4,052,345 JIWA",Point(207,138), polygonFinal);
-	fb.addpolygonsfinal("1,914,900 JIWA",Point(278,176), polygonFinal);
-	fb.addpolygonsfinal("3,446,631 JIWA",Point(324,202), polygonFinal);
-	fb.addpolygonsfinal("2,848,798 JIWA",Point(361,131), polygonFinal);
-	fb.addpolygonsfinal("2,128,780 JIWA",Point(495,103), polygonFinal);
-	fb.addpolygonsfinal("2,294,841 JIWA",Point(402,139), polygonFinal);
-	fb.addpolygonsfinal("7,509,704 JIWA",Point(379,223), polygonFinal);
-	fb.addpolygonsfinal("1,963,025 JIWA",Point(400,140), polygonFinal);
-	fb.addpolygonsfinal("922,176 JIWA",Point(458,136), polygonFinal);
-	fb.addpolygonsfinal("969,429 JIWA",Point(385,169), polygonFinal);
-	fb.addpolygonsfinal("1,251,539 JIWA",Point(548,191), polygonFinal);
-	fb.addpolygonsfinal("884,142 JIWA",Point(541,118), polygonFinal);
-	fb.addpolygonsfinal("643,012 JIWA",Point(628,146), polygonFinal);
-	fb.addpolygonsfinal("1,875,388 JIWA",Point(706,235), polygonFinal);	*/
+	//Populasi
+	fb.addpolygonsfinal("5,201,002 JIWA",Point(7,33), polygonFinal,0.5);
+	fb.addpolygonsfinal("12,450,911 JIWA",Point(65,80), polygonFinal,0.5);
+	fb.addpolygonsfinal("4,566,126 JIWA",Point(34,1464), polygonFinal,0.5);
+	fb.addpolygonsfinal("4,579,219 JIWA",Point(45,132), polygonFinal,0.5);
+	fb.addpolygonsfinal("1,274,848 JIWA",Point(124,122), polygonFinal,0.5);
+	fb.addpolygonsfinal("2,635,968 JIWA",Point(142,168), polygonFinal,0.5);
+	fb.addpolygonsfinal("1,549,273 JIWA",Point(74,198), polygonFinal,0.5);
+	fb.addpolygonsfinal("1,043,456 JIWA",Point(175,180), polygonFinal,0.5);
+	fb.addpolygonsfinal("7,116,177 JIWA",Point(121,225), polygonFinal,0.5);	
+	fb.addpolygonsfinal("6,782,339 JIWA",Point(171,191), polygonFinal,0.5);
+	fb.addpolygonsfinal("8,860,381 JIWA",Point(198,249), polygonFinal,0.5);
+	fb.addpolygonsfinal("38,965,440 JIWA",Point(205,283), polygonFinal,0.5);
+	fb.addpolygonsfinal("31,977,968 JIWA",Point(248,259), polygonFinal,0.5);
+	fb.addpolygonsfinal("36,294,280 JIWA",Point(298,268), polygonFinal,0.5);
+	fb.addpolygonsfinal("9,028,816 JIWA",Point(123,264), polygonFinal,0.5);
+	fb.addpolygonsfinal("3,383,572 JIWA",Point(334,278), polygonFinal,0.5);
+	fb.addpolygonsfinal("4,184,411 JIWA",Point(335,308), polygonFinal,0.5);
+	fb.addpolygonsfinal("4,260,294 JIWA",Point(472,300), polygonFinal,0.5);
+	fb.addpolygonsfinal("4,052,345 JIWA",Point(207,138), polygonFinal,0.5);
+	fb.addpolygonsfinal("1,914,900 JIWA",Point(278,171), polygonFinal,0.5);
+	fb.addpolygonsfinal("3,446,631 JIWA",Point(324,202), polygonFinal,0.5);
+	fb.addpolygonsfinal("2,848,798 JIWA",Point(361,141), polygonFinal,0.5);
+	fb.addpolygonsfinal("2,128,780 JIWA",Point(495,113), polygonFinal,0.5);
+	fb.addpolygonsfinal("2,294,841 JIWA",Point(400,150), polygonFinal,0.5);
+	fb.addpolygonsfinal("7,509,704 JIWA",Point(379,223), polygonFinal,0.5);
+	fb.addpolygonsfinal("1,963,025 JIWA",Point(454,213), polygonFinal,0.5);
+	fb.addpolygonsfinal("922,176 JIWA",Point(458,136), polygonFinal,0.5);
+	fb.addpolygonsfinal("969,429 JIWA",Point(385,184), polygonFinal,0.5);
+	fb.addpolygonsfinal("1,251,539 JIWA",Point(548,201), polygonFinal,0.5);
+	fb.addpolygonsfinal("884,142 JIWA",Point(551,118), polygonFinal,0.5);
+	fb.addpolygonsfinal("643,012 JIWA",Point(628,156), polygonFinal,0.5);
+	fb.addpolygonsfinal("1,875,388 JIWA",Point(706,220), polygonFinal,0.5);
 	char c;
 	int i;
 
