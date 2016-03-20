@@ -116,7 +116,7 @@ class FrameBuffer {
 		void anticlip(vector<Polygon>, vector<char>);
 		bool isText(int);
 		vector<Polygon> polygonparser();
-		void addpolygonsfinal(string, Point, vector<Polygon>&);
+		void addpolygonsfinal(string, Point, vector<Polygon>&, float);
 		void drawRectangle(int, int , Color, int, vector<Polygon>&);
 
 

@@ -17,6 +17,11 @@
 #define ZKOTA 4
 #define ZTEXT 5
 
+#define LEFTWINDOW 0
+#define RIGHTWINDOW 700
+#define UPWINDOW 0
+#define DOWNWINDOW 700
+
 
 using namespace std;
 
@@ -78,38 +83,38 @@ int main(void) {
 	vector<Polygon> bat;
 	vector<Polygon> polygonFinal=fb.polygonparser();
 
-	fb.addpolygonsfinal("BANDA ACEH",Point(7,48), polygonFinal);
-	fb.addpolygonsfinal("MEDAN",Point(65,80), polygonFinal);
-	fb.addpolygonsfinal("PADANG",Point(34,164), polygonFinal);
-	fb.addpolygonsfinal("PEKAN BARU",Point(45,132), polygonFinal);
-	fb.addpolygonsfinal("TANJUNG PINANG",Point(124,122), polygonFinal);
-	fb.addpolygonsfinal("JAMBI",Point(142,168), polygonFinal);
-	fb.addpolygonsfinal("BENGKULU",Point(74,198), polygonFinal);
-	fb.addpolygonsfinal("PANGKAL PINANG",Point(175,180), polygonFinal);
-	fb.addpolygonsfinal("BANDAR LAMPUNG",Point(121,225), polygonFinal);
-	fb.addpolygonsfinal("PALEMBANG",Point(171,191), polygonFinal);
-	fb.addpolygonsfinal("JAKARTA",Point(198,249), polygonFinal);
-	fb.addpolygonsfinal("BANDUNG",Point(205,283), polygonFinal);
-	fb.addpolygonsfinal("SEMARANG",Point(248,259), polygonFinal);
-	fb.addpolygonsfinal("SURABAYA",Point(298,268), polygonFinal);
-	fb.addpolygonsfinal("SERANG",Point(123,264), polygonFinal);
-	fb.addpolygonsfinal("DENPASAR",Point(334,278), polygonFinal);
-	fb.addpolygonsfinal("MATARAM",Point(335,308), polygonFinal);
-	fb.addpolygonsfinal("KUPANG",Point(472,300), polygonFinal);
-	fb.addpolygonsfinal("PONTIANAK",Point(207,138), polygonFinal);
-	fb.addpolygonsfinal("PALANGKARAYA",Point(278,171), polygonFinal);
-	fb.addpolygonsfinal("BANJARMASIN",Point(324,202), polygonFinal);
-	fb.addpolygonsfinal("SAMARINDA",Point(361,141), polygonFinal);
-	fb.addpolygonsfinal("MANADO",Point(495,113), polygonFinal);
-	fb.addpolygonsfinal("PALU",Point(400,150), polygonFinal);
-	fb.addpolygonsfinal("MAKASSAR",Point(379,223), polygonFinal);
-	fb.addpolygonsfinal("KENDARI",Point(454,213), polygonFinal);
-	fb.addpolygonsfinal("GORONTALO",Point(458,136), polygonFinal);
-	fb.addpolygonsfinal("MAMUJU",Point(385,184), polygonFinal);
-	fb.addpolygonsfinal("AMBON",Point(548,201), polygonFinal);
-	fb.addpolygonsfinal("TERNATE",Point(551,118), polygonFinal);
-	fb.addpolygonsfinal("MANOKWARI",Point(628,156), polygonFinal);
-	fb.addpolygonsfinal("JAYAPURA",Point(706,220), polygonFinal);	
+	fb.addpolygonsfinal("BANDA ACEH",Point(7,48), polygonFinal,0.7);
+	fb.addpolygonsfinal("MEDAN",Point(65,80), polygonFinal,0.7);
+	fb.addpolygonsfinal("PADANG",Point(34,164), polygonFinal,0.7);
+	fb.addpolygonsfinal("PEKAN BARU",Point(45,132), polygonFinal,0.7);
+	fb.addpolygonsfinal("TANJUNG PINANG",Point(124,122), polygonFinal,0.7);
+	fb.addpolygonsfinal("JAMBI",Point(142,168), polygonFinal,0.7);
+	fb.addpolygonsfinal("BENGKULU",Point(74,198), polygonFinal,0.7);
+	fb.addpolygonsfinal("PANGKAL PINANG",Point(175,180), polygonFinal,0.7);
+	fb.addpolygonsfinal("BANDAR LAMPUNG",Point(121,225), polygonFinal,0.7);
+	fb.addpolygonsfinal("PALEMBANG",Point(171,191), polygonFinal,0.7);
+	fb.addpolygonsfinal("JAKARTA",Point(198,249), polygonFinal,0.7);
+	fb.addpolygonsfinal("BANDUNG",Point(205,283), polygonFinal,0.7);
+	fb.addpolygonsfinal("SEMARANG",Point(248,259), polygonFinal,0.7);
+	fb.addpolygonsfinal("SURABAYA",Point(298,268), polygonFinal,0.7);
+	fb.addpolygonsfinal("SERANG",Point(123,264), polygonFinal,0.7);
+	fb.addpolygonsfinal("DENPASAR",Point(334,278), polygonFinal,0.7);
+	fb.addpolygonsfinal("MATARAM",Point(335,308), polygonFinal,0.7);
+	fb.addpolygonsfinal("KUPANG",Point(472,300), polygonFinal,0.7);
+	fb.addpolygonsfinal("PONTIANAK",Point(207,138), polygonFinal,0.7);
+	fb.addpolygonsfinal("PALANGKARAYA",Point(278,171), polygonFinal,0.7);
+	fb.addpolygonsfinal("BANJARMASIN",Point(324,202), polygonFinal,0.7);
+	fb.addpolygonsfinal("SAMARINDA",Point(361,141), polygonFinal,0.7);
+	fb.addpolygonsfinal("MANADO",Point(495,113), polygonFinal,0.7);
+	fb.addpolygonsfinal("PALU",Point(400,150), polygonFinal,0.7);
+	fb.addpolygonsfinal("MAKASSAR",Point(379,223), polygonFinal,0.7);
+	fb.addpolygonsfinal("KENDARI",Point(454,213), polygonFinal,0.7);
+	fb.addpolygonsfinal("GORONTALO",Point(458,136), polygonFinal,0.7);
+	fb.addpolygonsfinal("MAMUJU",Point(385,184), polygonFinal,0.7);
+	fb.addpolygonsfinal("AMBON",Point(548,201), polygonFinal,0.7);
+	fb.addpolygonsfinal("TERNATE",Point(551,118), polygonFinal,0.7);
+	fb.addpolygonsfinal("MANOKWARI",Point(628,156), polygonFinal,0.7);
+	fb.addpolygonsfinal("JAYAPURA",Point(706,220), polygonFinal,0.7);	
 
 	/*fb.addpolygonsfinal("5,201,002 JIWA",Point(7,28), polygonFinal);
 	fb.addpolygonsfinal("12,450,911 JIWA",Point(65,60), polygonFinal);
@@ -180,8 +185,6 @@ int main(void) {
 	fb.drawRectangle(332,209,Color(200,0,0),10,kota);
 	fb.drawRectangle(319,193,Color(200,0,0),10,kota);
 	fb.drawRectangle(244,152,Color(200,0,0),10,kota);
-
-	fb.addpolygonsfinal("SAY A", Point(100,100), polygonFinal);
 
 	Polygon batas[10];
 
@@ -274,8 +277,8 @@ int main(void) {
 	batas[3].addPoint(Point(230,280));
 	batas[3].addPoint(Point(280,270));
 	batas[3].addPoint(Point(300,290));
-	batas[3].addPoint(Point(330,270));
-	batas[3].addPoint(Point(330,268));
+	batas[3].addPoint(Point(330,300));
+	batas[3].addPoint(Point(330,298));
 	batas[3].addPoint(Point(300,288));
 	batas[3].addPoint(Point(280,268));
 	batas[3].addPoint(Point(230,278));
@@ -291,8 +294,62 @@ int main(void) {
 	batas[4].addPoint(Point(280,288));
 	batas[4].addPoint(Point(230,268));
 	batas[4].addPoint(Point(190,260));	
-
 	/*-------- Jawa --------*/
+
+	/*-------- Kalimantan --------*/
+	batas[5].addPoint(Point(230,140));
+	batas[5].addPoint(Point(280,190));
+	batas[5].addPoint(Point(310,162));
+	batas[5].addPoint(Point(340,210));
+	batas[5].addPoint(Point(380,110));
+	batas[5].addPoint(Point(380,108));
+	batas[5].addPoint(Point(340,208));
+	batas[5].addPoint(Point(310,160));
+	batas[5].addPoint(Point(280,188));
+	batas[5].addPoint(Point(230,140));
+
+	batas[6].addPoint(Point(310,150));
+	batas[6].addPoint(Point(380,145));
+	batas[6].addPoint(Point(360,90));
+	batas[6].addPoint(Point(380,80));
+	batas[6].addPoint(Point(380,78));
+	batas[6].addPoint(Point(360,88));
+	batas[6].addPoint(Point(380,143));
+	batas[6].addPoint(Point(310,148));
+	/*-------- Kalimantan --------*/
+
+	/*-------- Sulawesi --------*/
+	batas[7].addPoint(Point(520,145));
+	batas[7].addPoint(Point(425,150));
+	batas[7].addPoint(Point(420,250));
+	batas[7].addPoint(Point(430,250));
+	batas[7].addPoint(Point(435,200));
+	batas[7].addPoint(Point(445,190));
+	batas[7].addPoint(Point(445,188));
+	batas[7].addPoint(Point(434,198));
+	batas[7].addPoint(Point(428,248));
+	batas[7].addPoint(Point(422,248));
+	batas[7].addPoint(Point(427,152));
+	batas[7].addPoint(Point(520,145));
+
+	batas[8].addPoint(Point(445,200));
+	batas[8].addPoint(Point(455,240));
+	batas[8].addPoint(Point(460,230));
+	batas[8].addPoint(Point(455,195));
+	batas[8].addPoint(Point(453,195));
+	batas[8].addPoint(Point(458,228));
+	batas[8].addPoint(Point(455,238));
+	batas[8].addPoint(Point(445,200));
+	/*-------- Sulawesi --------*/
+
+	/*-------- Papua --------*/
+	batas[9].addPoint(Point(770,238));
+	batas[9].addPoint(Point(700,225));
+	batas[9].addPoint(Point(700,223));
+	batas[9].addPoint(Point(770,236));
+	batas[9].addPoint(Point(770,238));
+	/*-------- Papua --------*/
+
 
 	for (i=0; i<5; i++){
 		batas[i].setPriority(ZPROVINSI);

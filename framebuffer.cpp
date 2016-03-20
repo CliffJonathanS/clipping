@@ -491,7 +491,7 @@ vector<Polygon> FrameBuffer::polygonparser(){
 	 return vpol;
 }
 
-void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
+void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec, float size){
 	int offsetX = p.getX();
 	for(int i=0;i<s.length();i++){
 		//printf("Huruf %c\n", s.at(i));
@@ -524,7 +524,7 @@ void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
 							    	float tempx,tempy;
 								    ss >> tempx;
 								    ss >> tempy;
-								    polygon.addPoint(Point(tempx*0.7+offsetX,tempy*0.7+p.getY()));
+								    polygon.addPoint(Point(tempx*size+offsetX,tempy*size+p.getY()));
 								    
 								}
 								vec.push_back(polygon);
