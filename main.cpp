@@ -3,6 +3,7 @@
 #include <signal.h>
 #include <string.h>
 #include <vector>
+#include <algorithm>
 
 #define NKETINGGIAN 14
 #define NPULAU 17
@@ -70,11 +71,11 @@ int main(void) {
 
 	Polygon pulau[NPULAU];
 	Polygon marker[NKOTA];
+	vector<char> toogleMenu;
+	bool menuKetinggian = false, menuJalan = false, menuProvinsi = false, menuKota = false, menuText = false;
 	//Polygon ketinggian[NPULAU];
 	vector<Polygon> kota;
 	vector<Polygon> polygonFinal=fb.polygonparser();
-
-	fb.addpolygonsfinal("SAYA",Point(100,100), polygonFinal);
 	char c;
 	int i;
 
@@ -113,8 +114,14 @@ int main(void) {
 	fb.drawRectangle(319,193,Color(200,0,0),10,kota);
 	fb.drawRectangle(244,152,Color(200,0,0),10,kota);
 
-	fb.anticlip(polygonFinal);
-	fb.anticlip(kota);
+	fb.addpolygonsfinal("SAY A", Point(100,100), polygonFinal);
+
+
+	polygonFinal.insert( polygonFinal.end(), kota.begin(), kota.end() );
+	toogleMenu.push_back(ZPULAU);
+
+
+	fb.anticlip(polygonFinal,toogleMenu);
 	Point pusat = Point(500,500);
 	float degree = -20.0 * PI/180.0;
 	float anticlockwisedegree = 20.0 * PI/180.0;
@@ -125,74 +132,136 @@ int main(void) {
 		
 		c = getch();
 		switch (c) {
+			//Toogle On ketinggian
+			case '1':
+				if (menuKetinggian){
+					toogleMenu.erase(remove(toogleMenu.begin(), toogleMenu.end(), (char)ZKETINGGIAN), toogleMenu.end());
+					menuKetinggian = !menuKetinggian;
+				} else {
+					toogleMenu.push_back(ZKETINGGIAN);
+					menuKetinggian = !menuKetinggian;
+				}
+				fb.clearScreen();
+				fb.anticlip(polygonFinal,toogleMenu);
+				break;
+			//Toogle On jalan
+			case '2':
+				if (menuJalan){
+					toogleMenu.erase(remove(toogleMenu.begin(), toogleMenu.end(), ZJALAN), toogleMenu.end());
+					menuJalan = !menuJalan;
+				} else {
+					toogleMenu.push_back(ZJALAN);
+					menuJalan = !menuJalan;
+				}
+				
+				fb.clearScreen();
+				fb.anticlip(polygonFinal,toogleMenu);
+				break;
+			//Toogle On batas provinsi
+			case '3':
+				if (menuProvinsi){
+					toogleMenu.erase(remove(toogleMenu.begin(), toogleMenu.end(), ZPROVINSI), toogleMenu.end());
+					menuProvinsi = !menuProvinsi;
+				} else {
+					toogleMenu.push_back(ZPROVINSI);
+					menuProvinsi = !menuProvinsi;
+				}
+				
+				fb.clearScreen();
+				fb.anticlip(polygonFinal,toogleMenu);
+				break;
+			//Toogle On kota
+			case '4':
+				if (menuKota){
+					toogleMenu.erase(remove(toogleMenu.begin(), toogleMenu.end(), ZKOTA), toogleMenu.end());
+					menuKota = !menuKota;
+				} else {
+					toogleMenu.push_back(ZKOTA);
+					menuKota = !menuKota;
+				}
+				fb.clearScreen();
+				
+				fb.anticlip(polygonFinal,toogleMenu);
+				break;
+			//Toogle On teks
+			case '5':
+				if (menuText){
+					toogleMenu.erase(remove(toogleMenu.begin(), toogleMenu.end(), ZTEXT), toogleMenu.end());
+					toogleMenu.erase(remove(toogleMenu.begin(), toogleMenu.end(), ZTEXT+1), toogleMenu.end());
+					menuText = !menuText;
+				} else {
+					toogleMenu.push_back(ZTEXT);
+					toogleMenu.push_back(ZTEXT+1);
+					menuText = !menuText;
+				}
+				fb.clearScreen();
+				fb.anticlip(polygonFinal,toogleMenu);
+				break;
+			//Zoom In
 			case 'Z' :
 			case 'z' :
 			fb.clearScreen();
-				for (int j=0;j<NPULAU;j++) {
+				for (int j=0;j<polygonFinal.size();j++) {
 					for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
 						polygonFinal.at(j).setPoint(i,Point((fb.getScreenWidth()/2)+1.25*(polygonFinal.at(j).getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+1.25*(polygonFinal.at(j).getPoints().at(i).getY()-fb.getScreenHeight()/2)));
 					}
 					
 				}
-				fb.anticlip(polygonFinal);
-				fb.anticlip(kota);
+				fb.anticlip(polygonFinal,toogleMenu);
+				
 				break;
+			//Zoom Out
 			case 'X' :
 			case 'x' :
 				fb.clearScreen();
-				for (int j=0;j<NPULAU;j++) {
+				for (int j=0;j<polygonFinal.size();j++) {
 					for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
 						polygonFinal.at(j).setPoint(i,Point((fb.getScreenWidth()/2)+0.8*(polygonFinal.at(j).getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+0.8*(polygonFinal.at(j).getPoints().at(i).getY()-fb.getScreenHeight()/2)));
 					}
 				}
 
-				fb.anticlip(polygonFinal);
-				fb.anticlip(kota);
+				fb.anticlip(polygonFinal,toogleMenu);
+				
 				break;
+			//Rotate degree
 			case 'Q' :
 			case 'q' :
 				fb.clearScreen();
-				for (int j=0;j<NPULAU;j++) {
+				for (int j=0;j<polygonFinal.size();j++) {
 					for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
 						polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).rotate(degree,pusat)));
 					}
 				}
-				fb.anticlip(polygonFinal);
-				fb.anticlip(kota);
-
+				fb.anticlip(polygonFinal,toogleMenu);
 				break;
+
+			//Rotate anti clockwise degree
 			case 'W' :
 			case 'w' :
-
 				fb.clearScreen();
-				for (int j=0;j<NPULAU;j++) {
+				for (int j=0;j<polygonFinal.size();j++) {
 					for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
 						polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).rotate(anticlockwisedegree,pusat)));
 					}
 				}
-				fb.anticlip(polygonFinal);
-				fb.anticlip(kota);
+				fb.anticlip(polygonFinal,toogleMenu);
 				break;
+			//Move with arrow key
 			case '\033':
 				getch();
 				switch(getch()) {
+					//move arrow up
 					case 'A':
 						fb.clearScreen();
 						for (int j=0;j<polygonFinal.size();j++) {
-							
 							for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
 								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX(), polygonFinal.at(j).getPoints().at(i).getY()-10));
 							}
 
 						}
-						for (int j=0;j<NKOTA;j++) {
-							for (i=0;i<kota.at(j).getPoints().size();i++) {
-								kota.at(j).setPoint(i,Point(kota.at(j).getPoints().at(i).getX(), kota.at(j).getPoints().at(i).getY()-10));
-							}
-						}
-						fb.anticlip(polygonFinal);
-						fb.anticlip(kota);
+						fb.anticlip(polygonFinal,toogleMenu);
 						break;
+					//move arrow down
 					case 'B':
 						fb.clearScreen();
 						for (int j=0;j<polygonFinal.size();j++) {
@@ -201,14 +270,9 @@ int main(void) {
 								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX(), polygonFinal.at(j).getPoints().at(i).getY()+10));
 							}
 						}
-						for (int j=0;j<NKOTA;j++) {
-							for (i=0;i<kota.at(j).getPoints().size();i++) {
-								kota.at(j).setPoint(i,Point(kota.at(j).getPoints().at(i).getX(), kota.at(j).getPoints().at(i).getY()+10));
-							}
-						}
-						fb.anticlip(polygonFinal);
-						fb.anticlip(kota);
+						fb.anticlip(polygonFinal,toogleMenu);
 						break;
+					//move arrow right
 					case 'C':
 						fb.clearScreen();
 						for (int j=0;j<polygonFinal.size();j++) {
@@ -217,14 +281,10 @@ int main(void) {
 								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX()+10, polygonFinal.at(j).getPoints().at(i).getY()));
 							}
 						}
-						for (int j=0;j<NKOTA;j++) {
-							for (i=0;i<kota.at(j).getPoints().size();i++) {
-								kota.at(j).setPoint(i,Point(kota.at(j).getPoints().at(i).getX()+10, kota.at(j).getPoints().at(i).getY()));
-							}
-						}
-						fb.anticlip(polygonFinal);
-						fb.anticlip(kota);
+						fb.anticlip(polygonFinal,toogleMenu);
+						
 						break;
+					//move arrow left
 					case 'D':
 						fb.clearScreen();
 						for (int j=0;j<polygonFinal.size();j++) {
@@ -233,13 +293,7 @@ int main(void) {
 								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX()-10, polygonFinal.at(j).getPoints().at(i).getY()));
 							}
 						}
-						for (int j=0;j<NKOTA;j++) {
-							for (i=0;i<kota.at(j).getPoints().size();i++) {
-								kota.at(j).setPoint(i,Point(kota.at(j).getPoints().at(i).getX()-10, kota.at(j).getPoints().at(i).getY()));
-							}
-						}
-						fb.anticlip(polygonFinal);
-						fb.anticlip(kota);
+						fb.anticlip(polygonFinal,toogleMenu);
 						break;
 				}
 		}

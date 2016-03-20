@@ -504,9 +504,7 @@ void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
 		    	//printf("Dalam file %c\n", line.at(0));
 		    	if (s.at(i)==line.at(0)){
 		    		getline(myfile,line);
-		    		do{
-		    			
-		    			cout << line<<endl;
+		    		do{		    			
 		    			if((int)line.find(',')>=0){
 		    				Polygon polygon;
 						    replace( line.begin(), line.end(), ',', ' ');
@@ -541,8 +539,11 @@ void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
 	}
 }
 
+bool FrameBuffer::isText(int priority){
+	return priority >=5 ;
+}
 
-void FrameBuffer::anticlip(vector<Polygon> polygon){
+void FrameBuffer::anticlip(vector<Polygon> polygon, vector<char> toogleMenu){
 	int  nodes, *nodeX, drawx, drawy, i, j, swap,l, temp ;
 	Polygon swapPoly;
 	int jumlah = polygon.size();
@@ -598,10 +599,12 @@ void FrameBuffer::anticlip(vector<Polygon> polygon){
 					if (nodeX[i+1]> polygon.at(l).getRight()) nodeX[i+1]=polygon.at(l).getRight();
 					for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++){
 						if (clipPoint(Point(drawx,drawy))){
-							if (NormalScanline[drawy][drawx] == 0 ){
-								NormalScanline[drawy][drawx] = 1;
-								drawPoint(Point(drawx,drawy), polygon.at(l).getColor());	
-							}
+							//case for non text
+							//if(find(toogleMenu.begin(), toogleMenu.end(), polygon.at(l).getPriority()) != 5){
+								if (NormalScanline[drawy][drawx] == 0 && (find(toogleMenu.begin(), toogleMenu.end(), polygon.at(l).getPriority()) != toogleMenu.end())) {
+									NormalScanline[drawy][drawx] = 1;
+									drawPoint(Point(drawx,drawy), polygon.at(l).getColor());	
+								}
 						}
 						//printf("%d,%d\n",drawx, drawy );	
 					}
