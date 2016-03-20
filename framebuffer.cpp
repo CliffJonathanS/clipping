@@ -492,17 +492,22 @@ vector<Polygon> FrameBuffer::polygonparser(){
 }
 
 void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
+	int offsetX = p.getX();
 	for(int i=0;i<s.length();i++){
+		//printf("Huruf %c\n", s.at(i));
 		string line;
 		ifstream myfile ("definisi.txt");
 		if (myfile.is_open())
 		{
 		    while ( getline (myfile,line) )
 		    {
+		    	//printf("Dalam file %c\n", line.at(0));
 		    	if (s.at(i)==line.at(0)){
+		    		getline(myfile,line);
 		    		do{
-		    			getline(myfile,line);
-		    			if(line.find(',')>=0){
+		    			
+		    			cout << line<<endl;
+		    			if((int)line.find(',')>=0){
 		    				Polygon polygon;
 						    replace( line.begin(), line.end(), ',', ' ');
 						    stringstream ss(line);
@@ -517,11 +522,16 @@ void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
 						    	float tempx,tempy;
 							    ss >> tempx;
 							    ss >> tempy;
-							    polygon.addPoint(Point(tempx+p.getX(),tempy+p.getY()));
+							    polygon.addPoint(Point(tempx+offsetX,tempy+p.getY()));
+							    
 							}
 							vec.push_back(polygon);
+
 		    			}
-		    		} while (line.find(',')>=0);
+		    			getline(myfile,line);
+		    		} while ((int)line.find(',')>=0);
+
+		    		offsetX += 10;
 		    		break;
 		    	}
 		    }
