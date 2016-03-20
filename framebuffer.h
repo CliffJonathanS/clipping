@@ -113,10 +113,12 @@ class FrameBuffer {
 		void drawPolygon(Polygon, Color); // draw wireframe
 		void fillPolygon(Polygon, Color);
 		void CohenSutherlandLineClipAndDraw(Point, Point, Color);
-		void anticlip(vector<Polygon>);
+		void anticlip(vector<Polygon>, vector<char>);
+		bool isText(int);
 		vector<Polygon> polygonparser();
 		void addpolygonsfinal(string, Point, vector<Polygon>&);
 		void drawRectangle(int, int , Color, int, vector<Polygon>&);
+
 
 	private:
 		struct fb_fix_screeninfo finfo;
@@ -125,3 +127,4 @@ class FrameBuffer {
 		char *display;
 		int fdScreen;
 };
+

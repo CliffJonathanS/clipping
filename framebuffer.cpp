@@ -499,47 +499,56 @@ void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
 		ifstream myfile ("definisi.txt");
 		if (myfile.is_open())
 		{
-		    while ( getline (myfile,line) )
-		    {
-		    	//printf("Dalam file %c\n", line.at(0));
-		    	if (s.at(i)==line.at(0)){
-		    		getline(myfile,line);
-		    		do{
-		    			cout << line<<endl;
-		    			if((int)line.find(',')>=0){
-		    				Polygon polygon;
-						    replace( line.begin(), line.end(), ',', ' ');
-						    stringstream ss(line);
-						    	int priority, r,g,b; 
-						    	ss >> priority;
-						    	ss >> r;
-						    	ss >> g;
-						    	ss >> b;
-						    	polygon.setPriority(priority);
-						    	polygon.setColor(Color(r,g,b));
-						    while (ss.good()){
-						    	float tempx,tempy;
-							    ss >> tempx;
-							    ss >> tempy;
-							    polygon.addPoint(Point(tempx*0.7+offsetX,tempy*0.7+p.getY()));
-							    
-							}
-							vec.push_back(polygon);
-		    			}
-		    			getline(myfile,line);
-		    		} while ((int)line.find(',')>=0);
-		    		offsetX += 10;
-		    		break;
-		    	}
-		    }
+			if(s.at(i)==' '){
+		    		offsetX +=10;
+		    } else {
+			    while ( getline (myfile,line) )
+			    {
+			    	//printf("Dalam file %c\n", line.at(0));
+			    	 if (s.at(i)==line.at(0)){
+			    		getline(myfile,line);
+			    		do{
+			    			
+			    			if((int)line.find(',')>=0){
+			    				Polygon polygon;
+							    replace( line.begin(), line.end(), ',', ' ');
+							    stringstream ss(line);
+							    	int priority, r,g,b; 
+							    	ss >> priority;
+							    	ss >> r;
+							    	ss >> g;
+							    	ss >> b;
+							    	polygon.setPriority(priority);
+							    	polygon.setColor(Color(r,g,b));
+							    while (ss.good()){
+							    	float tempx,tempy;
+								    ss >> tempx;
+								    ss >> tempy;
+								    polygon.addPoint(Point(tempx*0.7+offsetX,tempy*0.7+p.getY()));
+								    
+								}
+								vec.push_back(polygon);
+
+			    			}
+			    			getline(myfile,line);
+			    		} while ((int)line.find(',')>=0);
+
+			    		offsetX += 10;
+			    		break;
+			    	}
+			    }
+			}
 		    myfile.close();
 	  	}
 		
 	}
 }
 
+bool FrameBuffer::isText(int priority){
+	return priority >=5 ;
+}
 
-void FrameBuffer::anticlip(vector<Polygon> polygon){
+void FrameBuffer::anticlip(vector<Polygon> polygon, vector<char> toogleMenu){
 	int  nodes, *nodeX, drawx, drawy, i, j, swap,l, temp ;
 	Polygon swapPoly;
 	int jumlah = polygon.size();
@@ -595,10 +604,12 @@ void FrameBuffer::anticlip(vector<Polygon> polygon){
 					if (nodeX[i+1]> polygon.at(l).getRight()) nodeX[i+1]=polygon.at(l).getRight();
 					for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++){
 						if (clipPoint(Point(drawx,drawy))){
-							if (NormalScanline[drawy][drawx] == 0 ){
-								NormalScanline[drawy][drawx] = 1;
-								drawPoint(Point(drawx,drawy), polygon.at(l).getColor());	
-							}
+							//case for non text
+							//if(find(toogleMenu.begin(), toogleMenu.end(), polygon.at(l).getPriority()) != 5){
+								if (NormalScanline[drawy][drawx] == 0 && (find(toogleMenu.begin(), toogleMenu.end(), polygon.at(l).getPriority()) != toogleMenu.end())) {
+									NormalScanline[drawy][drawx] = 1;
+									drawPoint(Point(drawx,drawy), polygon.at(l).getColor());	
+								}
 						}
 						//printf("%d,%d\n",drawx, drawy );	
 					}
