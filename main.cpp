@@ -74,7 +74,7 @@ int main(void) {
 	vector<Polygon> kota;
 	vector<Polygon> polygonFinal=fb.polygonparser();
 
-	fb.addpolygonsfinal("SAYA",Point(100,100), polygonFinal);
+	fb.addpolygonsfinal("SAY A",Point(100,100), polygonFinal);
 	char c;
 	int i;
 
