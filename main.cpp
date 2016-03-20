@@ -83,6 +83,7 @@ int main(void) {
 	vector<Polygon> bat;
 	vector<Polygon> polygonFinal=fb.polygonparser();
 
+	// ibukota
 	fb.addpolygonsfinal("BANDA ACEH",Point(7,48), polygonFinal,0.7);
 	fb.addpolygonsfinal("MEDAN",Point(65,80), polygonFinal,0.7);
 	fb.addpolygonsfinal("PADANG",Point(34,164), polygonFinal,0.7);
@@ -151,6 +152,7 @@ int main(void) {
 	char c;
 	int i;
 
+	// kota
 	fb.drawRectangle(13,58,Color(200,0,0),10,kota);
 	fb.drawRectangle(67,90,Color(200,0,0),10,kota);
 	fb.drawRectangle(114,142,Color(200,0,0),10,kota);
@@ -188,6 +190,7 @@ int main(void) {
 
 	Polygon batas[10];
 
+	// jalan
 	/*-------- Sumatra --------*/
 	batas[0].addPoint(Point(19,78));
 	batas[0].addPoint(Point(24,78));
