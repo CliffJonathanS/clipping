@@ -119,10 +119,10 @@ int main(void) {
 	fb.addpolygonsfinal("JAYAPURA",Point(706,220), polygonFinal,0.7);	
 
 	//Populasi
-	fb.addpolygonsfinal("5,2 JUTA JIWA",Point(0,43), polygonFinal,0.5);
-	fb.addpolygonsfinal("12,4 JUTA JIWA",Point(55,90), polygonFinal,0.5);
-	fb.addpolygonsfinal("4,5 JUTA JIWA",Point(24,174), polygonFinal,0.5);
-	fb.addpolygonsfinal("4,5 JUTA JIWA",Point(45,142), polygonFinal,0.5);
+	fb.addpolygonsfinal("5,201,002 JIWA",Point(0,43), polygonFinal,0.5);
+	fb.addpolygonsfinal("12,450,911 JIWA",Point(55,90), polygonFinal,0.5);
+	fb.addpolygonsfinal("4,566,126 JIWA",Point(24,174), polygonFinal,0.5);
+	fb.addpolygonsfinal("4,579,219 JIWA",Point(45,142), polygonFinal,0.5);
 	fb.addpolygonsfinal("1,274,848 JIWA",Point(124,127), polygonFinal,0.5);
 	fb.addpolygonsfinal("2,635,968 JIWA",Point(142,168), polygonFinal,0.5);
 	fb.addpolygonsfinal("1,549,273 JIWA",Point(74,208), polygonFinal,0.5);
