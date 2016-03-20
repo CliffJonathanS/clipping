@@ -4,7 +4,7 @@
 void Draw (char* huruf, int x, int y);
 
 int main(void) {
-	int jumlah = 3;
+	int jumlah = 1;
 	FrameBuffer fb; 
 	//fb.clearScreen();
 	Polygon huruf[jumlah];
@@ -478,7 +478,7 @@ int main(void) {
 	huruf[0].setColor(200,200,200);*/
 
 	//Huruf Z
-	huruf[0].addPoint(Point(0,0));
+	/*huruf[0].addPoint(Point(0,0));
 	huruf[0].addPoint(Point(10,0));
 	huruf[0].addPoint(Point(10,2));
 	huruf[0].addPoint(Point(2,12));
@@ -489,8 +489,25 @@ int main(void) {
 	huruf[0].addPoint(Point(8,2));
 	huruf[0].addPoint(Point(0,2));
 	huruf[0].setPriority(0);
-	huruf[0].setColor(200,200,200);
-	fb.anticlip(huruf, jumlah);
+	huruf[0].setColor(200,200,200);*/
+
+	//Huruf Z
+	huruf[0].addPoint(Point(0,0));
+	huruf[0].addPoint(Point(2,0));
+	huruf[0].addPoint(Point(4,10));
+	huruf[0].addPoint(Point(5,8));
+	huruf[0].addPoint(Point(6,10));
+	huruf[0].addPoint(Point(8,0));
+	huruf[0].addPoint(Point(10,0));
+	huruf[0].addPoint(Point(8,14));
+	huruf[0].addPoint(Point(6,14));
+	huruf[0].addPoint(Point(5,10));
+	huruf[0].addPoint(Point(4,14));
+	huruf[0].addPoint(Point(2,14));
+	huruf[0].setPriority(0);
+	huruf[0].setColor(Color(200,200,200));
+
+	fb.anticlip(huruf);
 
 	//Huruf P
 	
