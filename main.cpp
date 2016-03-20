@@ -72,7 +72,10 @@ void INThandler(int sig) {
 
 int main(void) {
 	FrameBuffer fb;
-	//fb.clearScreen();
+	fb.clearScreen();
+
+	float angle;
+	angle = -PI/2;
 
 	Polygon pulau[NPULAU];
 	Polygon marker[NKOTA];
@@ -364,12 +367,26 @@ int main(void) {
 		//fb.anticlip(bat);
 	}
 
+
+	Point* compas = (Point*) malloc (sizeof(Point) * 6);
+	compas[0] = Point(RIGHTWINDOW+80,DOWNWINDOW-80);
+	compas[1] = Point(RIGHTWINDOW+120,DOWNWINDOW-80);
+	compas[2] = Point(RIGHTWINDOW+120,DOWNWINDOW);
+	compas[3] = Point(RIGHTWINDOW+40,DOWNWINDOW);
+	compas[4] = Point(RIGHTWINDOW+40,DOWNWINDOW-80);
+	compas[5] = Point(RIGHTWINDOW+80,DOWNWINDOW-80);
+	
+	Point p1 = Point(RIGHTWINDOW+80, DOWNWINDOW-55);
+	Point p2 = Point(RIGHTWINDOW+80, DOWNWINDOW-70);
+
 	polygonFinal.insert( polygonFinal.end(), kota.begin(), kota.end() );
 	polygonFinal.insert( polygonFinal.end(), bat.begin(), bat.end() );
 	toogleMenu.push_back(ZPULAU);
 
-
 	fb.anticlip(polygonFinal,toogleMenu);
+	fb.drawCurve(compas, 6, Color(255,255,255));
+	fb.drawLine(p1, p2, Color(255,255,255));
+
 	Point pusat = Point(500,500);
 	float degree = -20.0 * PI/180.0;
 	float anticlockwisedegree = 20.0 * PI/180.0;
@@ -391,6 +408,8 @@ int main(void) {
 				}
 				fb.clearScreen();
 				fb.anticlip(polygonFinal,toogleMenu);
+				fb.drawCurve(compas, 6, Color(255,255,255));
+				fb.drawLine(p1, p2, Color(255,255,255));
 				break;
 			//Toogle On jalan
 			case '2':
@@ -404,6 +423,8 @@ int main(void) {
 				
 				fb.clearScreen();
 				fb.anticlip(polygonFinal,toogleMenu);
+				fb.drawCurve(compas, 6, Color(255,255,255));
+				fb.drawLine(p1, p2, Color(255,255,255));
 				break;
 			//Toogle On batas provinsi
 			case '3':
@@ -417,6 +438,8 @@ int main(void) {
 				
 				fb.clearScreen();
 				fb.anticlip(polygonFinal,toogleMenu);
+				fb.drawCurve(compas, 6, Color(255,255,255));
+				fb.drawLine(p1, p2, Color(255,255,255));
 				break;
 			//Toogle On kota
 			case '4':
@@ -430,6 +453,8 @@ int main(void) {
 				fb.clearScreen();
 				
 				fb.anticlip(polygonFinal,toogleMenu);
+				fb.drawCurve(compas, 6, Color(255,255,255));
+				fb.drawLine(p1, p2, Color(255,255,255));
 				break;
 			//Toogle On teks
 			case '5':
@@ -444,6 +469,8 @@ int main(void) {
 				}
 				fb.clearScreen();
 				fb.anticlip(polygonFinal,toogleMenu);
+				fb.drawCurve(compas, 6, Color(255,255,255));
+				fb.drawLine(p1, p2, Color(255,255,255));
 				break;
 			//Zoom In
 			case 'Z' :
@@ -456,6 +483,8 @@ int main(void) {
 					
 				}
 				fb.anticlip(polygonFinal,toogleMenu);
+				fb.drawCurve(compas, 6, Color(255,255,255));
+				fb.drawLine(p1, p2, Color(255,255,255));
 				
 				break;
 			//Zoom Out
@@ -469,6 +498,8 @@ int main(void) {
 				}
 
 				fb.anticlip(polygonFinal,toogleMenu);
+				fb.drawCurve(compas, 6, Color(255,255,255));
+				fb.drawLine(p1, p2, Color(255,255,255));
 				
 				break;
 			//Rotate degree
@@ -481,6 +512,11 @@ int main(void) {
 					}
 				}
 				fb.anticlip(polygonFinal,toogleMenu);
+				angle += degree;
+				p2.setX(p1.getX() + 15*cos(angle));
+				p2.setY(p1.getY() + 15*sin(angle));
+				fb.drawCurve(compas, 6, Color(255,255,255));
+				fb.drawLine(p1, p2, Color(255,255,255));
 				break;
 
 			//Rotate anti clockwise degree
@@ -492,7 +528,12 @@ int main(void) {
 						polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).rotate(anticlockwisedegree,pusat)));
 					}
 				}
+				angle -= degree;
+				p2.setX(p1.getX() + 15*cos(angle));
+				p2.setY(p1.getY() + 15*sin(angle));
 				fb.anticlip(polygonFinal,toogleMenu);
+				fb.drawCurve(compas, 6, Color(255,255,255));
+				fb.drawLine(p1, p2, Color(255,255,255));
 				break;
 			//Move with arrow key
 			case '\033':
@@ -508,6 +549,8 @@ int main(void) {
 
 						}
 						fb.anticlip(polygonFinal,toogleMenu);
+						fb.drawCurve(compas, 6, Color(255,255,255));
+						fb.drawLine(p1, p2, Color(255,255,255));
 						break;
 					//move arrow down
 					case 'B':
@@ -519,6 +562,8 @@ int main(void) {
 							}
 						}
 						fb.anticlip(polygonFinal,toogleMenu);
+						fb.drawCurve(compas, 6, Color(255,255,255));
+						fb.drawLine(p1, p2, Color(255,255,255));
 						break;
 					//move arrow right
 					case 'C':
@@ -530,6 +575,8 @@ int main(void) {
 							}
 						}
 						fb.anticlip(polygonFinal,toogleMenu);
+						fb.drawCurve(compas, 6, Color(255,255,255));
+						fb.drawLine(p1, p2, Color(255,255,255));
 						
 						break;
 					//move arrow left
@@ -542,6 +589,8 @@ int main(void) {
 							}
 						}
 						fb.anticlip(polygonFinal,toogleMenu);
+						fb.drawCurve(compas, 6, Color(255,255,255));
+						fb.drawLine(p1, p2, Color(255,255,255));
 						break;
 				}
 		}
