@@ -1,9 +1,21 @@
 #include "framebuffer.h"
 #include <iostream>
 #include <signal.h>
+#include <string.h>
+#include <vector>
 
+#define NKETINGGIAN 14
 #define NPULAU 17
+#define NKOTA 34
 #define PI acos(-1)
+
+#define ZPULAU 0
+#define ZKETINGGIAN 1
+#define ZJALAN 2
+#define ZPROVINSI 3
+#define ZKOTA 4
+#define ZTEXT 5
+
 
 using namespace std;
 
@@ -55,765 +67,398 @@ void INThandler(int sig) {
 int main(void) {
 	FrameBuffer fb;
 	fb.clearScreen();
+
 	Polygon pulau[NPULAU];
+	Polygon marker[NKOTA];
+	//Polygon ketinggian[NPULAU];
+	vector<Polygon> kota;
+	vector<Polygon> bat;
+	vector<Polygon> polygonFinal=fb.polygonparser();
+
+	fb.addpolygonsfinal("SAYA",Point(100,100), polygonFinal);
 	char c;
 	int i;
 
-	pulau[0].addPoint(Point(17,60));
-	pulau[0].addPoint(Point(24,60));
-	pulau[0].addPoint(Point(32,65));
-	pulau[0].addPoint(Point(52,66));
-	pulau[0].addPoint(Point(65,79));
-	pulau[0].addPoint(Point(66,84));
-	pulau[0].addPoint(Point(94,106));
-	pulau[0].addPoint(Point(109,119));
-	pulau[0].addPoint(Point(107,116));
-	pulau[0].addPoint(Point(112,114));
-	pulau[0].addPoint(Point(122,124));
-	pulau[0].addPoint(Point(131,132));
-	pulau[0].addPoint(Point(140,140));
-	pulau[0].addPoint(Point(144,144));
-	pulau[0].addPoint(Point(149,143));
-	pulau[0].addPoint(Point(157,150));
-	pulau[0].addPoint(Point(153,158));
-	pulau[0].addPoint(Point(152,164));
-	pulau[0].addPoint(Point(159,169));
-	pulau[0].addPoint(Point(167,170));
-	pulau[0].addPoint(Point(170,182));
-	pulau[0].addPoint(Point(174,185));
-	pulau[0].addPoint(Point(175,192));
-	pulau[0].addPoint(Point(185,191));
-	pulau[0].addPoint(Point(191,199));
-	pulau[0].addPoint(Point(195,206));
-	pulau[0].addPoint(Point(193,212));
-	pulau[0].addPoint(Point(190,246));
-	pulau[0].addPoint(Point(189,250));
-	pulau[0].addPoint(Point(182,245));
-	pulau[0].addPoint(Point(181,249));
-	pulau[0].addPoint(Point(172,244));
-	pulau[0].addPoint(Point(172,251));
-	pulau[0].addPoint(Point(172,251));
-	pulau[0].addPoint(Point(159,238));
-	pulau[0].addPoint(Point(134,219));
-	pulau[0].addPoint(Point(130,214));
-	pulau[0].addPoint(Point(111,191));
-	pulau[0].addPoint(Point(109,184));
-	pulau[0].addPoint(Point(100,169));
-	pulau[0].addPoint(Point(86,151));
-	pulau[0].addPoint(Point(81,148));
-	pulau[0].addPoint(Point(77,131));
-	pulau[0].addPoint(Point(75,126));
-	pulau[0].addPoint(Point(58,115));
-	pulau[0].addPoint(Point(56,114));
-	pulau[0].addPoint(Point(54,103));
-	pulau[0].addPoint(Point(51,103));
-	pulau[0].addPoint(Point(41,92));
-	pulau[0].addPoint(Point(35,90));
-	pulau[0].addPoint(Point(20,74));
-	pulau[0].addPoint(Point(16,66));
-	pulau[0].setPriority(0);
-	pulau[0].setColor(Color(0,100,0));
+	fb.drawRectangle(13,58,Color(200,0,0),10,kota);
+	fb.drawRectangle(67,90,Color(200,0,0),10,kota);
+	fb.drawRectangle(114,142,Color(200,0,0),10,kota);
+	fb.drawRectangle(151,142,Color(200,0,0),10,kota);
+	fb.drawRectangle(97,164,Color(200,0,0),10,kota);
+	fb.drawRectangle(153,178,Color(200,0,0),10,kota);
+	fb.drawRectangle(127,213,Color(200,0,0),10,kota);
+	fb.drawRectangle(170,201,Color(200,0,0),10,kota);
+	fb.drawRectangle(189,190,Color(200,0,0),10,kota);
+	fb.drawRectangle(177,240,Color(200,0,0),10,kota);
+	fb.drawRectangle(191,259,Color(200,0,0),10,kota);
+	fb.drawRectangle(202,257,Color(100,0,100),20,kota);
+	fb.drawRectangle(219,269,Color(200,0,0),10,kota);
+	fb.drawRectangle(261,270,Color(200,0,0),10,kota);
+	fb.drawRectangle(262,284,Color(200,0,0),10,kota);
+	fb.drawRectangle(299,276,Color(200,0,0),10,kota);
+	fb.drawRectangle(341,296,Color(200,0,0),10,kota);
+	fb.drawRectangle(360,298,Color(200,0,0),10,kota);
+	fb.drawRectangle(491,318,Color(200,0,0),10,kota);
+	fb.drawRectangle(723,237,Color(200,0,0),10,kota);
+	fb.drawRectangle(767,196,Color(200,0,0),10,kota);
+	fb.drawRectangle(653,174,Color(200,0,0),10,kota);
+	fb.drawRectangle(560,215,Color(200,0,0),10,kota);
+	fb.drawRectangle(506,131,Color(200,0,0),10,kota);
+	fb.drawRectangle(480,143,Color(200,0,0),10,kota);
+	fb.drawRectangle(464,176,Color(200,0,0),10,kota);
+	fb.drawRectangle(418,166,Color(200,0,0),10,kota);
+	fb.drawRectangle(410,197,Color(200,0,0),10,kota);
+	fb.drawRectangle(466,221,Color(200,0,0),10,kota);
+	fb.drawRectangle(415,240,Color(200,0,0),10,kota);
+	fb.drawRectangle(377,159,Color(200,0,0),10,kota);
+	fb.drawRectangle(332,209,Color(200,0,0),10,kota);
+	fb.drawRectangle(319,193,Color(200,0,0),10,kota);
+	fb.drawRectangle(244,152,Color(200,0,0),10,kota);
 
-	pulau[1].addPoint(Point(194,251));
-	pulau[1].addPoint(Point(209,253));
-	pulau[1].addPoint(Point(210,251));
-	pulau[1].addPoint(Point(213,251));
-	pulau[1].addPoint(Point(221,256));
-	pulau[1].addPoint(Point(230,258));
-	pulau[1].addPoint(Point(233,258));
-	pulau[1].addPoint(Point(236,262));
-	pulau[1].addPoint(Point(239,266));
-	pulau[1].addPoint(Point(265,269));
-	pulau[1].addPoint(Point(273,259));
-	pulau[1].addPoint(Point(276,260));
-	pulau[1].addPoint(Point(279,263));
-	pulau[1].addPoint(Point(287,263));
-	pulau[1].addPoint(Point(301,268));
-	pulau[1].addPoint(Point(306,273));
-	pulau[1].addPoint(Point(307,278));
-	pulau[1].addPoint(Point(315,282));
-	pulau[1].addPoint(Point(324,279));
-	pulau[1].addPoint(Point(333,282));
-	pulau[1].addPoint(Point(332,290));
-	pulau[1].addPoint(Point(334,298));
-	pulau[1].addPoint(Point(315,292));
-	pulau[1].addPoint(Point(312,289));
-	pulau[1].addPoint(Point(299,292));
-	pulau[1].addPoint(Point(287,291));
-	pulau[1].addPoint(Point(267,287));
-	pulau[1].addPoint(Point(255,282));
-	pulau[1].addPoint(Point(243,281));
-	pulau[1].addPoint(Point(238,280));
-	pulau[1].addPoint(Point(230,281));
-	pulau[1].addPoint(Point(218,278));
-	pulau[1].addPoint(Point(204,274));
-	pulau[1].addPoint(Point(199,274));
-	pulau[1].addPoint(Point(204,269));
-	pulau[1].addPoint(Point(189,266));
-	pulau[1].addPoint(Point(186,266));
-	pulau[1].addPoint(Point(193,258));
-	pulau[1].addPoint(Point(196,251));
-	pulau[1].setPriority(0);
-	pulau[1].setColor(Color(0,100,0));
-
-
-	pulau[2].addPoint(Point(251,120));
-	pulau[2].addPoint(Point(274,127));
-	pulau[2].addPoint(Point(283,110));
-	pulau[2].addPoint(Point(288,105));
-	pulau[2].addPoint(Point(307,101));
-	pulau[2].addPoint(Point(327,78));
-	pulau[2].addPoint(Point(343,68));
-	pulau[2].addPoint(Point(350,68));
-	pulau[2].addPoint(Point(353,60));
-	pulau[2].addPoint(Point(371,38));
-	pulau[2].addPoint(Point(379,34));
-	pulau[2].addPoint(Point(383,44));
-	pulau[2].addPoint(Point(389,52));
-	pulau[2].addPoint(Point(410,63));
-	pulau[2].addPoint(Point(407,69));
-	pulau[2].addPoint(Point(396,71));
-	pulau[2].addPoint(Point(400,78));
-	pulau[2].addPoint(Point(385,85));
-	pulau[2].addPoint(Point(389,93));
-	pulau[2].addPoint(Point(383,97));
-	pulau[2].addPoint(Point(393,115));
-	pulau[2].addPoint(Point(390,120));
-	pulau[2].addPoint(Point(406,134));
-	pulau[2].addPoint(Point(403,139));
-	pulau[2].addPoint(Point(387,141));
-	pulau[2].addPoint(Point(384,158));
-	pulau[2].addPoint(Point(381,165));
-	pulau[2].addPoint(Point(368,178));
-	pulau[2].addPoint(Point(365,198));
-	pulau[2].addPoint(Point(362,208));
-	pulau[2].addPoint(Point(361,217));
-	pulau[2].addPoint(Point(353,215));
-	pulau[2].addPoint(Point(336,220));
-	pulau[2].addPoint(Point(328,212));
-	pulau[2].addPoint(Point(327,205));
-	pulau[2].addPoint(Point(321,210));
-	pulau[2].addPoint(Point(312,203));
-	pulau[2].addPoint(Point(300,206));
-	pulau[2].addPoint(Point(292,210));
-	pulau[2].addPoint(Point(288,201));
-	pulau[2].addPoint(Point(264,200));
-	pulau[2].addPoint(Point(258,176));
-	pulau[2].addPoint(Point(245,163));
-	pulau[2].addPoint(Point(241,146));
-	pulau[2].addPoint(Point(246,125));
-	pulau[2].setPriority(0);
-	pulau[2].setColor(Color(0,100,0));
-
-
-	pulau[3].addPoint(Point(431,136));
-	pulau[3].addPoint(Point(438,136));
-	pulau[3].addPoint(Point(441,131));
-	pulau[3].addPoint(Point(447,130));
-	pulau[3].addPoint(Point(451,134));
-	pulau[3].addPoint(Point(459,135));
-	pulau[3].addPoint(Point(466,137));
-	pulau[3].addPoint(Point(474,137));
-	pulau[3].addPoint(Point(479,138));
-	pulau[3].addPoint(Point(488,138));
-	pulau[3].addPoint(Point(495,135));
-	pulau[3].addPoint(Point(500,133));
-	pulau[3].addPoint(Point(505,129));
-	pulau[3].addPoint(Point(511,125));
-	pulau[3].addPoint(Point(512,131));
-	pulau[3].addPoint(Point(509,136));
-	pulau[3].addPoint(Point(505,141));
-	pulau[3].addPoint(Point(495,146));
-	pulau[3].addPoint(Point(483,146));
-	pulau[3].addPoint(Point(467,143));
-	pulau[3].addPoint(Point(466,144));
-	pulau[3].addPoint(Point(451,144));
-	pulau[3].addPoint(Point(436,144));
-	pulau[3].addPoint(Point(431,146));
-	pulau[3].addPoint(Point(426,156));
-	pulau[3].addPoint(Point(428,163));
-	pulau[3].addPoint(Point(435,169));
-	pulau[3].addPoint(Point(440,176));
-	pulau[3].addPoint(Point(447,173));
-	pulau[3].addPoint(Point(451,169));
-	pulau[3].addPoint(Point(457,167));
-	pulau[3].addPoint(Point(467,164));
-	pulau[3].addPoint(Point(479,161));
-	pulau[3].addPoint(Point(482,165));
-	pulau[3].addPoint(Point(478,169));
-	pulau[3].addPoint(Point(471,169));
-	pulau[3].addPoint(Point(464,177));
-	pulau[3].addPoint(Point(454,183));
-	pulau[3].addPoint(Point(448,184));
-	pulau[3].addPoint(Point(455,191));
-	pulau[3].addPoint(Point(464,202));
-	pulau[3].addPoint(Point(464,214));
-	pulau[3].addPoint(Point(470,219));
-	pulau[3].addPoint(Point(469,225));
-	pulau[3].addPoint(Point(452,232));
-	pulau[3].addPoint(Point(449,217));
-	pulau[3].addPoint(Point(445,215));
-	pulau[3].addPoint(Point(440,209));
-	pulau[3].addPoint(Point(440,195));
-	pulau[3].addPoint(Point(433,200));
-	pulau[3].addPoint(Point(430,207));
-	pulau[3].addPoint(Point(432,220));
-	pulau[3].addPoint(Point(433,233));
-	pulau[3].addPoint(Point(428,245));
-	pulau[3].addPoint(Point(418,242));
-	pulau[3].addPoint(Point(419,227));
-	pulau[3].addPoint(Point(419,213));
-	pulau[3].addPoint(Point(407,211));
-	pulau[3].addPoint(Point(405,196));
-	pulau[3].addPoint(Point(412,182));
-	pulau[3].addPoint(Point(416,165));
-	pulau[3].setPriority(0);
-	pulau[3].setColor(Color(0,100,0));
-
-	pulau[4].addPoint(Point(349,306));
-	pulau[4].addPoint(Point(341,300));
-	pulau[4].addPoint(Point(342,293));
-	pulau[4].addPoint(Point(351,292));
-	pulau[4].addPoint(Point(359,298));
-	pulau[4].setPriority(0);
-	pulau[4].setColor(Color(0,100,0));
-
-	pulau[5].addPoint(Point(368,298));
-	pulau[5].addPoint(Point(376,300));
-	pulau[5].addPoint(Point(373,306));
-	pulau[5].addPoint(Point(365,305));
-	pulau[5].setPriority(0);
-	pulau[5].setColor(Color(0,100,0));
-
-
-	pulau[6].addPoint(Point(382,300));
-	pulau[6].addPoint(Point(388,301));
-	pulau[6].addPoint(Point(392,303));
-	pulau[6].addPoint(Point(395,303));
-	pulau[6].addPoint(Point(395,309));
-	pulau[6].addPoint(Point(384,308));
-	pulau[6].addPoint(Point(381,309));
-	pulau[6].addPoint(Point(377,308));
-	pulau[6].addPoint(Point(379,302));
-	pulau[6].setPriority(0);
-	pulau[6].setColor(Color(0,100,0));
-
-	pulau[7].addPoint(Point(808,209));
-	pulau[7].addPoint(Point(792,201));
-	pulau[7].addPoint(Point(774,197));
-	pulau[7].addPoint(Point(734,181));
-	pulau[7].addPoint(Point(722,187));
-	pulau[7].addPoint(Point(724,192));
-	pulau[7].addPoint(Point(708,193));
-	pulau[7].addPoint(Point(708,200));
-	pulau[7].addPoint(Point(701,201));
-	pulau[7].addPoint(Point(697,211));
-	pulau[7].addPoint(Point(682,206));
-	pulau[7].addPoint(Point(672,193));
-	pulau[7].addPoint(Point(673,175));
-	pulau[7].addPoint(Point(671,168));
-	pulau[7].addPoint(Point(642,161));
-	pulau[7].addPoint(Point(625,168));
-	pulau[7].addPoint(Point(621,174));
-	pulau[7].addPoint(Point(618,181));
-	pulau[7].addPoint(Point(631,182));
-	pulau[7].addPoint(Point(637,193));
-	pulau[7].addPoint(Point(655,193));
-	pulau[7].addPoint(Point(668,192));
-	pulau[7].addPoint(Point(668,196));
-	pulau[7].addPoint(Point(664,200));
-	pulau[7].addPoint(Point(654,197));
-	pulau[7].addPoint(Point(648,203));
-	pulau[7].addPoint(Point(637,205));
-	pulau[7].addPoint(Point(647,211));
-	pulau[7].addPoint(Point(649,225));
-	pulau[7].addPoint(Point(660,214));
-	pulau[7].addPoint(Point(666,207));
-	pulau[7].addPoint(Point(668,222));
-	pulau[7].addPoint(Point(685,229));
-	pulau[7].addPoint(Point(711,237));
-	pulau[7].addPoint(Point(732,247));
-	pulau[7].addPoint(Point(748,269));
-	pulau[7].addPoint(Point(749,280));
-	pulau[7].addPoint(Point(740,283));
-	pulau[7].addPoint(Point(731,298));
-	pulau[7].addPoint(Point(746,300));
-	pulau[7].addPoint(Point(760,292));
-	pulau[7].addPoint(Point(771,295));
-	pulau[7].addPoint(Point(788,312));
-	pulau[7].addPoint(Point(809,312));
-	pulau[7].setPriority(0);
-	pulau[7].setColor(Color(0,100,0));
-
-	pulau[8].addPoint(Point(489,331));
-	pulau[8].addPoint(Point(495,322));
-	pulau[8].addPoint(Point(499,316));
-	pulau[8].addPoint(Point(509,312));
-	pulau[8].addPoint(Point(516,309));
-	pulau[8].addPoint(Point(523,304));
-	pulau[8].addPoint(Point(532,301));
-	pulau[8].addPoint(Point(540,301));
-	pulau[8].addPoint(Point(547,299));
-	pulau[8].addPoint(Point(553,301));
-	pulau[8].addPoint(Point(531,313));
-	pulau[8].addPoint(Point(523,313));
-	pulau[8].addPoint(Point(514,325));
-	pulau[8].setPriority(0);
-	pulau[8].setColor(Color(0,100,0));
-
-	pulau[9].addPoint(Point(427,304));
-	pulau[9].addPoint(Point(442,295));
-	pulau[9].addPoint(Point(456,301));
-	pulau[9].addPoint(Point(467,303));
-	pulau[9].addPoint(Point(477,302));
-	pulau[9].addPoint(Point(463,308));
-	pulau[9].setPriority(0);
-	pulau[9].setColor(Color(0,100,0));
-
-	pulau[10].addPoint(Point(581,209));
-	pulau[10].addPoint(Point(575,214));
-	pulau[10].addPoint(Point(567,205));
-	pulau[10].addPoint(Point(581,203));
-	pulau[10].addPoint(Point(590,204));
-	pulau[10].addPoint(Point(604,208));
-	pulau[10].addPoint(Point(613,214));
-	pulau[10].addPoint(Point(612,221));
-	pulau[10].addPoint(Point(599,212));
-	pulau[10].addPoint(Point(589,214));
-	pulau[10].setPriority(0);
-	pulau[10].setColor(Color(0,100,0));
-
-	pulau[11].addPoint(Point(570,171));
-	pulau[11].addPoint(Point(562,159));
-	pulau[11].addPoint(Point(558,146));
-	pulau[11].addPoint(Point(557,132));
-	pulau[11].addPoint(Point(567,116));
-	pulau[11].addPoint(Point(568,131));
-	pulau[11].addPoint(Point(563,139));
-	pulau[11].addPoint(Point(570,137));
-	pulau[11].addPoint(Point(580,129));
-	pulau[11].addPoint(Point(576,137));
-	pulau[11].addPoint(Point(574,145));
-	pulau[11].addPoint(Point(582,152));
-	pulau[11].addPoint(Point(568,148));
-	pulau[11].addPoint(Point(567,161));
-	pulau[11].setPriority(0);
-	pulau[11].setColor(Color(0,100,0));
-
-	pulau[12].addPoint(Point(513,189));
-	pulau[12].addPoint(Point(510,192));
-	pulau[12].addPoint(Point(504,188));
-	pulau[12].addPoint(Point(506,182));
-	pulau[12].addPoint(Point(516,185));
-	pulau[12].addPoint(Point(523,187));
-	pulau[12].addPoint(Point(535,184));
-	pulau[12].addPoint(Point(538,187));
-	pulau[12].addPoint(Point(529,189));
-	pulau[12].addPoint(Point(516,189));
-	pulau[12].setPriority(0);
-	pulau[12].setColor(Color(0,100,0));
-
-	pulau[13].addPoint(Point(179,191));
-	pulau[13].addPoint(Point(190,193));
-	pulau[13].addPoint(Point(194,203));
-	pulau[13].addPoint(Point(203,208));
-	pulau[13].addPoint(Point(207,207));
-	pulau[13].addPoint(Point(208,201));
-	pulau[13].addPoint(Point(200,196));
-	pulau[13].addPoint(Point(193,182));
-	pulau[13].addPoint(Point(191,186));
-	pulau[13].addPoint(Point(187,181));
-	pulau[13].addPoint(Point(183,182));
-	pulau[13].setPriority(0);
-	pulau[13].setColor(Color(0,100,0));
-
-	pulau[14].addPoint(Point(546,222));
-	pulau[14].addPoint(Point(535,214));
-	pulau[14].addPoint(Point(533,209));
-	pulau[14].addPoint(Point(544,208));
-	pulau[14].addPoint(Point(551,209));
-	pulau[14].addPoint(Point(555,216));
-	pulau[14].setPriority(0);
-	pulau[14].setColor(Color(0,100,0));
-
-	pulau[15].addPoint(Point(48,140));
-	pulau[15].addPoint(Point(45,131));
-	pulau[15].addPoint(Point(50,132));
-	pulau[15].addPoint(Point(58,139));
-	pulau[15].addPoint(Point(55,147));
-	pulau[15].setPriority(0);
-	pulau[15].setColor(Color(0,100,0));
-
-	pulau[16].addPoint(Point(71,171));
-	pulau[16].addPoint(Point(69,175));
-	pulau[16].addPoint(Point(75,187));
-	pulau[16].addPoint(Point(81,184));
-	pulau[16].addPoint(Point(74,171));
-	pulau[16].setPriority(0);
-	pulau[16].setColor(Color(0,100,0));
-
-	Point** jalan = (Point**) malloc (sizeof(Point*) * 30);
-	for (i=0; i<30; i++)
-		jalan[i] = (Point*) malloc (sizeof(Point) * 9);
-
-/* ---- Sumatra ---- */
-	jalan[0][0] = Point(17,60);
-	jalan[0][1] = Point(24,60);
-	jalan[0][2] = Point(30,65);
-	jalan[0][3] = Point(30,70);
-	jalan[0][4] = Point(60,80);
-	jalan[0][5] = Point(90,122);
-	jalan[0][6] = Point(115,177);
-	jalan[0][7] = Point(150,199);
-	jalan[0][8] = Point(81,148);
-
-	jalan[1][0] = Point(17,60);
-	jalan[1][1] = Point(20,74);
-	jalan[1][2] = Point(48,92);
-	jalan[1][3] = Point(68,120);
-	jalan[1][4] = Point(72,125);
-	jalan[1][5] = Point(82,126);
-	jalan[1][6] = Point(77,131);
-	jalan[1][7] = Point(81,148);
-	jalan[1][8] = Point(158,230);
-
-	jalan[2][0] = Point(40,80);
-	jalan[2][1] = Point(50,132);
-	jalan[2][2] = Point(131,143);
-	jalan[2][3] = Point(149,158);
-	jalan[2][4] = Point(149,180);
-	jalan[2][5] = Point(160,180);
-	jalan[2][6] = Point(160,200);
-	jalan[2][7] = Point(170,225);
-	jalan[2][8] = Point(180,240);
-
-	jalan[3][0] = Point(122,156);
-	jalan[3][1] = Point(131,172);
-	jalan[3][2] = Point(131,183);
-	jalan[3][3] = Point(120,178);
-	jalan[3][4] = Point(130,190);
-	jalan[3][5] = Point(180,200);
-	jalan[3][6] = Point(140,230);
-	jalan[3][7] = Point(190,225);
-	jalan[3][8] = Point(170,230);
-
-	jalan[4][0] = Point(90,150);
-	jalan[4][1] = Point(92,150);
-	jalan[4][2] = Point(95,141);
-	jalan[4][3] = Point(100,120);
-	jalan[4][4] = Point(100,110);
-	jalan[4][5] = Point(110,120);
-	jalan[4][6] = Point(120,100);
-	jalan[4][7] = Point(140,170);
-	jalan[4][8] = Point(130,210);
-/* ---- Sumatra ---- */
-
-/* ---- Jawa ---- */
-	jalan[5][0] = Point(194,251);
-	jalan[5][1] = Point(200,270);
-	jalan[5][2] = Point(230,260);
-	jalan[5][3] = Point(240,280);
-	jalan[5][4] = Point(250,260);
-	jalan[5][5] = Point(270,280);
-	jalan[5][6] = Point(290,280);
-	jalan[5][7] = Point(324,287);
-	jalan[5][8] = Point(330,295);
-
-	jalan[6][0] = Point(194,251);
-	jalan[6][1] = Point(200,255);
-	jalan[6][2] = Point(230,260);
-	jalan[6][3] = Point(240,300);
-	jalan[6][4] = Point(250,280);
-	jalan[6][5] = Point(270,290);
-	jalan[6][6] = Point(290,280);
-	jalan[6][7] = Point(324,282);
-	jalan[6][8] = Point(330,285);
-	
-	jalan[7][0] = Point(194,251);
-	jalan[7][1] = Point(200,280);
-	jalan[7][2] = Point(230,280);
-	jalan[7][3] = Point(240,290);
-	jalan[7][4] = Point(250,270);
-	jalan[7][5] = Point(270,270);
-	jalan[7][6] = Point(290,275);
-	jalan[7][7] = Point(324,287);
-	jalan[7][8] = Point(330,290);
-/* ---- Jawa ---- */
-
-/* ---- Kalimantan ---- */
-	jalan[8][0] = Point(240,150);
-	jalan[8][1] = Point(260,170);
-	jalan[8][2] = Point(290,250);
-	jalan[8][3] = Point(320,130);
-	jalan[8][4] = Point(340,130);
-	jalan[8][5] = Point(330,200);
-	jalan[8][6] = Point(343,195);
-	jalan[8][7] = Point(360,203);
-	jalan[8][8] = Point(360,198);
-
-	jalan[9][0] = Point(320,150);
-	jalan[9][1] = Point(360,180);
-	jalan[9][2] = Point(400,120);
-	jalan[9][3] = Point(400,110);
-	jalan[9][4] = Point(340,90);
-	jalan[9][5] = Point(350,80);
-	jalan[9][6] = Point(385,65);
-	jalan[9][7] = Point(380,60);
-	jalan[9][8] = Point(390,60);
-/* ---- Kalimantan ---- */
-
-/* ---- Sulawesi ---- */
-	jalan[10][0] = Point(490,145);
-	jalan[10][1] = Point(380,105);
-	jalan[10][2] = Point(430,200);
-	jalan[10][3] = Point(425,200);
-	jalan[10][4] = Point(420,245);
-	jalan[10][5] = Point(425,250);
-	jalan[10][6] = Point(430,245);
-	jalan[10][7] = Point(430,220);
-	jalan[10][8] = Point(425,210);
-
-	jalan[11][0] = Point(435,195);
-	jalan[11][1] = Point(445,185);
-	jalan[11][2] = Point(450,210);
-	jalan[11][3] = Point(450,230);
-	jalan[11][4] = Point(455,235);
-	jalan[11][5] = Point(460,230);
-	jalan[11][6] = Point(455,225);
-	jalan[11][7] = Point(465,225);
-	jalan[11][8] = Point(470,220);
-/* ---- Sulawesi ---- */
-
-	for (int j=0;j<NPULAU;j++) {
-		fb.drawPolygon(pulau[j], Color(60,200,80));
-		fb.fillPolygon(pulau[j], Color(60,200,80));
-	}
-	
-	for (i=0; i<12;i++){
-		fb.drawCurve(jalan[i], 9, Color(85,107,47));
-	}
-
+	fb.anticlip(polygonFinal);
+	fb.anticlip(kota);
 	Point pusat = Point(500,500);
 	float degree = -20.0 * PI/180.0;
 	float anticlockwisedegree = 20.0 * PI/180.0;
 
 	signal(SIGINT, INThandler);
 
+
+	Polygon batas[10];
+
+	/*-------- Sumatra --------*/
+	batas[0].addPoint(Point(19,78));
+	batas[0].addPoint(Point(24,78));
+	batas[0].addPoint(Point(32,75));
+	batas[0].addPoint(Point(52,76));
+	batas[0].addPoint(Point(65,89));
+	batas[0].addPoint(Point(66,94));
+	batas[0].addPoint(Point(94,116));
+	batas[0].addPoint(Point(109,129));
+	batas[0].addPoint(Point(107,126));
+	batas[0].addPoint(Point(112,129));
+	batas[0].addPoint(Point(122,139));
+	batas[0].addPoint(Point(131,147));
+	batas[0].addPoint(Point(140,155));
+	batas[0].addPoint(Point(144,159));
+	batas[0].addPoint(Point(149,168));
+	batas[0].addPoint(Point(157,172));
+	batas[0].addPoint(Point(153,178));
+	batas[0].addPoint(Point(152,184));
+	batas[0].addPoint(Point(159,189));
+	batas[0].addPoint(Point(167,190));
+	batas[0].addPoint(Point(170,202));
+	batas[0].addPoint(Point(174,205));
+	batas[0].addPoint(Point(175,212));
+	batas[0].addPoint(Point(185,211));
+	batas[0].addPoint(Point(186,219));
+	batas[0].addPoint(Point(187,226));
+	batas[0].addPoint(Point(187,224));
+	batas[0].addPoint(Point(186,217));
+	batas[0].addPoint(Point(185,209));
+	batas[0].addPoint(Point(175,210));	
+	batas[0].addPoint(Point(174,203));
+	batas[0].addPoint(Point(170,200));
+	batas[0].addPoint(Point(167,188));
+	batas[0].addPoint(Point(159,187));
+	batas[0].addPoint(Point(152,182));
+	batas[0].addPoint(Point(153,176));
+	batas[0].addPoint(Point(157,163));
+	batas[0].addPoint(Point(149,166));
+	batas[0].addPoint(Point(144,167));
+	batas[0].addPoint(Point(140,153));
+	batas[0].addPoint(Point(131,145));
+	batas[0].addPoint(Point(122,137));
+	batas[0].addPoint(Point(112,127));
+	batas[0].addPoint(Point(107,114));
+	batas[0].addPoint(Point(109,127));
+	batas[0].addPoint(Point(94,114));
+	batas[0].addPoint(Point(66,92));
+	batas[0].addPoint(Point(65,87));
+	batas[0].addPoint(Point(52,74));
+	batas[0].addPoint(Point(32,73));
+	batas[0].addPoint(Point(24,76));
+	batas[0].addPoint(Point(19,78));
+
+	batas[1].addPoint(Point(19,76));
+	batas[1].addPoint(Point(50,98));
+	batas[1].addPoint(Point(50,100));
+	batas[1].addPoint(Point(60,110));
+	batas[1].addPoint(Point(90,152));
+	batas[1].addPoint(Point(115,197));
+	batas[1].addPoint(Point(150,219));
+	batas[1].addPoint(Point(150,217));
+	batas[1].addPoint(Point(115,195));
+	batas[1].addPoint(Point(90,150));
+	batas[1].addPoint(Point(62,110));
+	batas[1].addPoint(Point(52,100));
+	batas[1].addPoint(Point(52,96));
+	batas[1].addPoint(Point(19,76));
+
+	batas[2].addPoint(Point(90,152));	
+	batas[2].addPoint(Point(135,165));
+	batas[2].addPoint(Point(150,180));
+	batas[2].addPoint(Point(115,197));
+	batas[2].addPoint(Point(130,212));
+	batas[2].addPoint(Point(175,225));
+	batas[2].addPoint(Point(173,225));
+	batas[2].addPoint(Point(128,210));
+	batas[2].addPoint(Point(117,195));
+	batas[2].addPoint(Point(152,182));
+	batas[2].addPoint(Point(137,163));
+	batas[2].addPoint(Point(90,152));
+	
+	/*-------- Sumatra --------*/
+
+	/*-------- Jawa --------*/
+	batas[3].addPoint(Point(190,260));	
+	batas[3].addPoint(Point(230,280));
+	batas[3].addPoint(Point(280,270));
+	batas[3].addPoint(Point(300,290));
+	batas[3].addPoint(Point(330,300));
+	batas[3].addPoint(Point(330,298));
+	batas[3].addPoint(Point(300,288));
+	batas[3].addPoint(Point(280,268));
+	batas[3].addPoint(Point(230,278));
+	batas[3].addPoint(Point(190,260));	
+
+	batas[4].addPoint(Point(190,260));	
+	batas[4].addPoint(Point(230,270));
+	batas[4].addPoint(Point(280,290));
+	batas[4].addPoint(Point(300,280));
+	batas[4].addPoint(Point(330,290));
+	batas[4].addPoint(Point(330,288));
+	batas[4].addPoint(Point(300,278));
+	batas[4].addPoint(Point(280,288));
+	batas[4].addPoint(Point(230,268));
+	batas[4].addPoint(Point(190,260));	
+	/*-------- Jawa --------*/
+
+	/*-------- Kalimantan --------*/
+	batas[5].addPoint(Point(230,140));
+	batas[5].addPoint(Point(280,190));
+	batas[5].addPoint(Point(310,162));
+	batas[5].addPoint(Point(340,210));
+	batas[5].addPoint(Point(380,110));
+	batas[5].addPoint(Point(380,108));
+	batas[5].addPoint(Point(340,208));
+	batas[5].addPoint(Point(310,160));
+	batas[5].addPoint(Point(280,188));
+	batas[5].addPoint(Point(230,140));
+
+	batas[6].addPoint(Point(310,150));
+	batas[6].addPoint(Point(380,145));
+	batas[6].addPoint(Point(360,90));
+	batas[6].addPoint(Point(380,80));
+	batas[6].addPoint(Point(380,78));
+	batas[6].addPoint(Point(360,88));
+	batas[6].addPoint(Point(380,143));
+	batas[6].addPoint(Point(310,148));
+	/*-------- Kalimantan --------*/
+
+	/*-------- Sulawesi --------*/
+	batas[7].addPoint(Point(520,145));
+	batas[7].addPoint(Point(425,150));
+	batas[7].addPoint(Point(420,250));
+	batas[7].addPoint(Point(430,250));
+	batas[7].addPoint(Point(435,200));
+	batas[7].addPoint(Point(445,190));
+	batas[7].addPoint(Point(445,188));
+	batas[7].addPoint(Point(434,198));
+	batas[7].addPoint(Point(428,248));
+	batas[7].addPoint(Point(422,248));
+	batas[7].addPoint(Point(427,152));
+	batas[7].addPoint(Point(520,145));
+
+	batas[8].addPoint(Point(445,200));
+	batas[8].addPoint(Point(455,240));
+	batas[8].addPoint(Point(460,230));
+	batas[8].addPoint(Point(455,195));
+	batas[8].addPoint(Point(453,195));
+	batas[8].addPoint(Point(458,228));
+	batas[8].addPoint(Point(455,238));
+	batas[8].addPoint(Point(445,200));
+	/*-------- Sulawesi --------*/
+
+	/*-------- Papua --------*/
+	batas[9].addPoint(Point(770,238));
+	batas[9].addPoint(Point(700,225));
+	batas[9].addPoint(Point(700,223));
+	batas[9].addPoint(Point(770,236));
+	batas[9].addPoint(Point(770,238));
+	/*-------- Papua --------*/
+
+	for (i=0; i<10; i++){
+		batas[i].setPriority(0);
+		batas[i].setColor(Color(255,131,250));
+		bat.push_back(batas[i]);
+		fb.anticlip(bat);
+	}
 	while (run) {
+		
 		c = getch();
 		switch (c) {
 			case 'Z' :
 			case 'z' :
+			fb.clearScreen();
 				for (int j=0;j<NPULAU;j++) {
-					fb.drawPolygon(pulau[j], Color(0,0,0));
-					fb.fillPolygon(pulau[j], Color(0,0,0));
-					for (i=0;i<pulau[j].getPoints().size();i++) {
-						pulau[j].setPoint(i,Point((fb.getScreenWidth()/2)+1.25*(pulau[j].getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+1.25*(pulau[j].getPoints().at(i).getY()-fb.getScreenHeight()/2)));
-					}
-					for (i=0;i<pulau[j].getPoints().size();i++) {
-						pulau[j].setPoint(i,Point((fb.getScreenWidth()/2)+1.25*(pulau[j].getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+1.25*(pulau[j].getPoints().at(i).getY()-fb.getScreenHeight()/2)));
-					}
-							
-				}
-				for (int j=0;j<NPULAU;j++) {
-					fb.drawPolygon(pulau[j], Color(60,200,80));
-					fb.fillPolygon(pulau[j], Color(60,200,80));
-				}
-
-				for (i=0;i<12;i++){
-					for (int j=0;j<9;j++){
-						jalan[i][j].setX((fb.getScreenWidth()/2)+1.25*(jalan[i][j].getX()-fb.getScreenWidth()/2));
-						jalan[i][j].setY((fb.getScreenHeight()/2)+1.25*(jalan[i][j].getY()-fb.getScreenHeight()/2));
+					for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+						polygonFinal.at(j).setPoint(i,Point((fb.getScreenWidth()/2)+1.25*(polygonFinal.at(j).getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+1.25*(polygonFinal.at(j).getPoints().at(i).getY()-fb.getScreenHeight()/2)));
 					}
 				}
-				for (i=0;i<12;i++){
-					for (int j=0;j<9;j++){
-						jalan[i][j].setX((fb.getScreenWidth()/2)+1.25*(jalan[i][j].getX()-fb.getScreenWidth()/2));
-						jalan[i][j].setY((fb.getScreenHeight()/2)+1.25*(jalan[i][j].getY()-fb.getScreenHeight()/2));
+				for (int j=0;j<10;j++) {
+					for (i=0;i<bat.at(j).getPoints().size();i++) {
+						bat.at(j).setPoint(i,Point((fb.getScreenWidth()/2)+1.25*(bat.at(j).getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+1.25*(bat.at(j).getPoints().at(i).getY()-fb.getScreenHeight()/2)));
 					}
-				}
-					for (i=0; i<12;i++){
-						fb.drawCurve(jalan[i], 9, Color(85,107,47));
-					}
-
+				}	
+				fb.anticlip(polygonFinal);
+				fb.anticlip(kota);
+				fb.anticlip(bat);
 				break;
 			case 'X' :
 			case 'x' :
+				fb.clearScreen();
 				for (int j=0;j<NPULAU;j++) {
-					fb.drawPolygon(pulau[j], Color(0,0,0));
-					fb.fillPolygon(pulau[j], Color(0,0,0));
-					for (i=0;i<pulau[j].getPoints().size();i++) {
-						pulau[j].setPoint(i,Point((fb.getScreenWidth()/2)+0.8*(pulau[j].getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+0.8*(pulau[j].getPoints().at(i).getY()-fb.getScreenHeight()/2)));
+					for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+						polygonFinal.at(j).setPoint(i,Point((fb.getScreenWidth()/2)+0.8*(polygonFinal.at(j).getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+0.8*(polygonFinal.at(j).getPoints().at(i).getY()-fb.getScreenHeight()/2)));
 					}
 				}
-				for (int j=0;j<NPULAU;j++) {
-					fb.drawPolygon(pulau[j], Color(60,200,80));
-					fb.fillPolygon(pulau[j], Color(60,200,80));
-				}
-				
-				for (i=0;i<12;i++){
-					for (int j=0;j<9;j++){
-						jalan[i][j].setX((fb.getScreenWidth()/2)+0.8*(jalan[i][j].getX()-fb.getScreenWidth()/2));
-						jalan[i][j].setY((fb.getScreenHeight()/2)+0.8*(jalan[i][j].getY()-fb.getScreenHeight()/2));
+				for (int j=0;j<10;j++) {
+					for (i=0;i<bat.at(j).getPoints().size();i++) {
+						bat.at(j).setPoint(i,Point((fb.getScreenWidth()/2)+0.8*(bat.at(j).getPoints().at(i).getX()-fb.getScreenWidth()/2), (fb.getScreenHeight()/2)+0.8*(bat.at(j).getPoints().at(i).getY()-fb.getScreenHeight()/2)));
 					}
-				}
-					for (i=0; i<12;i++){
-						fb.drawCurve(jalan[i], 9, Color(85,107,47));
-					}
-
-
-
+				}	
+				fb.anticlip(polygonFinal);
+				fb.anticlip(kota);
+				fb.anticlip(bat);
 				break;
 			case 'Q' :
 			case 'q' :
+				fb.clearScreen();
 				for (int j=0;j<NPULAU;j++) {
-					fb.drawPolygon(pulau[j], Color(0,0,0));
-					fb.fillPolygon(pulau[j], Color(0,0,0));
-					for (i=0;i<pulau[j].getPoints().size();i++) {
-						pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).rotate(degree,pusat)));
+					for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+						polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).rotate(degree,pusat)));
 					}
 				}
-				for (int j=0;j<NPULAU;j++) {
-					fb.drawPolygon(pulau[j], Color(60,200,80));
-					fb.fillPolygon(pulau[j], Color(60,200,80));
-				}
-				for (i=0;i<12;i++){
-					for (int j=0;j<9;j++){
-						jalan[i][j].rotate(degree,pusat);
+				for (int j=0;j<10;j++) {
+					for (i=0;i<bat.at(j).getPoints().size();i++) {
+						bat.at(j).setPoint(i,Point(bat.at(j).getPoints().at(i).rotate(degree,pusat)));
 					}
-				}
-					for (i=0; i<12;i++){
-						fb.drawCurve(jalan[i], 9, Color(85,107,47));
-					}
+				}	
+				fb.anticlip(polygonFinal);
+				fb.anticlip(kota);
+				fb.anticlip(bat);
 
 				break;
 			case 'W' :
 			case 'w' :
-				for (int j=0;j<NPULAU;j++) {
-					fb.drawPolygon(pulau[j], Color(0,0,0));
-					fb.fillPolygon(pulau[j], Color(0,0,0));
-					for (i=0;i<pulau[j].getPoints().size();i++) {
-						pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).rotate(anticlockwisedegree,pusat)));
-					}
-				}
-				for (int j=0;j<NPULAU;j++) {
-					fb.drawPolygon(pulau[j], Color(60,200,80));
-					fb.fillPolygon(pulau[j], Color(60,200,80));
-				}
-				for (i=0;i<12;i++){
-					for (int j=0;j<9;j++){
-						jalan[i][j].rotate(anticlockwisedegree,pusat);
-					}
-				}
-					for (i=0; i<12;i++){
-						fb.drawCurve(jalan[i], 9, Color(85,107,47));
-					}
 
-
+				fb.clearScreen();
+				for (int j=0;j<NPULAU;j++) {
+					for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+						polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).rotate(anticlockwisedegree,pusat)));
+					}
+				}
+				for (int j=0;j<10;j++) {
+					for (i=0;i<bat.at(j).getPoints().size();i++) {
+						bat.at(j).setPoint(i,Point(bat.at(j).getPoints().at(i).rotate(anticlockwisedegree,pusat)));
+					}
+				}
+				fb.anticlip(polygonFinal);
+				fb.anticlip(kota);
+				fb.anticlip(bat);
 				break;
 			case '\033':
 				getch();
 				switch(getch()) {
 					case 'A':
-						//fb.clearScreen();
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
-							
-							for (i=0;i<pulau[j].getPoints().size();i++) {
-								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX(), pulau[j].getPoints().at(i).getY()-10));
+						fb.clearScreen();
+						for (int j=0;j<polygonFinal.size();j++) {
+							for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX(), polygonFinal.at(j).getPoints().at(i).getY()-10));
 							}
 						}
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(60,200,80));
-							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
-
-						for (i=0;i<12;i++){
-							for (int j=0;j<9;j++){
-								jalan[i][j].setY((jalan[i][j].getY()-10));
+						for (int j=0;j<NKOTA;j++) {
+							for (i=0;i<kota.at(j).getPoints().size();i++) {
+								kota.at(j).setPoint(i,Point(kota.at(j).getPoints().at(i).getX(), kota.at(j).getPoints().at(i).getY()-10));
 							}
 						}
-						for (i=0; i<12;i++){
-							fb.drawCurve(jalan[i], 9, Color(85,107,47));
+						for (int j=0;j<bat.size();j++) {
+							for (i=0;i<bat.at(j).getPoints().size();i++) {
+								bat.at(j).setPoint(i,Point(bat.at(j).getPoints().at(i).getX(), bat.at(j).getPoints().at(i).getY()-10));
+							}
 						}
-
+						fb.anticlip(polygonFinal);
+						fb.anticlip(kota);
+						fb.anticlip(bat);
 						break;
 					case 'B':
-						//fb.clearScreen();
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+						fb.clearScreen();
+						for (int j=0;j<polygonFinal.size();j++) {
 							
-							for (i=0;i<pulau[j].getPoints().size();i++) {
-								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX(), pulau[j].getPoints().at(i).getY()+10));
+							for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX(), polygonFinal.at(j).getPoints().at(i).getY()+10));
 							}
 						}
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(60,200,80));
-							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
-						for (i=0;i<12;i++){
-							for (int j=0;j<9;j++){
-								jalan[i][j].setY((jalan[i][j].getY()+10));
+						for (int j=0;j<NKOTA;j++) {
+							for (i=0;i<kota.at(j).getPoints().size();i++) {
+								kota.at(j).setPoint(i,Point(kota.at(j).getPoints().at(i).getX(), kota.at(j).getPoints().at(i).getY()+10));
 							}
 						}
-						for (i=0; i<12;i++){
-							fb.drawCurve(jalan[i], 9, Color(85,107,47));
+						for (int j=0;j<bat.size();j++) {
+							for (i=0;i<bat.at(j).getPoints().size();i++) {
+								bat.at(j).setPoint(i,Point(bat.at(j).getPoints().at(i).getX(), bat.at(j).getPoints().at(i).getY()+10));
+							}
 						}
-
+						fb.anticlip(polygonFinal);
+						fb.anticlip(kota);
+						fb.anticlip(bat);
 						break;
 					case 'C':
-						//fb.clearScreen();
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+						fb.clearScreen();
+						for (int j=0;j<polygonFinal.size();j++) {
 							
-							for (i=0;i<pulau[j].getPoints().size();i++) {
-								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX()+10, pulau[j].getPoints().at(i).getY()));
+							for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX()+10, polygonFinal.at(j).getPoints().at(i).getY()));
 							}
 						}
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(60,200,80));
-							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
-
-						for (i=0;i<12;i++){
-							for (int j=0;j<9;j++){
-								jalan[i][j].setX((jalan[i][j].getX()+10));
+						for (int j=0;j<NKOTA;j++) {
+							for (i=0;i<kota.at(j).getPoints().size();i++) {
+								kota.at(j).setPoint(i,Point(kota.at(j).getPoints().at(i).getX()+10, kota.at(j).getPoints().at(i).getY()));
 							}
 						}
-						for (i=0; i<12;i++){
-							fb.drawCurve(jalan[i], 9, Color(85,107,47));
+						for (int j=0;j<bat.size();j++) {
+							for (i=0;i<bat.at(j).getPoints().size();i++) {
+								bat.at(j).setPoint(i,Point(bat.at(j).getPoints().at(i).getX()+10, bat.at(j).getPoints().at(i).getY()));
+							}
 						}
-
+						fb.anticlip(polygonFinal);
+						fb.anticlip(kota);
+						fb.anticlip(bat);
 						break;
 					case 'D':
-						//fb.clearScreen();
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(0,0,0));
-							fb.fillPolygon(pulau[j], Color(0,0,0));
+						fb.clearScreen();
+						for (int j=0;j<polygonFinal.size();j++) {
 							
-							for (i=0;i<pulau[j].getPoints().size();i++) {
-								pulau[j].setPoint(i,Point(pulau[j].getPoints().at(i).getX()-10, pulau[j].getPoints().at(i).getY()));
+							for (i=0;i<polygonFinal.at(j).getPoints().size();i++) {
+								polygonFinal.at(j).setPoint(i,Point(polygonFinal.at(j).getPoints().at(i).getX()-10, polygonFinal.at(j).getPoints().at(i).getY()));
 							}
 						}
-						for (int j=0;j<NPULAU;j++) {
-							fb.drawPolygon(pulau[j], Color(60,200,80));
-							fb.fillPolygon(pulau[j], Color(60,200,80));
-						}
-						for (i=0;i<12;i++){
-							for (int j=0;j<9;j++){
-								jalan[i][j].setX((jalan[i][j].getX()-10));
+						for (int j=0;j<NKOTA;j++) {
+							for (i=0;i<kota.at(j).getPoints().size();i++) {
+								kota.at(j).setPoint(i,Point(kota.at(j).getPoints().at(i).getX()-10, kota.at(j).getPoints().at(i).getY()));
 							}
 						}
-						for (i=0; i<12;i++){
-							fb.drawCurve(jalan[i], 9, Color(85,107,47));
+						for (int j=0;j<bat.size();j++) {
+							for (i=0;i<bat.at(j).getPoints().size();i++) {
+								bat.at(j).setPoint(i,Point(bat.at(j).getPoints().at(i).getX()-10, bat.at(j).getPoints().at(i).getY()));
+							}
 						}
+						fb.anticlip(polygonFinal);
+						fb.anticlip(kota);
+						fb.anticlip(bat);
 						break;
 				}
 		}
 	}
 	return 0;
 }
-
