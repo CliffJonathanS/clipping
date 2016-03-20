@@ -9,9 +9,9 @@
 using namespace std;
 
 #define LEFTWINDOW 0
-#define RIGHTWINDOW 300
+#define RIGHTWINDOW 700
 #define UPWINDOW 0
-#define DOWNWINDOW 300
+#define DOWNWINDOW 700
 
 //untuk clipping
 typedef int OutCode;
@@ -505,7 +505,6 @@ void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
 		    	if (s.at(i)==line.at(0)){
 		    		getline(myfile,line);
 		    		do{
-		    			
 		    			cout << line<<endl;
 		    			if((int)line.find(',')>=0){
 		    				Polygon polygon;
@@ -522,15 +521,13 @@ void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
 						    	float tempx,tempy;
 							    ss >> tempx;
 							    ss >> tempy;
-							    polygon.addPoint(Point(tempx+offsetX,tempy+p.getY()));
+							    polygon.addPoint(Point(tempx*0.7+offsetX,tempy*0.7+p.getY()));
 							    
 							}
 							vec.push_back(polygon);
-
 		    			}
 		    			getline(myfile,line);
 		    		} while ((int)line.find(',')>=0);
-
 		    		offsetX += 10;
 		    		break;
 		    	}
