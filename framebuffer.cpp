@@ -403,6 +403,18 @@ void FrameBuffer::drawPolygon(Polygon polygon, Color color){
 	}
 	drawLine(polygon.getPoints().at(polygon.getPoints().size()-1), polygon.getPoints().at(0), color);
 }
+
+void FrameBuffer::drawRectangle(int x, int y, Color color, int SIZE, vector<Polygon>& vec ){
+	Polygon rectangle;
+		rectangle.addPoint(Point(x,y));
+		rectangle.addPoint(Point(x+SIZE,y));
+		rectangle.addPoint(Point(x+SIZE,y+SIZE));
+		rectangle.addPoint(Point(x,y+SIZE));
+		rectangle.setColor(color);
+		rectangle.setPriority(4);
+		vec.push_back(rectangle);
+
+}
 void FrameBuffer::fillPolygon(Polygon polygon, Color color){
 	int  nodes, *nodeX, drawx, drawy, i, j, swap ;
 	nodeX = (int*) malloc (sizeof(int*) * polygon.getPoints().size());
@@ -458,19 +470,65 @@ vector<Polygon> FrameBuffer::polygonparser(){
 		    	Polygon polygon;
 			    replace( line.begin(), line.end(), ',', ' ');
 			    stringstream ss(line);
+			    	int priority, r,g,b; 
+			    	ss >> priority;
+			    	ss >> r;
+			    	ss >> g;
+			    	ss >> b;
+			    	polygon.setPriority(priority);
+			    	polygon.setColor(Color(r,g,b));
 			    while (ss.good()){
 			    	float tempx,tempy;
 				    ss >> tempx;
 				    ss >> tempy;
-				    polygon.addPoint(Point(tempx,tempy));
+				    polygon.addPoint(Point(tempx,tempy+20));
 				}
 				vpol.push_back(polygon);
-				cout<<vpol.size()<<"\n";
 
 		    }
 		    myfile.close();
 	  	}
 	 return vpol;
+}
+
+void FrameBuffer::addpolygonsfinal(string s, Point p, vector<Polygon>& vec){
+	for(int i=0;i<s.length();i++){
+		string line;
+		ifstream myfile ("definisi.txt");
+		if (myfile.is_open())
+		{
+		    while ( getline (myfile,line) )
+		    {
+		    	if (s.at(i)==line.at(0)){
+		    		do{
+		    			getline(myfile,line);
+		    			if(line.find(',')>=0){
+		    				Polygon polygon;
+						    replace( line.begin(), line.end(), ',', ' ');
+						    stringstream ss(line);
+						    	int priority, r,g,b; 
+						    	ss >> priority;
+						    	ss >> r;
+						    	ss >> g;
+						    	ss >> b;
+						    	polygon.setPriority(priority);
+						    	polygon.setColor(Color(r,g,b));
+						    while (ss.good()){
+						    	float tempx,tempy;
+							    ss >> tempx;
+							    ss >> tempy;
+							    polygon.addPoint(Point(tempx+p.getX(),tempy+p.getY()));
+							}
+							vec.push_back(polygon);
+		    			}
+		    		} while (line.find(',')>=0);
+		    		break;
+		    	}
+		    }
+		    myfile.close();
+	  	}
+		
+	}
 }
 
 
@@ -529,21 +587,23 @@ void FrameBuffer::anticlip(vector<Polygon> polygon){
 					if (nodeX[i  ]< polygon.at(l).getLeft() ) nodeX[i  ]=polygon.at(l).getLeft() ;
 					if (nodeX[i+1]> polygon.at(l).getRight()) nodeX[i+1]=polygon.at(l).getRight();
 					for (drawx=nodeX[i]; drawx<nodeX[i+1]; drawx++){
-						if (clipPoint(Point(drawx,drawy)) ){
-							if (NormalScanline[drawx][drawy] == 0 ){
-								NormalScanline[drawx][drawy] = 1;
+						if (clipPoint(Point(drawx,drawy))){
+							if (NormalScanline[drawy][drawx] == 0 ){
+								NormalScanline[drawy][drawx] = 1;
 								drawPoint(Point(drawx,drawy), polygon.at(l).getColor());	
-							}		
-						}						
+							}
+						}
 						//printf("%d,%d\n",drawx, drawy );	
-					} 
+					}
 				}
 			}
 
 
-			memset(NormalScanline, 0, RIGHTWINDOW * DOWNWINDOW);
+			
 		}
+
 	}
+	memset(NormalScanline, 0, RIGHTWINDOW * DOWNWINDOW);
 
 
 }
