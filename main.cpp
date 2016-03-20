@@ -75,6 +75,7 @@ int main(void) {
 	bool menuKetinggian = false, menuJalan = false, menuProvinsi = false, menuKota = false, menuText = false;
 	//Polygon ketinggian[NPULAU];
 	vector<Polygon> kota;
+	vector<Polygon> bat;
 	vector<Polygon> polygonFinal=fb.polygonparser();
 
 
@@ -119,8 +120,126 @@ int main(void) {
 
 	fb.addpolygonsfinal("SAY A", Point(100,100), polygonFinal);
 
+	Polygon batas[10];
+
+	/*-------- Sumatra --------*/
+	batas[0].addPoint(Point(19,78));
+	batas[0].addPoint(Point(24,78));
+	batas[0].addPoint(Point(32,75));
+	batas[0].addPoint(Point(52,76));
+	batas[0].addPoint(Point(65,89));
+	batas[0].addPoint(Point(66,94));
+	batas[0].addPoint(Point(94,116));
+	batas[0].addPoint(Point(109,129));
+	batas[0].addPoint(Point(107,126));
+	batas[0].addPoint(Point(112,129));
+	batas[0].addPoint(Point(122,139));
+	batas[0].addPoint(Point(131,147));
+	batas[0].addPoint(Point(140,155));
+	batas[0].addPoint(Point(144,159));
+	batas[0].addPoint(Point(149,168));
+	batas[0].addPoint(Point(157,172));
+	batas[0].addPoint(Point(153,178));
+	batas[0].addPoint(Point(152,184));
+	batas[0].addPoint(Point(159,189));
+	batas[0].addPoint(Point(167,190));
+	batas[0].addPoint(Point(170,202));
+	batas[0].addPoint(Point(174,205));
+	batas[0].addPoint(Point(175,212));
+	batas[0].addPoint(Point(185,211));
+	batas[0].addPoint(Point(186,219));
+	batas[0].addPoint(Point(187,226));
+	batas[0].addPoint(Point(187,224));
+	batas[0].addPoint(Point(186,217));
+	batas[0].addPoint(Point(185,209));
+	batas[0].addPoint(Point(175,210));	
+	batas[0].addPoint(Point(174,203));
+	batas[0].addPoint(Point(170,200));
+	batas[0].addPoint(Point(167,188));
+	batas[0].addPoint(Point(159,187));
+	batas[0].addPoint(Point(152,182));
+	batas[0].addPoint(Point(153,176));
+	batas[0].addPoint(Point(157,163));
+	batas[0].addPoint(Point(149,166));
+	batas[0].addPoint(Point(144,167));
+	batas[0].addPoint(Point(140,153));
+	batas[0].addPoint(Point(131,145));
+	batas[0].addPoint(Point(122,137));
+	batas[0].addPoint(Point(112,127));
+	batas[0].addPoint(Point(107,114));
+	batas[0].addPoint(Point(109,127));
+	batas[0].addPoint(Point(94,114));
+	batas[0].addPoint(Point(66,92));
+	batas[0].addPoint(Point(65,87));
+	batas[0].addPoint(Point(52,74));
+	batas[0].addPoint(Point(32,73));
+	batas[0].addPoint(Point(24,76));
+	batas[0].addPoint(Point(19,78));
+
+	batas[1].addPoint(Point(19,76));
+	batas[1].addPoint(Point(50,98));
+	batas[1].addPoint(Point(50,100));
+	batas[1].addPoint(Point(60,110));
+	batas[1].addPoint(Point(90,152));
+	batas[1].addPoint(Point(115,197));
+	batas[1].addPoint(Point(150,219));
+	batas[1].addPoint(Point(150,217));
+	batas[1].addPoint(Point(115,195));
+	batas[1].addPoint(Point(90,150));
+	batas[1].addPoint(Point(62,110));
+	batas[1].addPoint(Point(52,100));
+	batas[1].addPoint(Point(52,96));
+	batas[1].addPoint(Point(19,76));
+
+	batas[2].addPoint(Point(90,152));	
+	batas[2].addPoint(Point(135,165));
+	batas[2].addPoint(Point(150,180));
+	batas[2].addPoint(Point(115,197));
+	batas[2].addPoint(Point(130,212));
+	batas[2].addPoint(Point(175,225));
+	batas[2].addPoint(Point(173,225));
+	batas[2].addPoint(Point(128,210));
+	batas[2].addPoint(Point(117,195));
+	batas[2].addPoint(Point(152,182));
+	batas[2].addPoint(Point(137,163));
+	batas[2].addPoint(Point(90,152));
+	
+	/*-------- Sumatra --------*/
+
+	/*-------- Jawa --------*/
+	batas[3].addPoint(Point(190,260));	
+	batas[3].addPoint(Point(230,280));
+	batas[3].addPoint(Point(280,270));
+	batas[3].addPoint(Point(300,290));
+	batas[3].addPoint(Point(330,270));
+	batas[3].addPoint(Point(330,268));
+	batas[3].addPoint(Point(300,288));
+	batas[3].addPoint(Point(280,268));
+	batas[3].addPoint(Point(230,278));
+	batas[3].addPoint(Point(190,260));	
+
+	batas[4].addPoint(Point(190,260));	
+	batas[4].addPoint(Point(230,270));
+	batas[4].addPoint(Point(280,290));
+	batas[4].addPoint(Point(300,280));
+	batas[4].addPoint(Point(330,290));
+	batas[4].addPoint(Point(330,288));
+	batas[4].addPoint(Point(300,278));
+	batas[4].addPoint(Point(280,288));
+	batas[4].addPoint(Point(230,268));
+	batas[4].addPoint(Point(190,260));	
+
+	/*-------- Jawa --------*/
+
+	for (i=0; i<5; i++){
+		batas[i].setPriority(ZPROVINSI);
+		batas[i].setColor(Color(255,131,250));
+		bat.push_back(batas[i]);
+		//fb.anticlip(bat);
+	}
 
 	polygonFinal.insert( polygonFinal.end(), kota.begin(), kota.end() );
+	polygonFinal.insert( polygonFinal.end(), bat.begin(), bat.end() );
 	toogleMenu.push_back(ZPULAU);
 
 
